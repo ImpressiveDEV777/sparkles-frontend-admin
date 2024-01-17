@@ -17,6 +17,8 @@ import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import { useEffect } from 'react'
 import { UserType } from 'app/store/user'
+import { useAppDispatch } from 'app/store'
+import { showMessage } from 'app/store/fuse/messageSlice'
 import jwtService from '../../auth/services/jwtService'
 
 /**
@@ -44,7 +46,8 @@ const defaultValues = {
  * The sign in page.
  */
 function SignInPage() {
-  const { control, formState, handleSubmit, setError, setValue } = useForm({
+  const dispatch = useAppDispatch()
+  const { control, formState, handleSubmit, setValue } = useForm({
     mode: 'onChange',
     defaultValues,
     resolver: yupResolver(schema),
@@ -69,21 +72,24 @@ function SignInPage() {
 
         // No need to do anything, user data will be set at app/auth/AuthContext
       })
-      .catch(
-        (
-          _errors: {
-            type: 'email' | 'password' | `root.${string}` | 'root'
-            message: string
-          }[],
-        ) => {
-          _errors.forEach((error) => {
-            setError(error.type, {
-              type: 'manual',
-              message: error.message,
-            })
-          })
-        },
-      )
+      .catch(() => {
+        dispatch(
+          showMessage({
+            message: 'Incorrect Email or Password',
+            anchorOrigin: {
+              vertical: 'top',
+              horizontal: 'right',
+            },
+            variant: 'error',
+          }),
+        )
+        // _errors.forEach((error) => {
+        //   setError(error.type, {
+        //     type: 'manual',
+        //     message: error.message,
+        //   })
+        // })
+      })
   }
 
   return (

@@ -62,9 +62,9 @@ class JwtService extends FuseUtils.EventEmitter {
    * Creates a new user account.
    */
   createUser = (data: {
-    displayName: UserType['data']['displayName']
+    username: UserType['username']
     password: string
-    email: UserType['data']['email']
+    email: UserType['email']
   }) =>
     new Promise((resolve, reject) => {
       axios.post(jwtServiceConfig.signUp, data).then(
@@ -95,32 +95,28 @@ class JwtService extends FuseUtils.EventEmitter {
   signInWithEmailAndPassword = (email: string, password: string) =>
     new Promise((resolve, reject) => {
       axios
-        .get(jwtServiceConfig.signIn, {
-          data: {
-            email,
-            password,
-          },
+        .post(jwtServiceConfig.signIn, {
+          email,
+          password,
         })
         .then(
           (
             response: AxiosResponse<{
-              user: UserType
-              access_token: string
-              error?: {
-                type: 'email' | 'password' | `root.${string}` | 'root'
-                message: string
-              }[]
+              data: {
+                user: UserType
+                token: string
+              }
             }>,
           ) => {
-            if (response.data.user) {
-              _setSession(response.data.access_token)
-              this.emit('onLogin', response.data.user)
-              resolve(response.data.user)
-            } else {
-              reject(response.data.error)
-            }
+            _setSession(response.data.data.token)
+            const user: UserType = { ...response.data.data.user, role: 'admin' }
+            this.emit('onLogin', user)
+            resolve(user)
           },
         )
+        .catch((error: AxiosError) => {
+          reject(error.response.data)
+        })
     })
 
   /**

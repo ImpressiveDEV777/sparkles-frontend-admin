@@ -46,7 +46,7 @@ export const updateUserSettings = createAppAsyncThunk(
       return null
     }
 
-    const userRequestData = { data: { ...user.data, settings } } as UserType
+    const userRequestData = { ...user, settings } as UserType
 
     try {
       const response = await jwtService.updateUserData(userRequestData)
@@ -79,9 +79,7 @@ export const updateUserShortcuts = createAppAsyncThunk(
       return null
     }
 
-    const userRequestData = {
-      data: { ...user.data, shortcuts },
-    } as PartialDeep<UserType>
+    const userRequestData = { ...user, shortcuts } as PartialDeep<UserType>
 
     try {
       const response = await jwtService.updateUserData(userRequestData)
@@ -157,14 +155,27 @@ export const updateUserData = createAppAsyncThunk<
 /**
  * The initial state of the user slice.
  */
-const initialState: UserType = {
+const initialState: UserType | null = {
   role: [], // guest
-  data: {
-    displayName: 'John Doe',
-    photoURL: 'assets/images/avatars/brian-hughes.jpg',
-    email: 'johndoe@withinpixels.com',
-    shortcuts: ['apps.calendar', 'apps.mailbox', 'apps.contacts', 'apps.tasks'],
-  },
+  isActive: true,
+  blocked: true,
+  _id: 'string',
+  username: 'John Doe',
+  registrationToken: null,
+  firstname: 'John',
+  lastname: 'Doe',
+  email: 'johndoe@withinpixels.com',
+  __v: 0,
+  id: 'string',
+  roles: [
+    {
+      id: '621eb84091e4190016114927',
+      name: 'Super Admin',
+      description:
+        'Super Admins can access and manage all features and settings.',
+      code: 'strapi-super-admin',
+    },
+  ],
 }
 
 /**
@@ -181,10 +192,10 @@ export const userSlice = createSlice({
       .addCase(setUser.fulfilled, (state, action) => action.payload)
       .addCase(updateUserData.fulfilled, (state, action) => action.payload)
       .addCase(updateUserShortcuts.fulfilled, (state, action) => {
-        state.data.shortcuts = action.payload.data.shortcuts
+        state.shortcuts = action.payload.shortcuts
       })
       .addCase(updateUserSettings.fulfilled, (state, action) => {
-        state.data.settings = action.payload.data.settings
+        state.settings = action.payload.settings
       })
   },
 })
@@ -202,7 +213,7 @@ export const selectIsUserGuest = (state: AppRootStateType) => {
 }
 
 export const selectUserShortcuts = (state: AppRootStateType) =>
-  state.user.data.shortcuts
+  state.user.shortcuts
 
 export type userSliceType = typeof userSlice
 

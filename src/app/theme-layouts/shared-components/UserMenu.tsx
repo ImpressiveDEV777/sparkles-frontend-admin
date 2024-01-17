@@ -36,28 +36,26 @@ function UserMenu() {
       >
         <div className="mx-4 hidden flex-col items-end md:flex">
           <Typography component="span" className="flex font-semibold">
-            {user.data.displayName}
+            {user.username}
           </Typography>
           <Typography
             className="text-11 font-medium capitalize"
             color="text.secondary"
           >
-            {user.role.toString()}
+            {user.role}
             {(!user.role ||
               (Array.isArray(user.role) && user.role.length === 0)) &&
               'Guest'}
           </Typography>
         </div>
 
-        {user.data.photoURL ? (
-          <Avatar
-            className="md:mx-4"
-            alt="user photo"
-            src={user.data.photoURL}
-          />
+        {/* TODO:rui - add photo function */}
+        <Avatar className="md:mx-4">{user.username[0]}</Avatar>
+        {/* {user.photoURL ? (
+          <Avatar className="md:mx-4" alt="user photo" src={user.photoURL} />
         ) : (
-          <Avatar className="md:mx-4">{user.data.displayName[0]}</Avatar>
-        )}
+          <Avatar className="md:mx-4">{user.username[0]}</Avatar>
+        )} */}
       </Button>
 
       <Popover

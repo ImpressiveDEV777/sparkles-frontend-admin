@@ -1,19 +1,27 @@
-import { FuseSettingsConfigType } from '@fuse/core/FuseSettings/FuseSettings'
-
 /**
  * The type definition for a user object.
  */
 export type UserType = {
-  uuid?: string
+  isActive: boolean
+  blocked: boolean
+  _id: string
+  username: string
+  registrationToken: string | null
+  firstname: string
+  lastname: string
+  email: string
+  __v?: number
+  id: string
   role?: string[] | string | null
-  from?: string
-  data: {
-    displayName: string
-    photoURL?: string
-    email?: string
-    shortcuts?: string[]
-    settings?: Partial<FuseSettingsConfigType>
-  }
+  photoURL?: string
+  roles: [
+    {
+      id: string
+      name: string
+      description: string
+      code: string
+    },
+  ]
 }
 
 export default UserType

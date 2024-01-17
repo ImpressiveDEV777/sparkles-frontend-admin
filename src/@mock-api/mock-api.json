@@ -31482,59 +31482,24 @@
       "auth_users": {
         "value": [
           {
-            "uuid": "XgbuVEXBU5gtSKdbQRP1Zbbby1i1",
-            "from": "custom-db",
-            "password": "admin",
-            "role": "admin",
-            "data": {
-              "displayName": "Abbott Keitch",
-              "photoURL": "assets/images/avatars/brian-hughes.jpg",
-              "email": "admin@fusetheme.com",
-              "settings": {
-                "layout": {},
-                "theme": {}
-              },
-              "shortcuts": ["apps.calendar", "apps.mailbox", "apps.contacts"]
-            }
-          },
-          {
-            "uuid": "XgbuVEXBU6gtSKdbTYR1Zbbby1i3",
-            "from": "custom-db",
-            "password": "staff",
-            "role": "staff",
-            "data": {
-              "displayName": "Arnold Matlock",
-              "photoURL": "assets/images/avatars/Arnold.jpg",
-              "email": "staff@fusetheme.com",
-              "settings": {
-                "layout": {
-                  "style": "layout2",
-                  "config": {
-                    "mode": "boxed",
-                    "scroll": "content",
-                    "navbar": {
-                      "display": true
-                    },
-                    "toolbar": {
-                      "display": true,
-                      "position": "below"
-                    },
-                    "footer": {
-                      "display": true,
-                      "style": "fixed"
-                    }
-                  }
-                },
-                "customScrollbars": true,
-                "theme": {}
-              },
-              "shortcuts": [
-                "apps.calendar",
-                "apps.mailbox",
-                "apps.contacts",
-                "apps.tasks"
-              ]
-            }
+            "isActive": true,
+            "blocked": false,
+            "_id": "621eb92191e4190016114a3c",
+            "username": "sparkles-admin",
+            "registrationToken": null,
+            "firstname": "Dovid",
+            "lastname": "Kaleky",
+            "email": "admin@dosparkles.com",
+            "__v": 0,
+            "id": "621eb92191e4190016114a3c",
+            "roles": [
+              {
+                "id": "621eb84091e4190016114927",
+                "name": "Super Admin",
+                "description": "Super Admins can access and manage all features and settings.",
+                "code": "strapi-super-admin"
+              }
+            ]
           }
         ]
       },

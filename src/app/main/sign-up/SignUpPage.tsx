@@ -20,7 +20,7 @@ import jwtService from '../../auth/services/jwtService'
  * Form Validation Schema
  */
 const schema = yup.object().shape({
-  displayName: yup.string().required('You must enter display name'),
+  username: yup.string().required('You must enter display name'),
   email: yup
     .string()
     .email('You must enter a valid email')
@@ -38,7 +38,7 @@ const schema = yup.object().shape({
 })
 
 const defaultValues = {
-  displayName: '',
+  username: '',
   email: '',
   password: '',
   passwordConfirm: '',
@@ -57,10 +57,10 @@ function SignUpPage() {
 
   const { isValid, dirtyFields, errors } = formState
 
-  function onSubmit({ displayName, password, email }: typeof defaultValues) {
+  function onSubmit({ username, password, email }: typeof defaultValues) {
     jwtService
       .createUser({
-        displayName,
+        username,
         password,
         email,
       })
@@ -104,7 +104,7 @@ function SignUpPage() {
             onSubmit={handleSubmit(onSubmit)}
           >
             <Controller
-              name="displayName"
+              name="username"
               control={control}
               render={({ field }) => (
                 <TextField
@@ -113,8 +113,8 @@ function SignUpPage() {
                   label="Display name"
                   autoFocus
                   type="name"
-                  error={!!errors.displayName}
-                  helperText={errors?.displayName?.message}
+                  error={!!errors.username}
+                  helperText={errors?.username?.message}
                   variant="outlined"
                   required
                   fullWidth

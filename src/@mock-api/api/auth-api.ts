@@ -25,7 +25,7 @@ mock.onGet('/api/auth/sign-in').reply((config) => {
 
   const { email, password } = data
 
-  const user = _.cloneDeep(usersApi.find((_user) => _user.data.email === email))
+  const user = _.cloneDeep(usersApi.find((_user) => _user.email === email))
 
   const error = []
 
@@ -46,7 +46,7 @@ mock.onGet('/api/auth/sign-in').reply((config) => {
   if (error.length === 0) {
     delete (user as Partial<UserAuthType>).password
 
-    const access_token = generateJWTToken({ id: user.uuid })
+    const access_token = generateJWTToken({ id: user.id })
 
     const response = {
       user,
@@ -67,11 +67,11 @@ mock.onGet('/api/auth/access-token').reply((config) => {
   if (verifyJWTToken(access_token)) {
     const { id }: { id: string } = jwtDecode(access_token)
 
-    const user = _.cloneDeep(usersApi.find((_user) => _user.uuid === id))
+    const user = _.cloneDeep(usersApi.find((_user) => _user.id === id))
 
     delete (user as Partial<UserAuthType>).password
 
-    const updatedAccessToken = generateJWTToken({ id: user.uuid })
+    const updatedAccessToken = generateJWTToken({ id: user.id })
 
     const response = {
       user,
@@ -88,12 +88,12 @@ mock.onGet('/api/auth/access-token').reply((config) => {
 
 mock.onPost('/api/auth/sign-up').reply((request) => {
   const data = JSON.parse(request.data as string) as {
-    displayName: string
+    username: string
     password: string
     email: string
   }
-  const { displayName, password, email } = data
-  const isEmailExists = usersApi.find((_user) => _user.data.email === email)
+  const { username, password, email } = data
+  const isEmailExists = usersApi.find((_user) => _user.email === email)
   const error = []
 
   if (isEmailExists) {
@@ -105,11 +105,11 @@ mock.onPost('/api/auth/sign-up').reply((request) => {
 
   if (error.length === 0) {
     const newUser = UserModel({
-      uuid: FuseUtils.generateGUID(),
+      id: FuseUtils.generateGUID(),
       role: 'admin',
       password,
       data: {
-        displayName,
+        username,
         photoURL: 'assets/images/avatars/Abbott.jpg',
         email,
         settings: {},
@@ -123,7 +123,7 @@ mock.onPost('/api/auth/sign-up').reply((request) => {
 
     delete (user as Partial<UserAuthType>).password
 
-    const access_token = generateJWTToken({ id: user.uuid })
+    const access_token = generateJWTToken({ id: user.id })
 
     const response = {
       user,
@@ -139,7 +139,7 @@ mock.onPost('/api/auth/user/update').reply((config) => {
   const access_token = config?.headers?.Authorization as string
 
   const userData = jwtDecode(access_token)
-  const uuid = (userData as { [key: string]: string }).id
+  const { id } = userData as { [key: string]: string }
 
   const data = JSON.parse(config.data as string) as {
     user: PartialDeep<UserAuthType>
@@ -149,7 +149,7 @@ mock.onPost('/api/auth/user/update').reply((config) => {
   let updatedUser: UserType
 
   usersApi = usersApi.map((_user) => {
-    if (uuid === _user.uuid) {
+    if (id === _user.id) {
       updatedUser = _.assign({}, _user, user)
     }
     return _user
