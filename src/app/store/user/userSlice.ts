@@ -22,7 +22,7 @@ export const setUser = createAsyncThunk('user/setUser', (user: UserType) => {
     You can redirect the logged-in user to a specific route depending on his role
     */
   if (user.loginRedirectUrl) {
-    settingsConfig.loginRedirectUrl = user.loginRedirectUrl // for example 'apps/academy'
+    settingsConfig.loginRedirectUrl = user.loginRedirectUrl || '/' // for example 'apps/academy'
   }
 
   return Promise.resolve(user)
@@ -157,25 +157,9 @@ export const updateUserData = createAppAsyncThunk<
  */
 const initialState: UserType | null = {
   role: [], // guest
-  isActive: true,
-  blocked: true,
   _id: 'string',
   username: 'John Doe',
-  registrationToken: null,
-  firstname: 'John',
-  lastname: 'Doe',
   email: 'johndoe@withinpixels.com',
-  __v: 0,
-  id: 'string',
-  roles: [
-    {
-      id: '621eb84091e4190016114927',
-      name: 'Super Admin',
-      description:
-        'Super Admins can access and manage all features and settings.',
-      code: 'strapi-super-admin',
-    },
-  ],
 }
 
 /**
@@ -187,7 +171,7 @@ export const userSlice = createSlice({
   reducers: {
     userLoggedOut: () => initialState,
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(setUser.fulfilled, (state, action) => action.payload)
       .addCase(updateUserData.fulfilled, (state, action) => action.payload)

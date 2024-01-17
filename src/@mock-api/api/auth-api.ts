@@ -10,6 +10,7 @@ import jwtDecode from 'jwt-decode'
 import { PartialDeep } from 'type-fest'
 import UserType from 'app/store/user/UserType'
 import UserModel from 'app/store/user/models/UserModel'
+import jwtServiceConfig from 'src/app/auth/services/jwtService/jwtServiceConfig'
 import mock from '../mock'
 import mockApi from '../mock-api.json'
 
@@ -17,73 +18,37 @@ type UserAuthType = UserType & { password: string }
 
 let usersApi = mockApi.components.examples.auth_users.value as UserAuthType[]
 
-mock.onGet('/api/auth/sign-in').reply((config) => {
-  const data = JSON.parse(config.data as string) as {
-    email: string
-    password: string
-  }
-
-  const { email, password } = data
-
-  const user = _.cloneDeep(usersApi.find((_user) => _user.email === email))
-
-  const error = []
-
-  if (!user) {
-    error.push({
-      type: 'email',
-      message: 'Check your email address',
-    })
-  }
-
-  if (user && user.password !== password) {
-    error.push({
-      type: 'password',
-      message: 'Check your password',
-    })
-  }
-
-  if (error.length === 0) {
-    delete (user as Partial<UserAuthType>).password
-
-    const access_token = generateJWTToken({ id: user.id })
-
-    const response = {
-      user,
-      access_token,
-    }
-
-    return [200, response]
-  }
-
-  return [200, { error }]
-})
-
-mock.onGet('/api/auth/access-token').reply((config) => {
-  const data = JSON.parse(config.data as string) as { access_token: string }
-
-  const { access_token } = data
-
-  if (verifyJWTToken(access_token)) {
-    const { id }: { id: string } = jwtDecode(access_token)
-
-    const user = _.cloneDeep(usersApi.find((_user) => _user.id === id))
-
-    delete (user as Partial<UserAuthType>).password
-
-    const updatedAccessToken = generateJWTToken({ id: user.id })
-
-    const response = {
-      user,
-      access_token: updatedAccessToken,
-    }
-
-    return [200, response]
-  }
-
-  const error = 'Invalid access token detected'
-
-  return [401, { error }]
+mock.onGet(jwtServiceConfig.accessToken).reply((config) => {
+  return [
+    200,
+    {
+      data: {
+        token:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YzI2N2Y1OTljZDFiMWU0ZjY0Mzc2MiIsImlhdCI6MTcwNTUzMTMzOSwiZXhwIjoxNzA4MTIzMzM5fQ.5Mydvx-FE-g8rOCS48xk5JZHeYnrjA1tcvGnjkqVQXI',
+        user: {
+          isActive: true,
+          blocked: false,
+          _id: '64c267f599cd1b1e4f643762',
+          username: 'dany@gmail.com',
+          registrationToken: null,
+          firstname: 'Dany',
+          lastname: 'R',
+          email: 'dany@gmail.com',
+          __v: 0,
+          id: '64c267f599cd1b1e4f643762',
+          roles: [
+            {
+              id: '621eb84091e4190016114927',
+              name: 'Super Admin',
+              description:
+                'Super Admins can access and manage all features and settings.',
+              code: 'strapi-super-admin',
+            },
+          ],
+        },
+      },
+    },
+  ]
 })
 
 mock.onPost('/api/auth/sign-up').reply((request) => {
@@ -123,11 +88,11 @@ mock.onPost('/api/auth/sign-up').reply((request) => {
 
     delete (user as Partial<UserAuthType>).password
 
-    const access_token = generateJWTToken({ id: user.id })
+    const token = generateJWTToken({ id: user.id })
 
     const response = {
       user,
-      access_token,
+      token,
     }
 
     return [200, response]
@@ -136,9 +101,9 @@ mock.onPost('/api/auth/sign-up').reply((request) => {
 })
 
 mock.onPost('/api/auth/user/update').reply((config) => {
-  const access_token = config?.headers?.Authorization as string
+  const token = config?.headers?.Authorization as string
 
-  const userData = jwtDecode(access_token)
+  const userData = jwtDecode(token)
   const { id } = userData as { [key: string]: string }
 
   const data = JSON.parse(config.data as string) as {
