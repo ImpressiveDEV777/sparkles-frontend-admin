@@ -27,7 +27,7 @@ module.exports = {
       'warn',
       {
         endOfLine: 'auto',
-        arrowParens: 'always',
+        arrowParens: 'avoid',
         bracketSpacing: true,
         jsxBracketSameLine: false,
         proseWrap: 'preserve',
