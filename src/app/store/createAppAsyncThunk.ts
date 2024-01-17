@@ -1,13 +1,14 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatchType } from 'app/store/types';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { AppDispatchType } from 'app/store/types'
 
 /**
  * The type definition for the options object passed to `createAsyncThunk.withTypes`.
  */
 type CreateAsyncThunkOptions = {
-	dispatch: AppDispatchType;
-};
+  dispatch: AppDispatchType
+}
 
-const createAppAsyncThunk = createAsyncThunk.withTypes<CreateAsyncThunkOptions>();
+const createAppAsyncThunk =
+  createAsyncThunk.withTypes<CreateAsyncThunkOptions>()
 
-export default createAppAsyncThunk;
+export default createAppAsyncThunk

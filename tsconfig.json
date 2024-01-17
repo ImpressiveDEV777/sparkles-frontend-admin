@@ -16,12 +16,7 @@
     "declaration": true,
     "target": "es2020",
     "types": ["node"],
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es2020",
-      "scripthost"
-    ],
+    "lib": ["dom", "dom.iterable", "es2020", "scripthost"],
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "allowJs": true,
     "skipLibCheck": true,
@@ -42,7 +37,5 @@
     "src/app/main/documentation/material-ui-components/pages",
     "node_modules"
   ],
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

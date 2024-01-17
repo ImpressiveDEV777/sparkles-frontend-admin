@@ -1,6 +1,6 @@
-import Dialog from '@mui/material/Dialog';
-import { closeDialog, selectFuseDialogProps } from 'app/store/fuse/dialogSlice';
-import { useAppDispatch, useAppSelector } from 'app/store';
+import Dialog from '@mui/material/Dialog'
+import { closeDialog, selectFuseDialogProps } from 'app/store/fuse/dialogSlice'
+import { useAppDispatch, useAppSelector } from 'app/store'
 
 /**
  * FuseDialog component
@@ -8,19 +8,19 @@ import { useAppDispatch, useAppSelector } from 'app/store';
  * with properties pulled from the redux store
  */
 function FuseDialog() {
-	const dispatch = useAppDispatch();
-	const options = useAppSelector(selectFuseDialogProps);
+  const dispatch = useAppDispatch()
+  const options = useAppSelector(selectFuseDialogProps)
 
-	return (
-		<Dialog
-			onClose={() => dispatch(closeDialog())}
-			aria-labelledby="fuse-dialog-title"
-			classes={{
-				paper: 'rounded-8'
-			}}
-			{...options}
-		/>
-	);
+  return (
+    <Dialog
+      onClose={() => dispatch(closeDialog())}
+      aria-labelledby="fuse-dialog-title"
+      classes={{
+        paper: 'rounded-8',
+      }}
+      {...options}
+    />
+  )
 }
 
-export default FuseDialog;
+export default FuseDialog

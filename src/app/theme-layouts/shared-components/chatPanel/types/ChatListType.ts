@@ -1,6 +1,6 @@
-import { ChatListItemType } from './ChatListItemType';
+import { ChatListItemType } from './ChatListItemType'
 
 /**
  * Chat list type
  */
-export type ChatListType = ChatListItemType[];
+export type ChatListType = ChatListItemType[]

@@ -11,6 +11,6 @@ const aliases = (prefix = `src`) => ({
   'app/configs': `${prefix}/app/configs`,
   'app/theme-layouts': `${prefix}/app/theme-layouts`,
   'app/AppContext': `${prefix}/app/AppContext`,
-});
+})
 
-module.exports = aliases;
+module.exports = aliases

@@ -1,3 +1,3 @@
-import { FuseNavItemType } from './FuseNavItemType';
+import { FuseNavItemType } from './FuseNavItemType'
 
-export type FuseNavigationType = FuseNavItemType[];
+export type FuseNavigationType = FuseNavItemType[]
