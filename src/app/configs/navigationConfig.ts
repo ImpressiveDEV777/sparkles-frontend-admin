@@ -13,12 +13,11 @@ i18next.addResourceBundle('ar', 'navigation', ar)
  */
 const navigationConfig: FuseNavigationType = [
   {
-    id: 'example-component',
-    title: 'Example',
-    translate: 'EXAMPLE',
+    id: 'whitelabel-apps',
+    title: 'Whitelabel Apps',
     type: 'item',
-    icon: 'heroicons-outline:star',
-    url: 'example',
+    icon: 'heroicons-outline:clipboard-list',
+    url: 'whitelabel-apps',
   },
 ]
 
