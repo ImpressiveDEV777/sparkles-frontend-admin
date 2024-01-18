@@ -4,7 +4,6 @@ import FuseSplashScreen from '@fuse/core/FuseSplashScreen'
 import { showMessage } from 'app/store/fuse/messageSlice'
 import { logoutUser, setUser } from 'app/store/user/userSlice'
 import { useAppDispatch } from 'app/store'
-import { AxiosError } from 'axios'
 import { UserType } from 'app/store/user'
 import jwtService from './services/jwtService'
 
@@ -32,14 +31,8 @@ function AuthProvider(props: AuthProviderProps) {
       /**
        * Sign in and retrieve user data with stored token
        */
-      jwtService
-        .signInWithToken()
-        .then(user => {
-          success(user, 'Signed in with JWT')
-        })
-        .catch((error: AxiosError) => {
-          pass(error.message)
-        })
+
+      success(jwtService.signInWithToken().user, 'Signed in with JWT')
     })
 
     jwtService.on('onLogin', (user: UserType) => {

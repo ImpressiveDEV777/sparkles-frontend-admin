@@ -42,53 +42,21 @@ class JwtService extends FuseUtils.EventEmitter {
    * Handles authentication by checking for a valid access token and emitting events based on the result.
    */
   handleAuthentication = () => {
-    const token = getAccessToken()
+    const authData = getAccessToken()
 
-    if (!token) {
+    if (!authData) {
       this.emit('onNoAccessToken')
-
       return
     }
 
-    if (isAuthTokenValid(token)) {
-      _setSession(token)
+    if (isAuthTokenValid(authData.token)) {
+      _setSession(authData)
       this.emit('onAutoLogin', true)
     } else {
       _setSession(null)
       this.emit('onAutoLogout', 'token expired')
     }
   }
-
-  /**
-   * Creates a new user account.
-   */
-  createUser = (data: {
-    username: UserType['username']
-    password: string
-    email: UserType['email']
-  }) =>
-    new Promise((resolve, reject) => {
-      axios.post(jwtServiceConfig.signUp, data).then(
-        (
-          response: AxiosResponse<{
-            user: UserType
-            token: string
-            error?: {
-              type: 'email' | 'password' | `root.${string}` | 'root'
-              message: string
-            }[]
-          }>,
-        ) => {
-          if (response.data.user) {
-            _setSession(response.data.token)
-            resolve(response.data.user)
-            this.emit('onLogin', response.data.user)
-          } else {
-            reject(response.data.error)
-          }
-        },
-      )
-    })
 
   /**
    * Signs in with the provided email and password.
@@ -109,11 +77,11 @@ class JwtService extends FuseUtils.EventEmitter {
               }
             }>,
           ) => {
-            _setSession(response.data.data.token)
             const user: UserType = {
               ..._.pick(response.data.data.user, ['_id', 'username', 'email']),
               role: 'admin',
             }
+            _setSession({ user, token: response.data.data.token })
             this.emit('onLogin', user)
             resolve(user)
           },
@@ -126,32 +94,11 @@ class JwtService extends FuseUtils.EventEmitter {
   /**
    * Signs in with the provided provider.
    */
-  signInWithToken = () =>
-    new Promise<UserType>((resolve, reject) => {
-      axios
-        .get(jwtServiceConfig.accessToken, {
-          data: {
-            token: getAccessToken(),
-          },
-        })
-        .then(
-          (
-            response: AxiosResponse<{
-              data: { user: UserType; token: string }
-            }>,
-          ) => {
-            _setSession(response.data.data.token)
-            resolve({
-              ..._.pick(response.data.data.user, ['_id', 'username', 'email']),
-              role: 'admin',
-            })
-          },
-        )
-        .catch(() => {
-          this.logout()
-          reject(new Error('Failed to login with token.'))
-        })
-    })
+  signInWithToken = () => {
+    const authData = getAccessToken()
+    _setSession(authData)
+    return authData
+  }
 
   /**
    * Updates the user data.
@@ -170,13 +117,14 @@ class JwtService extends FuseUtils.EventEmitter {
   }
 }
 
+type AuthData = { token: string; user: UserType }
 /**
  * Sets the session by storing the access token in the local storage and setting the default authorization header.
  */
-function _setSession(token: string | null) {
-  if (token) {
-    setAccessToken(token)
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`
+function _setSession(data: AuthData) {
+  if (data) {
+    setAccessToken(data)
+    axios.defaults.headers.common.Authorization = `Bearer ${data.token}`
   } else {
     removeAccessToken()
     delete axios.defaults.headers.common.Authorization
@@ -205,15 +153,16 @@ function isAuthTokenValid(token: string) {
 /**
  * Gets the access token from the local storage.
  */
-function getAccessToken() {
-  return window.localStorage.getItem('jwt_token')
+export function getAccessToken() {
+  const authData = window.localStorage.getItem('jwt_token')
+  return authData && (JSON.parse(authData) as AuthData)
 }
 
 /**
  * Sets the access token in the local storage.
  */
-function setAccessToken(token: string) {
-  return window.localStorage.setItem('jwt_token', token)
+function setAccessToken(data: AuthData) {
+  return window.localStorage.setItem('jwt_token', JSON.stringify(data))
 }
 
 /**

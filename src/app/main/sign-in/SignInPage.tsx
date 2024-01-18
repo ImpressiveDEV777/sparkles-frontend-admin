@@ -15,7 +15,6 @@ import AvatarGroup from '@mui/material/AvatarGroup'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
-import { useEffect } from 'react'
 import { UserType } from 'app/store/user'
 import { useAppDispatch } from 'app/store'
 import { showMessage } from 'app/store/fuse/messageSlice'
@@ -47,21 +46,13 @@ const defaultValues = {
  */
 function SignInPage() {
   const dispatch = useAppDispatch()
-  const { control, formState, handleSubmit, setValue } = useForm({
+  const { control, formState, handleSubmit } = useForm({
     mode: 'onChange',
     defaultValues,
     resolver: yupResolver(schema),
   })
 
   const { isValid, dirtyFields, errors } = formState
-
-  useEffect(() => {
-    setValue('email', 'admin@fusetheme.com', {
-      shouldDirty: true,
-      shouldValidate: true,
-    })
-    setValue('password', 'admin', { shouldDirty: true, shouldValidate: true })
-  }, [setValue])
 
   function onSubmit({ email, password }: InferType<typeof schema>) {
     jwtService
