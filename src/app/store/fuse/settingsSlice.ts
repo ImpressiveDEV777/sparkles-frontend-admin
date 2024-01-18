@@ -151,19 +151,19 @@ export const settingsSlice = createSlice({
     },
 
     setInitialSettings: () => _.merge({}, initialState),
-    resetSettings: (state) => ({
+    resetSettings: state => ({
       ...state,
       defaults: _.merge({}, state.defaults),
       current: _.merge({}, state.defaults),
     }),
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(setDefaultSettings.fulfilled, (state, action) => action.payload)
       .addCase(setUser.fulfilled, (state, action) => {
         const defaults = generateSettings(
           state.defaults,
-          action.payload?.data?.settings as FuseSettingsConfigType,
+          action.payload?.settings as FuseSettingsConfigType,
         )
         return {
           ...state,
