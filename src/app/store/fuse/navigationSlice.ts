@@ -132,7 +132,7 @@ export const selectNavigation = createSelector(
   [selectNavigationAll, selectUserRole, selectCurrentLanguageId],
   (navigation, userRole) => {
     function setAdditionalData(data: FuseNavigationType): FuseNavigationType {
-      return data?.map((item) => ({
+      return data?.map(item => ({
         hasPermission: Boolean(FuseUtils.hasPermission(item?.auth, userRole)),
         ...item,
         ...(item.translate && item.title
@@ -152,7 +152,7 @@ export const selectNavigation = createSelector(
 
 export const selectFlatNavigation = createSelector(
   [selectNavigation],
-  (navigation) => FuseNavigationHelper.getFlatNavigation(navigation),
+  navigation => FuseNavigationHelper.getFlatNavigation(navigation),
 )
 
 export type navigationSliceType = typeof navigationSlice

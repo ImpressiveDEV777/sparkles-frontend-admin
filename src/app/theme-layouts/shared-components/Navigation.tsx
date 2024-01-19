@@ -15,7 +15,7 @@ function Navigation(props: Partial<FuseNavigationProps>) {
 
   const navigation = useAppSelector(selectNavigation)
 
-  const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'))
+  const isMobile = useThemeMediaQuery(theme => theme.breakpoints.down('lg'))
 
   const dispatch = useAppDispatch()
 

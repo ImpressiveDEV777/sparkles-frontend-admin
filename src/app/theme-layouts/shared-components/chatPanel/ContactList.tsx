@@ -50,9 +50,9 @@ function ContactList(props: ContactListProps) {
       {useMemo(() => {
         const chatListContacts =
           contacts.length > 0 && chats.length > 0
-            ? chats.map((_chat) => ({
+            ? chats.map(_chat => ({
                 ..._chat,
-                ...contacts.find((_contact) => _contact.id === _chat.contactId),
+                ...contacts.find(_contact => _contact.id === _chat.contactId),
               }))
             : []
 
@@ -84,7 +84,7 @@ function ContactList(props: ContactListProps) {
               className="flex flex-col shrink-0"
             >
               {chatListContacts &&
-                chatListContacts.map((contact) => {
+                chatListContacts.map(contact => {
                   return (
                     <motion.div variants={item} key={contact.id}>
                       <ContactButton
@@ -96,9 +96,9 @@ function ContactList(props: ContactListProps) {
                   )
                 })}
               <Divider className="mx-24 my-8" />
-              {contacts.map((contact) => {
+              {contacts.map(contact => {
                 const chatContact = chats.find(
-                  (_chat) => _chat.contactId === contact.id,
+                  _chat => _chat.contactId === contact.id,
                 )
 
                 return !chatContact ? (

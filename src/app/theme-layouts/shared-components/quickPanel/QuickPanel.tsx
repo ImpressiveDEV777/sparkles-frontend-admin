@@ -81,7 +81,7 @@ function QuickPanel() {
         <List>
           <ListSubheader component="div">Events</ListSubheader>
           {data &&
-            data.events.map((event) => (
+            data.events.map(event => (
               <ListItem key={event.id}>
                 <ListItemText primary={event.title} secondary={event.detail} />
               </ListItem>
@@ -91,7 +91,7 @@ function QuickPanel() {
         <List>
           <ListSubheader component="div">Notes</ListSubheader>
           {data &&
-            data.notes.map((note) => (
+            data.notes.map(note => (
               <ListItem key={note.id}>
                 <ListItemText primary={note.title} secondary={note.detail} />
               </ListItem>

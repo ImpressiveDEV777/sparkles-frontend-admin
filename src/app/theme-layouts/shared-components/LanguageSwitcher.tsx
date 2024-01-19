@@ -71,7 +71,7 @@ function LanguageSwitcher() {
           paper: 'py-8',
         }}
       >
-        {languages.map((lng) => (
+        {languages.map(lng => (
           <MenuItem key={lng.id} onClick={() => handleLanguageChange(lng)}>
             <ListItemIcon className="min-w-40">
               <img

@@ -18,7 +18,7 @@ type FuseThemeProps = {
 
 const inputGlobalStyles = (
   <GlobalStyles
-    styles={(theme) => ({
+    styles={theme => ({
       html: {
         backgroundColor: `${theme.palette.background.default}!important`,
         color: `${theme.palette.text.primary}!important`,

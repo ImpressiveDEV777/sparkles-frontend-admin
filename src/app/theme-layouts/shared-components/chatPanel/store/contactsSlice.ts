@@ -12,7 +12,7 @@ export type AppRootStateType = RootStateType<contactsSliceType>
  */
 export const getContacts = createAppAsyncThunk<ContactsType>(
   'chatPanel/contacts/getContacts',
-  async (params) => {
+  async params => {
     const response = await axios.get('/api/chat/contacts', { params })
 
     const data = (await response.data) as ContactsType
@@ -45,11 +45,11 @@ export const contactsSlice = createSlice({
     setSelectedContactId: (state, action) => {
       state.selectedContactId = action.payload as string
     },
-    removeSelectedContactId: (state) => {
+    removeSelectedContactId: state => {
       state.selectedContactId = ''
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(getContacts.fulfilled, (state, action) =>
         contactsAdapter.setAll(state, action.payload),

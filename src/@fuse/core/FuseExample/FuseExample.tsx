@@ -42,7 +42,7 @@ function FuseExample(props: FuseExampleProps) {
     <Card
       className={clsx(className, 'shadow')}
       sx={{
-        backgroundColor: (theme) =>
+        backgroundColor: theme =>
           darken(
             theme.palette.background.paper,
             theme.palette.mode === 'light' ? 0.01 : 0.1,
@@ -51,7 +51,7 @@ function FuseExample(props: FuseExampleProps) {
     >
       <Box
         sx={{
-          backgroundColor: (theme) =>
+          backgroundColor: theme =>
             darken(
               theme.palette.background.paper,
               theme.palette.mode === 'light' ? 0.02 : 0.2,

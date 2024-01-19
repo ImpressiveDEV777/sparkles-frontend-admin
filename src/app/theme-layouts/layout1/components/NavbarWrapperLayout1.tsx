@@ -24,7 +24,7 @@ function NavbarWrapperLayout1() {
   ) as Layout1ConfigDefaultsType
   const navbar = useSelector(selectFuseNavbar)
   const location = useLocation()
-  const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'))
+  const isMobile = useThemeMediaQuery(theme => theme.breakpoints.down('lg'))
   const { pathname } = location
   const dispatch = useAppDispatch()
 

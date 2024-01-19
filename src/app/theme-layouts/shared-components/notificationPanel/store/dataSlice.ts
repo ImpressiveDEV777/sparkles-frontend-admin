@@ -78,11 +78,11 @@ export const dataSlice = createSlice({
   name: 'notificationPanel/data',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(dismissItem.fulfilled, (state, action) =>
       notificationsAdapter.removeOne(state, action.payload),
     )
-    builder.addCase(dismissAll.fulfilled, (state) =>
+    builder.addCase(dismissAll.fulfilled, state =>
       notificationsAdapter.removeAll(state),
     )
     builder.addCase(getNotifications.fulfilled, (state, action) =>

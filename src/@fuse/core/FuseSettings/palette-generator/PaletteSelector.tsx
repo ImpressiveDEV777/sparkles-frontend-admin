@@ -189,7 +189,7 @@ function PaletteSelector(props: PaletteSelectorProps) {
                 render={({ field: { onChange: _onChange, value: _value } }) => (
                   <TextField
                     value={_value}
-                    onChange={(ev) => {
+                    onChange={ev => {
                       _onChange(ev.target.value)
                       setValue(
                         'palette.primary.light',
@@ -226,7 +226,7 @@ function PaletteSelector(props: PaletteSelectorProps) {
                 render={({ field: { onChange: _onChange, value: _value } }) => (
                   <TextField
                     value={_value}
-                    onChange={(ev) => {
+                    onChange={ev => {
                       _onChange(ev.target.value)
                       setValue(
                         'palette.secondary.light',

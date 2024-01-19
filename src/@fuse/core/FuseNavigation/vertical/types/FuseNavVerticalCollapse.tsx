@@ -124,7 +124,7 @@ function FuseNavVerticalCollapse(props: FuseNavItemComponentProps) {
           <IconButton
             disableRipple
             className="-mx-12 h-20 w-20 p-0 hover:bg-transparent focus:bg-transparent"
-            onClick={(ev) => {
+            onClick={ev => {
               ev.preventDefault()
               ev.stopPropagation()
               setOpen(!open)
@@ -141,7 +141,7 @@ function FuseNavVerticalCollapse(props: FuseNavItemComponentProps) {
 
         {item.children && (
           <Collapse in={open} className="collapse-children">
-            {item.children.map((_item) => (
+            {item.children.map(_item => (
               <FuseNavItem
                 key={_item.id}
                 type={`vertical-${_item.type}`}

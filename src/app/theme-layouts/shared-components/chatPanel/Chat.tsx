@@ -132,7 +132,7 @@ function Chat(props: ChatProps) {
   return (
     <Paper
       className={clsx('flex flex-col relative pb-64 shadow', className)}
-      sx={{ background: (theme) => theme.palette.background.default }}
+      sx={{ background: theme => theme.palette.background.default }}
     >
       <div
         ref={chatScroll}

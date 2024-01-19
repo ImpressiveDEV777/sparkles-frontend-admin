@@ -40,10 +40,10 @@ function checkAndRename(file: string, fromExt: string, toExt: string): void {
 const jsFiles = glob.sync('**/*.js', {
   ignore: ['node_modules/**/*'],
 })
-jsFiles.forEach((file) => checkAndRename(file, '.js', '.ts'))
+jsFiles.forEach(file => checkAndRename(file, '.js', '.ts'))
 
 // Check .jsx files and rename to .tsx if they contain JSX
 const jsxFiles = glob.sync('**/*.jsx', {
   ignore: ['node_modules/**/*'],
 })
-jsxFiles.forEach((file) => checkAndRename(file, '.jsx', '.tsx'))
+jsxFiles.forEach(file => checkAndRename(file, '.jsx', '.tsx'))

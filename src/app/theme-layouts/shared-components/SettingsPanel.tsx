@@ -214,7 +214,7 @@ function SettingsPanel() {
 
           <FuseThemeSchemes
             themes={themesConfig}
-            onSelect={(_theme) => {
+            onSelect={_theme => {
               dispatch(changeFuseTheme(_theme))
             }}
           />

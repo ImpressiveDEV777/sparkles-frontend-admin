@@ -121,7 +121,7 @@ function NotificationPanel() {
                 dismiss all
               </Typography>
             </div>
-            {notifications.map((item) => (
+            {notifications.map(item => (
               <NotificationCard
                 key={item.id}
                 className="mb-16"

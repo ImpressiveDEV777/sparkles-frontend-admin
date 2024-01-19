@@ -151,7 +151,7 @@ class FuseUtils {
    *
    */
   static searchInArray(arr: unknown[], searchText: string) {
-    arr.forEach((value) => {
+    arr.forEach(value => {
       if (typeof value === 'string') {
         if (this.searchInString(value, searchText)) {
           return true
@@ -226,7 +226,7 @@ class FuseUtils {
   ): FuseRouteItemType[] {
     let routes = [...config.routes]
 
-    routes = routes.map((route) => {
+    routes = routes.map(route => {
       let auth =
         config.auth || config.auth === null ? config.auth : defaultAuth || null
 
@@ -274,7 +274,7 @@ class FuseUtils {
     let foundNode: TreeNode | undefined
 
     // If not found, search in the children using lodash's some for iteration
-    _.some(tree, (item) => {
+    _.some(tree, item => {
       if (item.children) {
         foundNode = this.findById(item.children, idToFind)
         return foundNode // If foundNode is truthy, _.some will stop iterating
@@ -380,7 +380,7 @@ class FuseUtils {
     id: string,
     item: PartialDeep<FuseNavItemType>,
   ): FuseNavigationType {
-    return nav.map((_item) => {
+    return nav.map(_item => {
       if (_item.id === id) {
         return _.merge({}, _item, item)
       }
@@ -403,7 +403,7 @@ class FuseUtils {
     id: string,
   ): FuseNavigationType {
     return nav
-      .map((_item) => {
+      .map(_item => {
         if (_item.id === id) {
           return null
         }
@@ -416,7 +416,7 @@ class FuseUtils {
 
         return _.merge({}, _item)
       })
-      .filter((s) => s) as FuseNavigationType
+      .filter(s => s) as FuseNavigationType
   }
 
   /**
@@ -431,7 +431,7 @@ class FuseUtils {
       return [item, ...nav]
     }
 
-    return nav.map((_item) => {
+    return nav.map(_item => {
       if (_item.id === parentId && _item.children) {
         return {
           ..._item,
@@ -461,7 +461,7 @@ class FuseUtils {
       return [...nav, item]
     }
 
-    return nav.map((_item) => {
+    return nav.map(_item => {
       if (_item.id === parentId && _item.children) {
         return {
           ..._item,

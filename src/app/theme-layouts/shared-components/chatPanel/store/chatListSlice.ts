@@ -37,7 +37,7 @@ export const chatListSlice = createSlice({
   name: 'chatPanel/chatList',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(getChatList.fulfilled, (state, action) =>
       chatsAdapter.setAll(state, action.payload),
     )

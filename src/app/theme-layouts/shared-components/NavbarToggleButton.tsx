@@ -29,7 +29,7 @@ function NavbarToggleButton(props: NavbarToggleButtonProps) {
   } = props
 
   const dispatch = useAppDispatch()
-  const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'))
+  const isMobile = useThemeMediaQuery(theme => theme.breakpoints.down('lg'))
   const settings: FuseSettingsConfigType = useAppSelector(
     selectFuseCurrentSettings,
   )

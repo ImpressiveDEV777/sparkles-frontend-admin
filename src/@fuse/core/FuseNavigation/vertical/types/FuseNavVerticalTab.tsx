@@ -167,7 +167,7 @@ function FuseNavVerticalTab(props: FuseNavVerticalTabProps) {
         </ListItemButton>
         {!firstLevel &&
           item.children &&
-          item.children.map((_item) => (
+          item.children.map(_item => (
             <NavVerticalTab
               key={_item.id}
               type={`vertical-${_item.type}`}

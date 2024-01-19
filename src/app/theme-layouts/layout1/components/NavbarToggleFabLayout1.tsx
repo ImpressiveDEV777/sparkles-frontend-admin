@@ -16,7 +16,7 @@ type NavbarToggleFabLayout1Props = {
 function NavbarToggleFabLayout1(props: NavbarToggleFabLayout1Props) {
   const { className } = props
 
-  const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'))
+  const isMobile = useThemeMediaQuery(theme => theme.breakpoints.down('lg'))
 
   const config = useSelector(
     selectFuseCurrentLayoutConfig,

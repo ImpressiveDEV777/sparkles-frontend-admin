@@ -28,31 +28,31 @@ export const navbarSlice = createSlice({
   name: 'fuse/navbar',
   initialState,
   reducers: {
-    navbarToggleFolded: (state) => {
+    navbarToggleFolded: state => {
       state.foldedOpen = !state.foldedOpen
     },
-    navbarOpenFolded: (state) => {
+    navbarOpenFolded: state => {
       state.foldedOpen = true
     },
-    navbarCloseFolded: (state) => {
+    navbarCloseFolded: state => {
       state.foldedOpen = false
     },
-    navbarToggleMobile: (state) => {
+    navbarToggleMobile: state => {
       state.mobileOpen = !state.mobileOpen
     },
-    navbarOpenMobile: (state) => {
+    navbarOpenMobile: state => {
       state.mobileOpen = true
     },
-    navbarCloseMobile: (state) => {
+    navbarCloseMobile: state => {
       state.mobileOpen = false
     },
-    navbarClose: (state) => {
+    navbarClose: state => {
       state.open = false
     },
-    navbarOpen: (state) => {
+    navbarOpen: state => {
       state.open = true
     },
-    navbarToggle: (state) => {
+    navbarToggle: state => {
       state.open = !state.open
     },
   },

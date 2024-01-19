@@ -58,7 +58,7 @@ type NavbarStyle3ContentProps = { className?: string; dense?: number }
  */
 function NavbarStyle3Content(props: NavbarStyle3ContentProps) {
   const { className = '', dense = false } = props
-  const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'))
+  const isMobile = useThemeMediaQuery(theme => theme.breakpoints.down('lg'))
   const navigation = useSelector(selectNavigation)
   const [selectedNavigation, setSelectedNavigation] =
     useState<FuseNavigationType>([])
@@ -71,7 +71,7 @@ function NavbarStyle3Content(props: NavbarStyle3ContentProps) {
   const location = useLocation()
 
   useEffect(() => {
-    navigation?.forEach((item) => {
+    navigation?.forEach(item => {
       if (needsToBeOpened(location, item)) {
         setSelectedNavigation([item])
       }

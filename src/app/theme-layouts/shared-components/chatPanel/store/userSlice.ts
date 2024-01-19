@@ -28,7 +28,7 @@ export const getUserData = createAppAsyncThunk<UserType>(
 export const updateUserData = createAppAsyncThunk<
   UserType,
   DeepPartial<UserType>
->('chatPanel/user/updateUserData', async (newData) => {
+>('chatPanel/user/updateUserData', async newData => {
   const response = await axios.post('/api/chat/user', newData)
 
   const data = (await response.data) as UserType
@@ -45,7 +45,7 @@ export const userSlice = createSlice({
   name: 'chatPanel/user',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(getUserData.fulfilled, (state, action) => action.payload)
       .addCase(updateUserData.fulfilled, (state, action) => action.payload)

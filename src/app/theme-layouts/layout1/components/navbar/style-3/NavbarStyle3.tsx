@@ -132,7 +132,7 @@ function NavbarStyle3(props: NavbarStyle3Props) {
   return (
     <>
       <GlobalStyles
-        styles={(theme) => ({
+        styles={theme => ({
           '& #fuse-navbar-side-panel': {
             width: dense ? navbarWidthDense : navbarWidth,
             minWidth: dense ? navbarWidthDense : navbarWidth,

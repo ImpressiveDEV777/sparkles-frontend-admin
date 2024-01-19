@@ -27,7 +27,7 @@ const NavLinkAdapter = forwardRef<HTMLAnchorElement, NavLinkAdapterPropsType>(
         ref={ref}
         role={role}
         {..._props}
-        onClick={(e) => {
+        onClick={e => {
           e.preventDefault()
           navigate(_props.to)
         }}

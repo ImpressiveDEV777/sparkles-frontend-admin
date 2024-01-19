@@ -48,7 +48,7 @@ export const messageSlice = createSlice({
         ...action.payload,
       } as initialStateProps['options']
     },
-    hideMessage: (state) => {
+    hideMessage: state => {
       state.state = false
     },
   },

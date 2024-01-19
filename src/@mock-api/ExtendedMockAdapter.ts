@@ -30,16 +30,15 @@ class ExtendedMockAdapter extends MockAdapter {
     )
   }
 
-  onGet: RequestMatcherFunc = (url) => this.RequestMatcherFunc(url, 'onGet')
+  onGet: RequestMatcherFunc = url => this.RequestMatcherFunc(url, 'onGet')
 
-  onPost: RequestMatcherFunc = (url) => this.RequestMatcherFunc(url, 'onPost')
+  onPost: RequestMatcherFunc = url => this.RequestMatcherFunc(url, 'onPost')
 
-  onPut: RequestMatcherFunc = (url) => this.RequestMatcherFunc(url, 'onPut')
+  onPut: RequestMatcherFunc = url => this.RequestMatcherFunc(url, 'onPut')
 
-  onDelete: RequestMatcherFunc = (url) =>
-    this.RequestMatcherFunc(url, 'onDelete')
+  onDelete: RequestMatcherFunc = url => this.RequestMatcherFunc(url, 'onDelete')
 
-  onPatch: RequestMatcherFunc = (url) => this.RequestMatcherFunc(url, 'onPatch')
+  onPatch: RequestMatcherFunc = url => this.RequestMatcherFunc(url, 'onPatch')
 }
 
 function transformUrlIfNeeded(url: matcherType): string | RegExp {
@@ -53,7 +52,7 @@ function convertUrlToRegex(url: string): RegExp {
   return new RegExp(
     `^${url
       .split('/')
-      .map((segment) => {
+      .map(segment => {
         if (segment.startsWith(':')) {
           const paramName = segment.slice(1)
           return `(?<${paramName}>[^/]+)`
@@ -73,7 +72,7 @@ function createExtendedHandler(
 
   // @ts-ignore
   handler.reply = (func: CustomReplyFunc) => {
-    return originalReply((config) => {
+    return originalReply(config => {
       const params = extractParamsFromUrl(config.url, matcherUrl)
 
       // Assigning the extracted parameters to config.params

@@ -215,7 +215,7 @@ function FuseSettings() {
                     </FormLabel>
                     <Switch
                       checked={value as boolean}
-                      onChange={(ev) => onChange(ev.target.checked)}
+                      onChange={ev => onChange(ev.target.checked)}
                       aria-label={formControl.title}
                     />
                   </FormControl>
@@ -428,7 +428,7 @@ function FuseSettings() {
             </FormLabel>
             <Switch
               checked={value}
-              onChange={(ev) => onChange(ev.target.checked)}
+              onChange={ev => onChange(ev.target.checked)}
               aria-label="Custom Scrollbars"
             />
           </FormControl>

@@ -76,7 +76,7 @@ const FuseScrollbars = forwardRef<HTMLDivElement, FuseScrollbarsProps>(
     const customScrollbars = useAppSelector(selectCustomScrollbarsEnabled)
 
     const hookUpEvents = useCallback(() => {
-      Object.keys(handlerNameByEvent).forEach((key) => {
+      Object.keys(handlerNameByEvent).forEach(key => {
         const callback = props[
           handlerNameByEvent[key] as keyof FuseScrollbarsProps
         ] as (T: HTMLDivElement) => void
@@ -160,7 +160,7 @@ const FuseScrollbars = forwardRef<HTMLDivElement, FuseScrollbarsProps>(
         id={id}
         className={className}
         style={style}
-        ref={(el) => {
+        ref={el => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           containerRef.current = el

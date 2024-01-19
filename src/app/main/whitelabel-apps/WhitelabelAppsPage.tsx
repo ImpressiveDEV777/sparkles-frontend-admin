@@ -1,39 +1,28 @@
-import DemoContent from '@fuse/core/DemoContent'
-import FusePageSimple from '@fuse/core/FusePageSimple'
-import { useTranslation } from 'react-i18next'
-import { styled } from '@mui/material/styles'
+import FusePageCarded from '@fuse/core/FusePageCarded'
+import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery'
+import { useEffect } from 'react'
+import { useAppDispatch } from 'app/store'
+import WhitelabelAppsHeader from './WhitelabelAppsHeader'
+import WhitelabelAppsTable from './WhitelabelAppsTable'
+import { getWhitelabels } from './store/whitelabelsSlice'
 
-const Root = styled(FusePageSimple)(({ theme }) => ({
-  '& .FusePageSimple-header': {
-    backgroundColor: theme.palette.background.paper,
-    borderBottomWidth: 1,
-    borderStyle: 'solid',
-    borderColor: theme.palette.divider,
-  },
-  '& .FusePageSimple-content': {},
-  '& .FusePageSimple-sidebarHeader': {},
-  '& .FusePageSimple-sidebarContent': {},
-}))
-
-function Example() {
-  const { t } = useTranslation('examplePage')
+/**
+ * The orders page.
+ */
+function Orders() {
+  const dispatch = useAppDispatch()
+  const isMobile = useThemeMediaQuery(theme => theme.breakpoints.down('lg'))
+  useEffect(() => {
+    dispatch(getWhitelabels())
+  }, [dispatch])
 
   return (
-    <Root
-      header={
-        <div className="p-24">
-          <h4>{t('TITLE')}</h4>
-        </div>
-      }
-      content={
-        <div className="p-24">
-          <h4>Content</h4>
-          <br />
-          <DemoContent />
-        </div>
-      }
+    <FusePageCarded
+      header={<WhitelabelAppsHeader />}
+      content={<WhitelabelAppsTable />}
+      scroll={isMobile ? 'normal' : 'content'}
     />
   )
 }
 
-export default Example
+export default Orders

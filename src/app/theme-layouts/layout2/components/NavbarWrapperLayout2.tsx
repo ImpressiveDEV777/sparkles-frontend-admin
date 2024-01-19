@@ -46,7 +46,7 @@ function NavbarWrapperLayout2(props: NavbarWrapperLayout2Props) {
   const navbarTheme = useSelector(selectNavbarTheme)
   const navbar = useSelector(selectFuseNavbar)
   const location = useLocation()
-  const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'))
+  const isMobile = useThemeMediaQuery(theme => theme.breakpoints.down('lg'))
   const { pathname } = location
 
   useEffect(() => {

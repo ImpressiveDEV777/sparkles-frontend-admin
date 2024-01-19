@@ -12,7 +12,7 @@ export const stateSlice = createSlice({
   name: 'notificationPanel/state',
   initialState,
   reducers: {
-    toggleNotificationPanel: (state) => !state,
+    toggleNotificationPanel: state => !state,
     openNotificationPanel: () => true,
     closeNotificationPanel: () => false,
   },

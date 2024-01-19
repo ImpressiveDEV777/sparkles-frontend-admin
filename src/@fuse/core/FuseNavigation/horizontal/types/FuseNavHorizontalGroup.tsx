@@ -172,7 +172,7 @@ function FuseNavHorizontalGroup(props: FuseNavHorizontalGroupProps) {
                             'px-0',
                           )}
                         >
-                          {item.children.map((_item) => (
+                          {item.children.map(_item => (
                             <FuseNavItem
                               key={_item.id}
                               type={`horizontal-${_item.type}`}

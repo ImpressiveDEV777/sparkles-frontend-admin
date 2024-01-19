@@ -28,7 +28,7 @@ function SectionPreview(props: SectionPreviewProps) {
           backgroundColor:
             section === 'navbar'
               ? red['100']
-              : (theme) =>
+              : theme =>
                   theme.palette.mode === 'light'
                     ? lighten(theme.palette.background.default, 0.4)
                     : lighten(theme.palette.background.default, 0.02),
@@ -36,7 +36,7 @@ function SectionPreview(props: SectionPreviewProps) {
             backgroundColor:
               section === 'navbar'
                 ? red['200']
-                : (theme) =>
+                : theme =>
                     theme.palette.mode === 'light'
                       ? darken(theme.palette.background.default, 0.1)
                       : lighten(theme.palette.background.default, 0.1),
@@ -56,7 +56,7 @@ function SectionPreview(props: SectionPreviewProps) {
             backgroundColor:
               section === 'toolbar'
                 ? red['100']
-                : (theme) =>
+                : theme =>
                     theme.palette.mode === 'light'
                       ? lighten(theme.palette.background.default, 0.4)
                       : lighten(theme.palette.background.default, 0.02),
@@ -64,7 +64,7 @@ function SectionPreview(props: SectionPreviewProps) {
               backgroundColor:
                 section === 'toolbar'
                   ? red['200']
-                  : (theme) =>
+                  : theme =>
                       theme.palette.mode === 'light'
                         ? darken(theme.palette.background.default, 0.1)
                         : lighten(theme.palette.background.default, 0.1),
@@ -81,7 +81,7 @@ function SectionPreview(props: SectionPreviewProps) {
             backgroundColor:
               section === 'main'
                 ? red['100']
-                : (theme) =>
+                : theme =>
                     theme.palette.mode === 'light'
                       ? lighten(theme.palette.background.default, 0.4)
                       : lighten(theme.palette.background.default, 0.02),
@@ -93,7 +93,7 @@ function SectionPreview(props: SectionPreviewProps) {
             backgroundColor:
               section === 'footer'
                 ? red['100']
-                : (theme) =>
+                : theme =>
                     theme.palette.mode === 'light'
                       ? lighten(theme.palette.background.default, 0.4)
                       : lighten(theme.palette.background.default, 0.02),
@@ -101,7 +101,7 @@ function SectionPreview(props: SectionPreviewProps) {
               backgroundColor:
                 section === 'footer'
                   ? red['200']
-                  : (theme) =>
+                  : theme =>
                       theme.palette.mode === 'light'
                         ? darken(theme.palette.background.default, 0.1)
                         : lighten(theme.palette.background.default, 0.1),

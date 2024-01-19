@@ -1,6 +1,11 @@
-import { lazy } from 'react'
+import lazyWithReducer from 'app/store/lazyWithReducer'
+import reducer from './store/whitelabelsSlice'
 
-const WhitelabelAppsPage = lazy(() => import('./WhitelabelAppsPage'))
+const WhitelabelAppsPage = lazyWithReducer(
+  'whitelabels',
+  () => import('./WhitelabelAppsPage'),
+  reducer,
+)
 
 /**
  * The Example page config.

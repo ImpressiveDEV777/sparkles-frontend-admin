@@ -28,7 +28,7 @@ mock.onPost('/api/notifications').reply(({ data }) => {
   return [200, newNotification]
 })
 
-mock.onDelete('/api/notifications/:id').reply((config) => {
+mock.onDelete('/api/notifications/:id').reply(config => {
   const { id } = config.params as Params
 
   _.remove(notificationsDB, { id })

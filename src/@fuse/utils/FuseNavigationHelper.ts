@@ -35,7 +35,7 @@ class FuseNavigationHelper {
     if (!parentId) {
       return [...nav, item]
     }
-    return nav.map((node) => {
+    return nav.map(node => {
       if (node.id === parentId) {
         const newNode = { ...node }
         newNode.children = [...(node.children || []), item]
@@ -59,7 +59,7 @@ class FuseNavigationHelper {
     if (!parentId) {
       return [item, ...nav]
     }
-    return nav.map((node) => {
+    return nav.map(node => {
       if (node.id === parentId) {
         const newNode = { ...node }
         newNode.children = [item, ...(node.children || [])]
@@ -125,7 +125,7 @@ class FuseNavigationHelper {
     id: string,
     item: PartialDeep<FuseNavItemType>,
   ): FuseNavigationType {
-    return nav.map((node) => {
+    return nav.map(node => {
       if (node.id === id) {
         return _.merge({}, node, item) // merge original node data with updated item data
       }

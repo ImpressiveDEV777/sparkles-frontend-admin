@@ -9,7 +9,7 @@ import { cloneElement, memo } from 'react'
  */
 function DemoSidebarContent() {
   function generate(element: JSX.Element) {
-    return _(30).times((value) =>
+    return _(30).times(value =>
       cloneElement(element, {
         key: value,
       }),

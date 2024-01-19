@@ -83,7 +83,7 @@ export const selectCurrentLanguageDirection = createSelector(
 
 export const selectCurrentLanguage = createSelector(
   [selectCurrentLanguageId, selectLanguages],
-  (id, languages) => languages.find((lng) => lng.id === id),
+  (id, languages) => languages.find(lng => lng.id === id),
 )
 
 export type i18nSliceType = typeof i18nSlice

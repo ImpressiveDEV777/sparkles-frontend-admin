@@ -171,7 +171,7 @@ function getSuggestions(
     return []
   }
 
-  return data.filter((suggestion) => {
+  return data.filter(suggestion => {
     const keep = count < 10 && match(suggestion.title, inputValue).length > 0
 
     if (keep) {
@@ -407,7 +407,7 @@ function FuseSearch(props: FuseSearchProps) {
               suggestionsList: 'FuseSearch-suggestionsList',
               suggestion: 'FuseSearch-suggestion',
             }}
-            renderSuggestionsContainer={(options) => (
+            renderSuggestionsContainer={options => (
               <Popper
                 anchorEl={popperAnchor.current}
                 open={Boolean(options.children) || state.noSuggestions}
@@ -491,7 +491,7 @@ function FuseSearch(props: FuseSearchProps) {
                       suggestionsList: 'FuseSearch-suggestionsList',
                       suggestion: 'FuseSearch-suggestion',
                     }}
-                    renderSuggestionsContainer={(options) => (
+                    renderSuggestionsContainer={options => (
                       <Popper
                         anchorEl={popperNode.current}
                         open={Boolean(options.children) || state.noSuggestions}

@@ -23,7 +23,7 @@ function FooterLayout1(props: FooterLayout1Props) {
         className={clsx('relative z-20 shadow-md', className)}
         color="default"
         sx={{
-          backgroundColor: (theme) =>
+          backgroundColor: theme =>
             theme.palette.mode === 'light'
               ? footerTheme.palette.background.paper
               : footerTheme.palette.background.default,

@@ -48,7 +48,7 @@ class EventEmitter {
    *
    */
   emit(eventName: string, ...args: unknown[]): void {
-    this._getEventListByName(eventName).forEach((fn) => {
+    this._getEventListByName(eventName).forEach(fn => {
       fn.apply(this, args)
     })
   }

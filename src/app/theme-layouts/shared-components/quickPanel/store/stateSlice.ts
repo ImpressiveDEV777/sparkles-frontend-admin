@@ -10,7 +10,7 @@ export const stateSlice = createSlice({
   name: 'quickPanel/state',
   initialState: false,
   reducers: {
-    toggleQuickPanel: (state) => !state,
+    toggleQuickPanel: state => !state,
     openQuickPanel: () => true,
     closeQuickPanel: () => false,
   },

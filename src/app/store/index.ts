@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === 'development') {
  */
 const store = configureStore({
   reducer: createReducer({}),
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       immutableCheck: false,
       serializableCheck: false,

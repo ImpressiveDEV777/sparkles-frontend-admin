@@ -14,7 +14,7 @@ type AppRootStateType = RootStateType<chatMessagesSliceType>
 export const getChat = createAppAsyncThunk<
   ChatMessagesType,
   ChatMessageType['contactId']
->('chatPanel/chat/getChat', async (contactId) => {
+>('chatPanel/chat/getChat', async contactId => {
   const response = await axios.get(`/api/chat/chats/${contactId}`)
 
   const data = (await response.data) as ChatMessagesType
@@ -55,7 +55,7 @@ export const chatMessagesSlice = createSlice({
   reducers: {
     // removeChat: (state, action) => action.payload
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(getChat.fulfilled, (state, action) => action.payload)
       .addCase(sendMessage.fulfilled, (state, action) => [

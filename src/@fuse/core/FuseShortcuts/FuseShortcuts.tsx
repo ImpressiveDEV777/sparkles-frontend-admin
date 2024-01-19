@@ -46,7 +46,7 @@ function FuseShortcuts(props: FuseShortcutsProps) {
 
   useEffect(() => {
     const _shortcutItems = shortcuts
-      ? shortcuts.map((id) => _.find(navigation, { id }))
+      ? shortcuts.map(id => _.find(navigation, { id }))
       : ([] as FuseNavigationType)
 
     setShortcutItems(_shortcutItems)
@@ -67,7 +67,7 @@ function FuseShortcuts(props: FuseShortcutsProps) {
 
     if (newSearchText.length !== 0 && navigation) {
       setSearchResults(
-        navigation.filter((item) =>
+        navigation.filter(item =>
           item.title.toLowerCase().includes(newSearchText.toLowerCase()),
         ),
       )
@@ -101,7 +101,7 @@ function FuseShortcuts(props: FuseShortcutsProps) {
             )}
           >
             {shortcutItems.map(
-              (_item) =>
+              _item =>
                 _item && (
                   <Link to={_item.url} key={_item.id} role="button">
                     <Tooltip
@@ -183,7 +183,7 @@ function FuseShortcuts(props: FuseShortcutsProps) {
             return null
           }
 
-          return searchResults.map((_item) => (
+          return searchResults.map(_item => (
             <ShortcutMenuItem
               shortcuts={shortcuts}
               key={_item.id}
@@ -205,7 +205,7 @@ function FuseShortcuts(props: FuseShortcutsProps) {
           }
 
           return shortcutItems.map(
-            (_item) =>
+            _item =>
               _item && (
                 <ShortcutMenuItem
                   shortcuts={shortcuts}
@@ -246,7 +246,7 @@ function ShortcutMenuItem(props: {
         </ListItemIcon>
         <ListItemText primary={item.title} />
         <IconButton
-          onClick={(ev) => {
+          onClick={ev => {
             ev.preventDefault()
             ev.stopPropagation()
             onToggle(item.id)
