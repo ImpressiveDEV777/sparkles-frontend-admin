@@ -4,7 +4,7 @@ import {
   gridClasses,
   gridStringOrNumberComparator,
 } from '@mui/x-data-grid'
-import { Box, Chip, Tooltip, Typography } from '@mui/material'
+import { Box, Chip, Typography } from '@mui/material'
 import { useAppSelector } from 'app/store'
 import { WhitelabelType } from '../types/WhitelabelType'
 import {
@@ -23,8 +23,28 @@ export default function BasicEditingGrid() {
   const loading = useAppSelector(selectWhitelabelsLoading)
   const supplierSortComparator: GridComparatorFn = (v1, v2, param1, param2) => {
     return gridStringOrNumberComparator(
-      (v1 as [Provider])[0]?.title,
-      (v2 as [Provider])[0]?.title,
+      (v1 as [Provider]).reduce(
+        (prev, current) => `${prev}${current.title}`,
+        '',
+      ),
+      (v2 as [Provider]).reduce(
+        (prev, current) => `${prev}${current.title}`,
+        '',
+      ),
+      param1,
+      param2,
+    )
+  }
+  const categorySortComparator: GridComparatorFn = (v1, v2, param1, param2) => {
+    return gridStringOrNumberComparator(
+      (v1 as [Provider]).reduce(
+        (prev, current) => `${prev}${current.title}`,
+        '',
+      ),
+      (v2 as [Provider]).reduce(
+        (prev, current) => `${prev}${current.title}`,
+        '',
+      ),
       param1,
       param2,
     )
@@ -54,48 +74,12 @@ export default function BasicEditingGrid() {
     {
       field: 'product_categories',
       headerName: 'Category',
-      width: 150,
+      width: 250,
       renderCell: (params: CellParams) => {
-        const categories = params?.row?.product_categories || []
-
-        const visibleCategories = categories.slice(0, 2) // Display only the first 3 categories
-        const hiddenCategories = categories.slice(2)
-
-        return (
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: '10px',
-            }}
-          >
-            {visibleCategories.length > 0 ? (
-              <>
-                <Typography>
-                  {visibleCategories.map(category => category.title).join(', ')}
-                </Typography>
-                {hiddenCategories.length > 0 && (
-                  <Tooltip
-                    title={
-                      <div>
-                        {hiddenCategories.map(category => (
-                          <div key={category.id}>{category.title}</div>
-                        ))}
-                      </div>
-                    }
-                    placement="bottom"
-                  >
-                    <Chip label={`+${hiddenCategories.length}`} size="small" />
-                  </Tooltip>
-                )}
-              </>
-            ) : (
-              'N/A'
-            )}
-          </Box>
-        )
+        const categories = params?.row?.product_categories
+        return categories.map(category => category.title).join(', ')
       },
+      sortComparator: categorySortComparator,
     },
     {
       field: 'providers',
