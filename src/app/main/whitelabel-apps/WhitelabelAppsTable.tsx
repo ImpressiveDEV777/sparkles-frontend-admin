@@ -22,7 +22,7 @@ type CellParams = {
   row: WhitelabelType
 }
 
-export default function BasicEditingGrid() {
+export default function WhitelabelAppsGrid() {
   const whitelabels = useAppSelector(selectWhitelabels)
   const loading = useAppSelector(selectWhitelabelsLoading)
   const supplierSortComparator: GridComparatorFn = (v1, v2, param1, param2) => {
@@ -127,19 +127,17 @@ export default function BasicEditingGrid() {
     },
   ]
   return (
-    <div style={{ height: 300, width: '100%' }}>
-      <DataGrid
-        hideFooter
-        rows={whitelabels}
-        columns={columns}
-        loading={loading}
-        getRowHeight={() => 'auto'}
-        sx={{
-          [`& .${gridClasses.cell}`]: {
-            py: 1,
-          },
-        }}
-      />
-    </div>
+    <DataGrid
+      hideFooter
+      rows={whitelabels}
+      columns={columns}
+      loading={loading}
+      getRowHeight={() => 'auto'}
+      sx={{
+        [`& .${gridClasses.cell}`]: {
+          py: 1,
+        },
+      }}
+    />
   )
 }

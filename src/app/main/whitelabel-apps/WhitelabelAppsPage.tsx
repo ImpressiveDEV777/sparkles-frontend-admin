@@ -9,7 +9,7 @@ import { getWhitelabels } from './store/whitelabelsSlice'
 /**
  * The orders page.
  */
-function Orders() {
+function WhitelabelAppsPage() {
   const dispatch = useAppDispatch()
   const isMobile = useThemeMediaQuery(theme => theme.breakpoints.down('lg'))
   useEffect(() => {
@@ -25,4 +25,4 @@ function Orders() {
   )
 }
 
-export default Orders
+export default WhitelabelAppsPage

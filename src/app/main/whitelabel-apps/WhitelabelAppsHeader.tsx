@@ -2,11 +2,15 @@ import Typography from '@mui/material/Typography'
 import { motion } from 'framer-motion'
 import { Box, IconButton, Tooltip } from '@mui/material'
 import { FormatListBulleted, GridView } from '@mui/icons-material'
+import { Link } from 'react-router-dom'
+import useQuery from 'src/app/hooks/useQuery'
 
 /**
  * The orders header.
  */
-function OrdersHeader() {
+function WhitelabelAppsHeader() {
+  const query = useQuery()
+
   return (
     <div className="flex flex-col sm:flex-row flex-1 w-full space-y-8 sm:space-y-0 items-center justify-between py-32 px-24 md:px-32">
       <motion.span
@@ -23,8 +27,11 @@ function OrdersHeader() {
           <Tooltip title="Switch to List View" placement="top">
             <IconButton
               aria-label="list"
-              // onClick={handleListView}
-              // disabled={isListView}
+              component={Link}
+              type="file"
+              color="primary"
+              to="/whitelabel-apps?view=list"
+              disabled={query.get('view') === 'list'}
             >
               <FormatListBulleted />
             </IconButton>
@@ -32,8 +39,9 @@ function OrdersHeader() {
           <Tooltip title="Switch to Grid View" placement="top">
             <IconButton
               aria-label="grid"
-              // onClick={handleGridView}
-              // disabled={isGridView}
+              component={Link}
+              to="/whitelabel-apps?view=grid"
+              disabled={query.get('view') === 'grid'}
             >
               <GridView />
             </IconButton>
@@ -44,4 +52,4 @@ function OrdersHeader() {
   )
 }
 
-export default OrdersHeader
+export default WhitelabelAppsHeader
