@@ -1,6 +1,5 @@
 import Typography from '@mui/material/Typography'
 import { motion } from 'framer-motion'
-import { useAppDispatch } from 'app/store'
 import { Box, IconButton, Tooltip } from '@mui/material'
 import { FormatListBulleted, GridView } from '@mui/icons-material'
 
@@ -8,9 +7,6 @@ import { FormatListBulleted, GridView } from '@mui/icons-material'
  * The orders header.
  */
 function OrdersHeader() {
-  const dispatch = useAppDispatch()
-  const searchText = 'useAppSelector(selectOrdersSearchText)'
-
   return (
     <div className="flex flex-col sm:flex-row flex-1 w-full space-y-8 sm:space-y-0 items-center justify-between py-32 px-24 md:px-32">
       <motion.span

@@ -6,6 +6,10 @@ import {
 } from '@mui/x-data-grid'
 import { Box, Chip, Typography } from '@mui/material'
 import { useAppSelector } from 'app/store'
+import {
+  commonFilterOperators,
+  statusFilterOperators,
+} from 'src/app/utils/filterOperators'
 import { WhitelabelType } from '../types/WhitelabelType'
 import {
   selectWhitelabels,
@@ -49,6 +53,7 @@ export default function BasicEditingGrid() {
       param2,
     )
   }
+
   const columns = [
     {
       field: 'title',
@@ -80,12 +85,14 @@ export default function BasicEditingGrid() {
         return categories.map(category => category.title).join(', ')
       },
       sortComparator: categorySortComparator,
+      filterOperators: commonFilterOperators,
     },
     {
       field: 'providers',
       headerName: 'Supplier',
       flex: 1,
       sortComparator: supplierSortComparator,
+      filterOperators: commonFilterOperators,
       renderCell: (params: CellParams) => {
         const providers = params?.row?.providers
         return (
@@ -112,10 +119,11 @@ export default function BasicEditingGrid() {
     {
       field: 'active',
       headerName: 'Status',
-      width: 100,
+      width: 120,
       renderCell: (params: CellParams) => {
         return params?.row?.active ? 'Active' : 'Disabled'
       },
+      filterOperators: statusFilterOperators,
     },
   ]
   return (
