@@ -1,30 +1,32 @@
-import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
+import Button from '@mui/material/Button'
+import { Link } from 'react-router-dom'
+import FuseSvgIcon from '@fuse/core/FuseSvgIcon'
 
 type DocumentationButtonProps = {
-	className?: string;
-};
+  className?: string
+}
 
 /**
  * The documentation button.
  */
 function DocumentationButton(props: DocumentationButtonProps) {
-	const { className = '' } = props;
+  const { className = '' } = props
 
-	return (
-		<Button
-			component={Link}
-			to="/documentation"
-			role="button"
-			className={className}
-			variant="contained"
-			color="primary"
-			startIcon={<FuseSvgIcon size={16}>heroicons-outline:book-open</FuseSvgIcon>}
-		>
-			Documentation
-		</Button>
-	);
+  return (
+    <Button
+      component={Link}
+      to="/documentation"
+      role="button"
+      className={className}
+      variant="contained"
+      color="primary"
+      startIcon={
+        <FuseSvgIcon size={16}>heroicons-outline:book-open</FuseSvgIcon>
+      }
+    >
+      Documentation
+    </Button>
+  )
 }
 
-export default DocumentationButton;
+export default DocumentationButton

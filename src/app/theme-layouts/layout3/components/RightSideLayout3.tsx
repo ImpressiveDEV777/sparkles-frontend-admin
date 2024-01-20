@@ -1,12 +1,14 @@
-import { lazy, memo } from 'react';
+import { lazy, memo } from 'react'
 
-const QuickPanel = lazy(() => import('app/theme-layouts/shared-components/quickPanel/QuickPanel'));
+const QuickPanel = lazy(
+  () => import('app/theme-layouts/shared-components/quickPanel/QuickPanel'),
+)
 
 /**
  * The right side layout 3.
  */
 function RightSideLayout3() {
-	return <QuickPanel />;
+  return <QuickPanel />
 }
 
-export default memo(RightSideLayout3);
+export default memo(RightSideLayout3)

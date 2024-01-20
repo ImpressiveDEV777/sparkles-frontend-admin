@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef } from 'react';
-import _ from '@lodash';
+import { useCallback, useEffect, useRef } from 'react'
+import _ from '@lodash'
 
 /**
  * Debounce hook.
@@ -7,29 +7,32 @@ import _ from '@lodash';
  * @param {number} delay
  * @returns {T}
  */
-function useDebounce<T extends (...args: never[]) => void>(callback: T, delay: number): T {
-	const callbackRef = useRef<T>(callback);
+function useDebounce<T extends (...args: never[]) => void>(
+  callback: T,
+  delay: number,
+): T {
+  const callbackRef = useRef<T>(callback)
 
-	// Update the current callback each time it changes.
-	useEffect(() => {
-		callbackRef.current = callback;
-	}, [callback]);
+  // Update the current callback each time it changes.
+  useEffect(() => {
+    callbackRef.current = callback
+  }, [callback])
 
-	const debouncedFn = useCallback(
-		_.debounce((...args: never[]) => {
-			callbackRef.current(...args);
-		}, delay),
-		[delay]
-	);
+  const debouncedFn = useCallback(
+    _.debounce((...args: never[]) => {
+      callbackRef.current(...args)
+    }, delay),
+    [delay],
+  )
 
-	useEffect(() => {
-		// Cleanup function to cancel any pending debounced calls
-		return () => {
-			debouncedFn.cancel();
-		};
-	}, [debouncedFn]);
+  useEffect(() => {
+    // Cleanup function to cancel any pending debounced calls
+    return () => {
+      debouncedFn.cancel()
+    }
+  }, [debouncedFn])
 
-	return debouncedFn as unknown as T;
+  return debouncedFn as unknown as T
 }
 
-export default useDebounce;
+export default useDebounce
