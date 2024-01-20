@@ -1,13 +1,11 @@
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import _ from '@lodash'
 import { AxiosError } from 'axios'
 import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import { Link } from 'react-router-dom'
 import { useAuth } from 'src/app/auth/AuthRouteProvider'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -41,22 +39,13 @@ const defaultValues = {
 function jwtSignInTab() {
   const { jwtService } = useAuth()
 
-  const { control, formState, handleSubmit, setValue, setError } =
-    useForm<FormType>({
-      mode: 'onChange',
-      defaultValues,
-      resolver: zodResolver(schema),
-    })
+  const { control, formState, handleSubmit, setError } = useForm<FormType>({
+    mode: 'onChange',
+    defaultValues,
+    resolver: zodResolver(schema),
+  })
 
   const { isValid, dirtyFields, errors } = formState
-
-  useEffect(() => {
-    setValue('email', 'admin@fusetheme.com', {
-      shouldDirty: true,
-      shouldValidate: true,
-    })
-    setValue('password', 'admin', { shouldDirty: true, shouldValidate: true })
-  }, [setValue])
 
   function onSubmit(formData: FormType) {
     const { email, password } = formData
@@ -150,13 +139,6 @@ function jwtSignInTab() {
               </FormControl>
             )}
           />
-
-          <Link
-            className="text-md font-medium"
-            to="/pages/auth/forgot-password"
-          >
-            Forgot password?
-          </Link>
         </div>
 
         <Button
