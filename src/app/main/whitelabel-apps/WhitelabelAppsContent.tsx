@@ -1,15 +1,24 @@
 import {
-  DataGrid,
+  DataGridPro,
   GridComparatorFn,
   gridClasses,
   gridStringOrNumberComparator,
-} from '@mui/x-data-grid'
-import { Box, Chip, Typography } from '@mui/material'
+} from '@mui/x-data-grid-pro'
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Chip,
+  Grid,
+  Typography,
+} from '@mui/material'
 import { useAppSelector } from 'app/store'
 import {
   commonFilterOperators,
   statusFilterOperators,
 } from 'src/app/utils/filterOperators'
+import useQuery from 'src/app/hooks/useQuery'
 import { WhitelabelType } from '../types/WhitelabelType'
 import {
   selectWhitelabels,
@@ -22,7 +31,8 @@ type CellParams = {
   row: WhitelabelType
 }
 
-export default function WhitelabelAppsGrid() {
+export default function WhitelabelAppsContent() {
+  const query = useQuery()
   const whitelabels = useAppSelector(selectWhitelabels)
   const loading = useAppSelector(selectWhitelabelsLoading)
   const supplierSortComparator: GridComparatorFn = (v1, v2, param1, param2) => {
@@ -127,17 +137,75 @@ export default function WhitelabelAppsGrid() {
     },
   ]
   return (
-    <DataGrid
-      hideFooter
-      rows={whitelabels}
-      columns={columns}
-      loading={loading}
-      getRowHeight={() => 'auto'}
-      sx={{
-        [`& .${gridClasses.cell}`]: {
-          py: 1,
-        },
-      }}
-    />
+    <>
+      {query.get('view') === 'grid' && (
+        <Grid item xs={12} className="p-10">
+          <Grid container spacing={3}>
+            {whitelabels?.map(label => (
+              <Grid item lg={3} md={4} sm={6} xs={12} key={label.id}>
+                <Card sx={{ position: 'relative' }}>
+                  <CardMedia
+                    sx={{ height: 140 }}
+                    image={label?.icon?.url}
+                    title="green iguana"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h6" component="div">
+                      {label?.title}
+                    </Typography>
+
+                    <div>
+                      <Typography variant="subtitle1">Suppliers</Typography>
+                      <div className="flex flex-wrap">
+                        {label?.providers?.length > 0
+                          ? label?.providers?.map(provider => {
+                              return (
+                                <Box pr={1} py={0.5} key={provider?._id}>
+                                  <Chip label={provider?.title} size="small" />
+                                </Box>
+                              )
+                            })
+                          : 'N/A'}
+                      </div>
+                    </div>
+                    <div>
+                      <Typography variant="subtitle1">Category</Typography>
+                      <div className="flex flex-wrap">
+                        {label?.product_categories?.length > 0
+                          ? label?.product_categories?.map(category => {
+                              return (
+                                <Box pr={1} py={0.5} key={category?._id}>
+                                  <Chip label={category?.title} size="small" />
+                                </Box>
+                              )
+                            })
+                          : 'N/A'}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+      )}
+      {query.get('view') === 'list' && (
+        <DataGridPro
+          hideFooter
+          rows={whitelabels}
+          columns={columns}
+          loading={loading}
+          getRowHeight={() => 'auto'}
+          sx={{
+            [`& .${gridClasses.cell}`]: {
+              py: 1,
+            },
+            '& .MuiDataGrid-main > div:last-child': {
+              display: 'none',
+            },
+          }}
+        />
+      )}
+    </>
   )
 }

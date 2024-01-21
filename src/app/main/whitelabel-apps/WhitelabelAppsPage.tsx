@@ -3,7 +3,7 @@ import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery'
 import { useEffect } from 'react'
 import { useAppDispatch } from 'app/store'
 import WhitelabelAppsHeader from './WhitelabelAppsHeader'
-import WhitelabelAppsTable from './WhitelabelAppsTable'
+import WhitelabelAppsContent from './WhitelabelAppsContent'
 import { getWhitelabels } from './store/whitelabelsSlice'
 
 /**
@@ -19,7 +19,7 @@ function WhitelabelAppsPage() {
   return (
     <FusePageCarded
       header={<WhitelabelAppsHeader />}
-      content={<WhitelabelAppsTable />}
+      content={<WhitelabelAppsContent />}
       scroll={isMobile ? 'normal' : 'content'}
     />
   )
