@@ -24,7 +24,7 @@ function FuseLoading(props: FuseLoadingProps) {
     <div
       className={clsx(
         className,
-        'flex flex-1 flex-col items-center justify-center p-24',
+        'flex flex-1 h-full w-full self-center flex-col items-center justify-center p-24',
         !showLoading ? 'hidden' : '',
       )}
     >

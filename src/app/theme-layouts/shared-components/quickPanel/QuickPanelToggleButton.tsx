@@ -1,5 +1,5 @@
 import IconButton from '@mui/material/IconButton'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch } from 'app/store/store'
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon'
 import { toggleQuickPanel } from './store/stateSlice'
 

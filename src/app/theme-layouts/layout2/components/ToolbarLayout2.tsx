@@ -8,15 +8,14 @@ import { useSelector } from 'react-redux'
 import {
   selectFuseCurrentLayoutConfig,
   selectToolbarTheme,
-} from 'app/store/fuse/settingsSlice'
+} from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
 import { Layout2ConfigDefaultsType } from 'app/theme-layouts/layout2/Layout2Config'
+import NavbarToggleButton from 'app/theme-layouts/shared-components/navbar/NavbarToggleButton'
 import AdjustFontSize from '../../shared-components/AdjustFontSize'
 import FullScreenToggle from '../../shared-components/FullScreenToggle'
 import LanguageSwitcher from '../../shared-components/LanguageSwitcher'
-import NotificationPanelToggleButton from '../../shared-components/notificationPanel/NotificationPanelToggleButton'
-import NavigationShortcuts from '../../shared-components/NavigationShortcuts'
-import NavigationSearch from '../../shared-components/NavigationSearch'
-import NavbarToggleButton from '../../shared-components/NavbarToggleButton'
+import NavigationShortcuts from '../../shared-components/navigation/NavigationShortcuts'
+import NavigationSearch from '../../shared-components/navigation/NavigationSearch'
 import UserMenu from '../../shared-components/UserMenu'
 import QuickPanelToggleButton from '../../shared-components/quickPanel/QuickPanelToggleButton'
 
@@ -62,7 +61,6 @@ function ToolbarLayout2(props: ToolbarLayout2Props) {
             <FullScreenToggle />
             <NavigationSearch />
             <QuickPanelToggleButton />
-            <NotificationPanelToggleButton />
             <UserMenu />
           </div>
         </Toolbar>

@@ -3,19 +3,18 @@ import { styled, ThemeProvider, useTheme } from '@mui/material/styles'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
 import clsx from 'clsx'
 import { memo, useEffect, useState } from 'react'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch } from 'app/store/store'
 import { useSelector } from 'react-redux'
 import FuseNavigation from '@fuse/core/FuseNavigation'
-import { navbarCloseMobile } from 'app/store/fuse/navbarSlice'
-import { selectContrastMainTheme } from 'app/store/fuse/settingsSlice'
+import { selectContrastMainTheme } from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
 import { useLocation } from 'react-router-dom'
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery'
-import { selectNavigation } from 'app/store/fuse/navigationSlice'
 import isUrlInChildren from '@fuse/core/FuseNavigation/isUrlInChildren'
 import { Location } from 'history'
 import { Theme } from '@mui/system'
-import { FuseNavigationType } from '@fuse/core/FuseNavigation/types/FuseNavigationType'
 import { FuseNavItemType } from '@fuse/core/FuseNavigation/types/FuseNavItemType'
+import { selectNavigation } from 'app/theme-layouts/shared-components/navigation/store/navigationSlice'
+import { navbarCloseMobile } from 'app/theme-layouts/shared-components/navbar/store/navbarSlice'
 
 const Root = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
@@ -60,8 +59,9 @@ function NavbarStyle3Content(props: NavbarStyle3ContentProps) {
   const { className = '', dense = false } = props
   const isMobile = useThemeMediaQuery(theme => theme.breakpoints.down('lg'))
   const navigation = useSelector(selectNavigation)
-  const [selectedNavigation, setSelectedNavigation] =
-    useState<FuseNavigationType>([])
+  const [selectedNavigation, setSelectedNavigation] = useState<
+    FuseNavItemType[]
+  >([])
   const [panelOpen, setPanelOpen] = useState(false)
   const theme = useTheme()
   const dispatch = useAppDispatch()
@@ -143,7 +143,7 @@ function NavbarStyle3Content(props: NavbarStyle3ContentProps) {
           <StyledPanel
             id="fuse-navbar-panel"
             opened={panelOpen}
-            className={clsx('overflow-y-auto overflow-x-hidden shadow-5')}
+            className={clsx('overflow-y-auto overflow-x-hidden shadow')}
             option={{ suppressScrollX: true, wheelPropagation: false }}
           >
             <FuseNavigation

@@ -1,5 +1,5 @@
 import i18next from 'i18next'
-import { FuseNavigationType } from '@fuse/core/FuseNavigation/types/FuseNavigationType'
+import { FuseNavItemType } from '@fuse/core/FuseNavigation/types/FuseNavItemType'
 import ar from './navigation-i18n/ar'
 import en from './navigation-i18n/en'
 import tr from './navigation-i18n/tr'
@@ -11,13 +11,14 @@ i18next.addResourceBundle('ar', 'navigation', ar)
 /**
  * The navigationConfig object is an array of navigation items for the Fuse application.
  */
-const navigationConfig: FuseNavigationType = [
+const navigationConfig: FuseNavItemType[] = [
   {
-    id: 'whitelabel-apps',
-    title: 'Whitelabel Apps',
+    id: 'example-component',
+    title: 'Example',
+    translate: 'EXAMPLE',
     type: 'item',
-    icon: 'heroicons-outline:clipboard-list',
-    url: 'whitelabel-apps',
+    icon: 'heroicons-outline:star',
+    url: 'example',
   },
 ]
 

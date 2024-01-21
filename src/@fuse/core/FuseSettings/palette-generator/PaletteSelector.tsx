@@ -75,10 +75,6 @@ function PaletteSelector(props: PaletteSelectorProps) {
   const formType = watch('palette.mode')
 
   useEffect(() => {
-    // console.info(form);
-  }, [form])
-
-  useEffect(() => {
     if (!formType || !openDialog) {
       return
     }

@@ -1,7 +1,10 @@
-import { navbarToggle, navbarToggleMobile } from 'app/store/fuse/navbarSlice'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch } from 'app/store/store'
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery'
-import NavbarToggleFab from 'app/theme-layouts/shared-components/NavbarToggleFab'
+import NavbarToggleFab from 'app/theme-layouts/shared-components/navbar/NavbarToggleFab'
+import {
+  navbarToggle,
+  navbarToggleMobile,
+} from 'app/theme-layouts/shared-components/navbar/store/navbarSlice'
 
 type NavbarToggleFabLayout2Props = {
   className?: string
