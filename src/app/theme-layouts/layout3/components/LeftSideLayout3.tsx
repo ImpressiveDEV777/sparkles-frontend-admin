@@ -1,6 +1,6 @@
 import FuseSidePanel from '@fuse/core/FuseSidePanel'
 import { memo } from 'react'
-import NavigationShortcuts from '../../shared-components/navigation/NavigationShortcuts'
+import NavigationShortcuts from '../../shared-components/NavigationShortcuts'
 
 /**
  * The left side layout 3.

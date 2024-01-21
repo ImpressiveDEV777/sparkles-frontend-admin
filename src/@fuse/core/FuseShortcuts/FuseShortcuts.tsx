@@ -13,11 +13,12 @@ import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import _ from '@lodash'
 import FuseSvgIcon from '../FuseSvgIcon'
-import { FuseFlatNavItemType } from '../FuseNavigation/types/FuseNavItemType'
+import { FuseNavigationType } from '../FuseNavigation/types/FuseNavigationType'
+import { FuseNavItemType } from '../FuseNavigation/types/FuseNavItemType'
 
 type FuseShortcutsProps = {
   className?: string
-  navigation: FuseFlatNavItemType[]
+  navigation: FuseNavigationType
   onChange: (T: string[]) => void
   shortcuts?: string[]
   variant?: 'horizontal' | 'vertical'
@@ -40,13 +41,13 @@ function FuseShortcuts(props: FuseShortcutsProps) {
   const searchInputRef = useRef<HTMLInputElement>(null)
   const [addMenu, setAddMenu] = useState<HTMLElement | null>(null)
   const [searchText, setSearchText] = useState('')
-  const [searchResults, setSearchResults] = useState<FuseFlatNavItemType[]>([])
-  const [shortcutItems, setShortcutItems] = useState<FuseFlatNavItemType[]>([])
+  const [searchResults, setSearchResults] = useState<FuseNavigationType>([])
+  const [shortcutItems, setShortcutItems] = useState<FuseNavigationType>([])
 
   useEffect(() => {
     const _shortcutItems = shortcuts
       ? shortcuts.map(id => _.find(navigation, { id }))
-      : ([] as FuseFlatNavItemType[])
+      : ([] as FuseNavigationType)
 
     setShortcutItems(_shortcutItems)
   }, [shortcuts])
@@ -67,7 +68,7 @@ function FuseShortcuts(props: FuseShortcutsProps) {
     if (newSearchText.length !== 0 && navigation) {
       setSearchResults(
         navigation.filter(item =>
-          item?.title?.toLowerCase()?.includes(newSearchText?.toLowerCase()),
+          item.title.toLowerCase().includes(newSearchText.toLowerCase()),
         ),
       )
       return
@@ -222,7 +223,7 @@ function FuseShortcuts(props: FuseShortcutsProps) {
 
 function ShortcutMenuItem(props: {
   shortcuts: FuseShortcutsProps['shortcuts']
-  item: FuseFlatNavItemType
+  item: FuseNavItemType
   onToggle: (T: string) => void
 }) {
   const { item, onToggle, shortcuts = [] } = props

@@ -8,15 +8,16 @@ import { useSelector } from 'react-redux'
 import {
   selectFuseCurrentLayoutConfig,
   selectToolbarTheme,
-} from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
+} from 'app/store/fuse/settingsSlice'
+import { selectFuseNavbar } from 'app/store/fuse/navbarSlice'
 import { Layout1ConfigDefaultsType } from 'app/theme-layouts/layout1/Layout1Config'
-import NavbarToggleButton from 'app/theme-layouts/shared-components/navbar/NavbarToggleButton'
-import { selectFuseNavbar } from 'app/theme-layouts/shared-components/navbar/store/navbarSlice'
 import AdjustFontSize from '../../shared-components/AdjustFontSize'
 import FullScreenToggle from '../../shared-components/FullScreenToggle'
 import LanguageSwitcher from '../../shared-components/LanguageSwitcher'
-import NavigationShortcuts from '../../shared-components/navigation/NavigationShortcuts'
-import NavigationSearch from '../../shared-components/navigation/NavigationSearch'
+import NotificationPanelToggleButton from '../../shared-components/notificationPanel/NotificationPanelToggleButton'
+import NavigationShortcuts from '../../shared-components/NavigationShortcuts'
+import NavigationSearch from '../../shared-components/NavigationSearch'
+import NavbarToggleButton from '../../shared-components/NavbarToggleButton'
 import UserMenu from '../../shared-components/UserMenu'
 import QuickPanelToggleButton from '../../shared-components/quickPanel/QuickPanelToggleButton'
 
@@ -39,7 +40,7 @@ function ToolbarLayout1(props: ToolbarLayout1Props) {
     <ThemeProvider theme={toolbarTheme}>
       <AppBar
         id="fuse-toolbar"
-        className={clsx('relative z-20 flex shadow', className)}
+        className={clsx('relative z-20 flex shadow-md', className)}
         color="default"
         sx={{
           backgroundColor: theme =>
@@ -48,7 +49,6 @@ function ToolbarLayout1(props: ToolbarLayout1Props) {
               : toolbarTheme.palette.background.default,
         }}
         position="static"
-        elevation={0}
       >
         <Toolbar className="min-h-48 p-0 md:min-h-64">
           <div className="flex flex-1 px-16">
@@ -82,6 +82,7 @@ function ToolbarLayout1(props: ToolbarLayout1Props) {
             <FullScreenToggle />
             <NavigationSearch />
             <QuickPanelToggleButton />
+            <NotificationPanelToggleButton />
             <UserMenu />
           </div>
 

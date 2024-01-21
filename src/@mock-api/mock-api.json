@@ -20,20 +20,18 @@
     }
   ],
   "paths": {
-    "/auth/user": {
+    "/auth/user/update": {
       "parameters": [],
-      "put": {
-        "summary": "Update user",
-        "x-stoplight": {
-          "id": "73d7f4c16f9e1"
-        },
-        "operationId": "updateAuthUser",
+      "post": {
+        "summary": "Update User",
+        "operationId": "auth_updateUser",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "description": "Update user data.",
+        "tags": ["auth"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -43,7 +41,8 @@
               "examples": {
                 "example-1": {
                   "value": {
-                    "uid": "string",
+                    "uuid": "string",
+                    "from": "string",
                     "password": "string",
                     "role": "string",
                     "data": {
@@ -61,16 +60,12 @@
               }
             }
           }
-        },
-        "tags": ["auth_user"]
+        }
       }
     },
     "/auth/sign-in": {
-      "post": {
-        "summary": "Sign in",
-        "x-stoplight": {
-          "id": "2364e0950cfbd"
-        },
+      "get": {
+        "summary": "Sign In",
         "responses": {
           "200": {
             "description": "OK",
@@ -82,7 +77,8 @@
                 "examples": {
                   "example-1": {
                     "value": {
-                      "uid": "string",
+                      "uuid": "string",
+                      "from": "string",
                       "password": "string",
                       "role": "string",
                       "data": {
@@ -102,18 +98,15 @@
             }
           }
         },
-        "operationId": "signInAuthUser",
-        "description": "User sign in.",
-        "tags": ["auth_user"]
+        "operationId": "auth_signIn",
+        "description": "Retrieve user.",
+        "tags": ["auth"]
       },
       "parameters": []
     },
     "/auth/sign-up": {
-      "post": {
-        "summary": "Sign up",
-        "x-stoplight": {
-          "id": "1304e09a14509"
-        },
+      "get": {
+        "summary": "Sign Up",
         "responses": {
           "200": {
             "description": "OK",
@@ -125,7 +118,8 @@
                 "examples": {
                   "example-1": {
                     "value": {
-                      "uid": "string",
+                      "uuid": "string",
+                      "from": "string",
                       "password": "string",
                       "role": "string",
                       "data": {
@@ -145,14 +139,14 @@
             }
           }
         },
-        "operationId": "signUpAuthUser",
-        "description": "User sign up.",
-        "tags": ["auth_user"]
+        "operationId": "auth_signUp",
+        "description": "Retrieve user.",
+        "tags": ["auth"]
       },
       "parameters": []
     },
-    "/auth/sign-in/token": {
-      "post": {
+    "/auth/access-token": {
+      "get": {
         "summary": "Sign in with access token",
         "responses": {
           "200": {
@@ -165,7 +159,8 @@
                 "examples": {
                   "example-1": {
                     "value": {
-                      "uid": "string",
+                      "uuid": "string",
+                      "from": "string",
                       "password": "string",
                       "role": "string",
                       "data": {
@@ -185,18 +180,15 @@
             }
           }
         },
-        "operationId": "signInAuthWithToken",
-        "description": "User sign in with access token.",
-        "tags": ["auth_user"],
-        "x-stoplight": {
-          "id": "l0c1z42buxfgf"
-        }
+        "operationId": "auth_signInWithAccessToken",
+        "description": "Retrieve user with access token.",
+        "tags": ["auth"]
       },
       "parameters": []
     },
     "/profile/photos-videos": {
       "get": {
-        "summary": "Get photos & videos",
+        "summary": "Get Profile Photos & Videos",
         "responses": {
           "200": {
             "description": "OK",
@@ -217,15 +209,15 @@
             }
           }
         },
-        "operationId": "getProfilePhotosVideos",
+        "operationId": "profile_getPhotosVideos",
         "description": "Retrieve photos and videos.",
-        "tags": ["profile_photos_videos"]
+        "tags": ["profile"]
       },
       "parameters": []
     },
     "/profile/timeline": {
       "get": {
-        "summary": "Get timeline",
+        "summary": "Get Profile Timeline",
         "responses": {
           "200": {
             "description": "OK",
@@ -243,15 +235,15 @@
             }
           }
         },
-        "operationId": "getProfileTimeline",
+        "operationId": "profile_getTimeline",
         "description": "Retrieve timeline.",
-        "tags": ["profile_timeline"]
+        "tags": ["profile"]
       },
       "parameters": []
     },
     "/profile/about": {
       "get": {
-        "summary": "Get about",
+        "summary": "Get Profile About",
         "responses": {
           "200": {
             "description": "OK",
@@ -269,9 +261,9 @@
             }
           }
         },
-        "operationId": "getProfileAbout",
+        "operationId": "profile_getAbout",
         "description": "Retrieve about.",
-        "tags": ["profile_about"]
+        "tags": ["profile"]
       },
       "parameters": []
     },
@@ -298,9 +290,9 @@
             }
           }
         },
-        "operationId": "getIconsFeatherIcons",
+        "operationId": "icons_getFeatherIcons",
         "description": "Retrieve feather icons data.",
-        "tags": ["icons_feather_icons_list"]
+        "tags": ["icons"]
       },
       "parameters": []
     },
@@ -327,9 +319,9 @@
             }
           }
         },
-        "operationId": "getIconsHeroicons",
+        "operationId": "icons_getHeroicons",
         "description": "Retrieve heroicons data.",
-        "tags": ["icons_heroicons_list"]
+        "tags": ["icons"]
       },
       "parameters": []
     },
@@ -356,15 +348,15 @@
             }
           }
         },
-        "operationId": "getIconsMaterialIcons",
+        "operationId": "icons_getMaterialIcons",
         "description": "Retrieve material icons data.",
-        "tags": ["icons_material_icons_list"]
+        "tags": ["icons"]
       },
       "parameters": []
     },
     "/dashboards/project/widgets": {
       "get": {
-        "summary": "Get widgets",
+        "summary": "Get Project Dashboard Widgets",
         "responses": {
           "200": {
             "description": "OK",
@@ -382,15 +374,15 @@
             }
           }
         },
-        "operationId": "getProjectDashboardWidgets",
+        "operationId": "projectDashboard_getWidgetsidgets",
         "description": "Retrieve Project dashboard widgets.",
-        "tags": ["project_dashboard_widgets"]
+        "tags": ["project-dashboard"]
       },
       "parameters": []
     },
     "/dashboards/project/projects": {
       "get": {
-        "summary": "Get projects",
+        "summary": "Get Project Dashboard Projects",
         "responses": {
           "200": {
             "description": "OK",
@@ -411,15 +403,15 @@
             }
           }
         },
-        "operationId": "getProjectDashboardProjects",
+        "operationId": "projectDashboard_getProjectsidgets",
         "description": "Retrieve Project dashboard projects.",
-        "tags": ["project_dashboard_projects"]
+        "tags": ["project-dashboard"]
       },
       "parameters": []
     },
     "/dashboards/crypto/widgets": {
       "get": {
-        "summary": "Get widgets",
+        "summary": "Get Crypto Dashboard Widgets",
         "responses": {
           "200": {
             "description": "OK",
@@ -437,15 +429,15 @@
             }
           }
         },
-        "operationId": "getCryptoDashboardWidgets",
+        "operationId": "cryptoDashboard_getWidgets",
         "description": "Retrieve Crypto dashboard widgets.",
-        "tags": ["crypto_dashboard_widgets"]
+        "tags": ["crypto-dashboard"]
       },
       "parameters": []
     },
     "/dashboards/finance/widgets": {
       "get": {
-        "summary": "Get widgets",
+        "summary": "Get Finance Dashboard Widgets",
         "responses": {
           "200": {
             "description": "OK",
@@ -463,15 +455,15 @@
             }
           }
         },
-        "operationId": "getFinanceDashboardWidgets",
+        "operationId": "financeDashboard_getWidgets",
         "description": "Retrieve Finance dashboard widgets.",
-        "tags": ["finance_dashboard_widgets"]
+        "tags": ["finance-dashboard"]
       },
       "parameters": []
     },
     "/dashboards/analytics/widgets": {
       "get": {
-        "summary": "Get widgets",
+        "summary": "Get Analytics Dashboard Widgets",
         "responses": {
           "200": {
             "description": "OK",
@@ -489,15 +481,15 @@
             }
           }
         },
-        "operationId": "getAnalyticsDashboardWidgets",
+        "operationId": "analyticsDashboard_getWidgets",
         "description": "Retrieve Analytics dashboard widgets.",
-        "tags": ["analytics_dashboard_widgets"]
+        "tags": ["analytics-dashboard"]
       },
       "parameters": []
     },
     "/calendar/events": {
       "get": {
-        "summary": "Get events",
+        "summary": "Get Events",
         "responses": {
           "200": {
             "description": "OK",
@@ -518,14 +510,14 @@
             }
           }
         },
-        "operationId": "getCalendarEvents",
+        "operationId": "calendar_getEvents",
         "description": "Retrieve Calendar events.",
-        "tags": ["calendar_events"]
+        "tags": ["calendar"]
       },
       "parameters": [],
       "post": {
-        "summary": "Create event",
-        "operationId": "createCalendarEvent",
+        "summary": "Create Event",
+        "operationId": "calendar_createEvent",
         "responses": {
           "200": {
             "description": "OK",
@@ -538,6 +530,7 @@
             }
           }
         },
+        "tags": ["calendar"],
         "description": "Create event.",
         "requestBody": {
           "content": {
@@ -547,8 +540,7 @@
               }
             }
           }
-        },
-        "tags": ["calendar_events"]
+        }
       }
     },
     "/calendar/events/{eventSlug}": {
@@ -564,8 +556,8 @@
         }
       ],
       "put": {
-        "summary": "Update event",
-        "operationId": "updateCalendarEvent",
+        "summary": "Update Event",
+        "operationId": "calendar_updateEvent",
         "responses": {
           "200": {
             "description": "OK",
@@ -604,23 +596,23 @@
           "description": ""
         },
         "description": "Update Calendar event.",
-        "tags": ["calendar_event", "calendar_events"]
+        "tags": ["calendar"]
       },
       "delete": {
-        "summary": "Delete event",
-        "operationId": "deleteCalendarEvent",
+        "summary": "Delete Event",
+        "operationId": "calendar_deleteEvent",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "description": "Delete event.",
-        "tags": ["calendar_events"]
+        "tags": ["calendar"]
       }
     },
     "/calendar/labels": {
       "get": {
-        "summary": "Get labels",
+        "summary": "Get Labels",
         "responses": {
           "200": {
             "description": "OK",
@@ -641,14 +633,14 @@
             }
           }
         },
-        "operationId": "getCalendarLabels",
+        "operationId": "calendar_getLabels",
         "description": "Retrieve Calendar labels.",
-        "tags": ["calendar_labels"]
+        "tags": ["calendar"]
       },
       "parameters": [],
       "post": {
-        "summary": "Create label",
-        "operationId": "createCalendarLabel",
+        "summary": "Create Label",
+        "operationId": "calendar_createLabel",
         "responses": {
           "200": {
             "description": "OK",
@@ -670,6 +662,7 @@
             }
           }
         },
+        "tags": ["calendar"],
         "description": "Create Calendar label.",
         "requestBody": {
           "content": {
@@ -679,14 +672,24 @@
               }
             }
           }
-        },
-        "tags": ["calendar_label", "calendar_labels"]
+        }
       }
     },
     "/calendar/labels/{labelSlug}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "labelSlug",
+          "in": "path",
+          "required": true,
+          "description": "Label slug"
+        }
+      ],
       "put": {
-        "summary": "Update label",
-        "operationId": "updateCalendarLabel",
+        "summary": "Update Label",
+        "operationId": "calendar_updateLabel",
         "responses": {
           "200": {
             "description": "OK",
@@ -718,36 +721,25 @@
           }
         },
         "description": "Update Calendar label.",
-        "tags": ["calendar_label"]
+        "tags": ["calendar"]
       },
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "labelSlug",
-          "in": "path",
-          "required": true,
-          "description": "Label slug"
-        }
-      ],
       "delete": {
         "summary": "Delete label",
-        "operationId": "deleteCalendarLabel",
+        "operationId": "calendar_deleteLabel",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "description": "Delete Calendar label.",
-        "tags": ["calendar_labels", "calendar_events"]
+        "tags": ["calendar"]
       }
     },
     "/mailbox/mails/actions": {
       "parameters": [],
       "post": {
-        "summary": "Apply mail action",
-        "operationId": "applyMailboxMailAction",
+        "summary": "Create Mail",
+        "operationId": "mailbox_mailActions",
         "responses": {
           "200": {
             "description": "OK"
@@ -769,12 +761,12 @@
           },
           "description": ""
         },
-        "tags": ["mailbox_mails"]
+        "tags": ["mailbox"]
       }
     },
     "/mailbox/mails/{folderSlug}": {
       "get": {
-        "summary": "Get mails",
+        "summary": "Get Mail List",
         "responses": {
           "200": {
             "description": "OK",
@@ -795,9 +787,9 @@
             }
           }
         },
-        "operationId": "getMailboxMails",
+        "operationId": "mailbox_getMails",
         "description": "Retrieve mails by folder.",
-        "tags": ["mailbox_mails"]
+        "tags": ["mailbox"]
       },
       "parameters": [
         {
@@ -811,8 +803,8 @@
         }
       ],
       "post": {
-        "summary": "Create mail",
-        "operationId": "createMailboxMail",
+        "summary": "Create Mail",
+        "operationId": "mailbox_createMail",
         "responses": {
           "200": {
             "description": "OK"
@@ -860,39 +852,12 @@
             }
           }
         },
-        "tags": ["mailbox_mails"]
+        "tags": ["mailbox"]
       }
-    },
-    "/mailbox/mail/{mailId}": {
-      "get": {
-        "summary": "Get mail",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {}
-          }
-        },
-        "operationId": "getMailboxMail",
-        "description": "Retrieve mail.",
-        "x-stoplight": {
-          "id": "uh9lhs0ze7ow8"
-        },
-        "tags": ["mailbox_mail"]
-      },
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "mailId",
-          "in": "path",
-          "required": true
-        }
-      ]
     },
     "/mailbox/mails/labels/{labelSlug}": {
       "get": {
-        "summary": "Get mails by label",
+        "summary": "Get Mail List by Label",
         "responses": {
           "200": {
             "description": "OK",
@@ -913,9 +878,9 @@
             }
           }
         },
-        "operationId": "getMailboxMailsByLabel",
+        "operationId": "mailbox_getMailsByLabel",
         "description": "Retrieve mails by label.",
-        "tags": ["mailbox_mails"]
+        "tags": ["mailbox"]
       },
       "parameters": [
         {
@@ -931,7 +896,7 @@
     },
     "/mailbox/mails/filters/{filterSlug}": {
       "get": {
-        "summary": "Get mails by filter",
+        "summary": "Get Mail List by Filter",
         "responses": {
           "200": {
             "description": "OK",
@@ -952,9 +917,9 @@
             }
           }
         },
-        "operationId": "getMailboxMailsByFilter",
+        "operationId": "mailbox_getMailsByFilter",
         "description": "Retrieve mails by filter.",
-        "tags": ["mailbox_mails"]
+        "tags": ["mailbox"]
       },
       "parameters": [
         {
@@ -970,7 +935,7 @@
     },
     "/mailbox/filters": {
       "get": {
-        "summary": "Get filters",
+        "summary": "Get Filters",
         "responses": {
           "200": {
             "description": "OK",
@@ -991,15 +956,15 @@
             }
           }
         },
-        "operationId": "getMailboxFilters",
+        "operationId": "mailbox_getFilters",
         "description": "Retrieve mail filters.",
-        "tags": ["mailbox_filters"]
+        "tags": ["mailbox"]
       },
       "parameters": []
     },
     "/mailbox/labels": {
       "get": {
-        "summary": "Get labels",
+        "summary": "Get Labels",
         "responses": {
           "200": {
             "description": "OK",
@@ -1020,14 +985,14 @@
             }
           }
         },
-        "operationId": "getMailboxLabels",
+        "operationId": "mailbox_getLabels",
         "description": "Retrieve mail labels.",
-        "tags": ["mailbox_labels"]
+        "tags": ["mailbox"]
       },
       "parameters": [],
       "post": {
-        "summary": "Create label",
-        "operationId": "createMailboxLabel",
+        "summary": "Create Label",
+        "operationId": "mailbox_createLabel",
         "responses": {
           "200": {
             "description": "OK",
@@ -1050,6 +1015,7 @@
             }
           }
         },
+        "tags": ["mailbox"],
         "description": "Create mail label.",
         "requestBody": {
           "content": {
@@ -1069,14 +1035,24 @@
               }
             }
           }
-        },
-        "tags": ["mailbox_labels"]
+        }
       }
     },
     "/mailbox/labels/{labelSlug}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "labelSlug",
+          "in": "path",
+          "required": true,
+          "description": "label slug"
+        }
+      ],
       "put": {
-        "summary": "Update label",
-        "operationId": "updateMailboxLabel",
+        "summary": "Update Label",
+        "operationId": "mailbox_updateLabel",
         "responses": {
           "200": {
             "description": "OK",
@@ -1119,34 +1095,23 @@
           }
         },
         "description": "Update mail label.",
-        "tags": ["mailbox_label", "mailbox_labels"]
+        "tags": ["mailbox"]
       },
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "labelSlug",
-          "in": "path",
-          "required": true,
-          "description": "label slug"
-        }
-      ],
       "delete": {
         "summary": "Delete label",
-        "operationId": "deleteMailboxLabel",
+        "operationId": "mailbox_deleteLabel",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "description": "Delete mail label.",
-        "tags": ["mailbox_labels"]
+        "tags": ["mailbox"]
       }
     },
     "/mailbox/folders": {
       "get": {
-        "summary": "Get folders",
+        "summary": "Get Folders",
         "responses": {
           "200": {
             "description": "OK",
@@ -1167,15 +1132,15 @@
             }
           }
         },
-        "operationId": "getMailboxFolders",
+        "operationId": "mailbox_getFolders",
         "description": "Retrieve mail folders.",
-        "tags": ["mailbox_folders"]
+        "tags": ["mailbox"]
       },
       "parameters": []
     },
-    "/notification": {
+    "/notifications": {
       "get": {
-        "summary": "Get notifications",
+        "summary": "Get Notifications",
         "responses": {
           "200": {
             "description": "OK",
@@ -1196,23 +1161,20 @@
             }
           }
         },
-        "operationId": "getAllNotifications",
-        "description": "Retrieve all notifications.",
-        "x-stoplight": {
-          "id": "xcxy2obssii7n"
-        },
+        "operationId": "notifications_getNotifications",
+        "description": "Retrieve notifications.",
         "tags": ["notifications"]
       },
       "parameters": [],
       "post": {
-        "summary": "Create notification",
-        "operationId": "createNotification",
+        "summary": "Create Notification",
+        "operationId": "notifications_createNotification",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
-        "description": "Create a notification item.",
+        "description": "Create a notification.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1236,29 +1198,23 @@
             }
           }
         },
-        "x-stoplight": {
-          "id": "bkfugw68skahc"
-        },
         "tags": ["notifications"]
       },
       "delete": {
-        "summary": "Delete all notifications",
-        "operationId": "deleteAllNotifications",
+        "summary": "Delete Notifications",
+        "operationId": "notifications_deleteNotifications",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
-        "description": "Delete all notifications.",
-        "x-stoplight": {
-          "id": "gn76hrsnko738"
-        },
-        "tags": ["notifications"]
+        "tags": ["notifications"],
+        "description": "Delete all notifications."
       }
     },
     "/notifications/{notificationId}": {
       "get": {
-        "summary": "Get notification",
+        "summary": "Get Notification",
         "responses": {
           "200": {
             "description": "OK",
@@ -1285,9 +1241,9 @@
             }
           }
         },
-        "operationId": "getNotification",
+        "operationId": "notifications_getNotification",
         "description": "Retrieve notification by id.",
-        "tags": ["notification"]
+        "tags": ["notifications"]
       },
       "parameters": [
         {
@@ -1301,8 +1257,8 @@
         }
       ],
       "delete": {
-        "summary": "Delete notification",
-        "operationId": "deleteNotification",
+        "summary": "Delete Notification",
+        "operationId": "notifications_deleteNotification",
         "responses": {
           "200": {
             "description": "OK"
@@ -1317,7 +1273,7 @@
     },
     "/scrumboard/members": {
       "get": {
-        "summary": "Get members",
+        "summary": "Get Members",
         "responses": {
           "200": {
             "description": "OK",
@@ -1338,20 +1294,21 @@
             }
           }
         },
-        "operationId": "getScrumboardMembers",
+        "operationId": "scrumboard_getMembers",
         "description": "Retrieve scrumboard members.",
-        "tags": ["scrumboard_members"]
+        "tags": ["scrumboard"]
       },
       "parameters": [],
       "post": {
-        "summary": "Create member",
-        "operationId": "createScrumboardMember",
+        "summary": "Create Member",
+        "operationId": "scrumboard_createMember",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "description": "Create Scrumboard member.",
+        "tags": ["scrumboard"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1369,81 +1326,12 @@
               }
             }
           }
-        },
-        "tags": ["scrumboard_members"]
-      }
-    },
-    "/scrumboard/boards/{boardId}/lists": {
-      "get": {
-        "summary": "Get lists",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/scrumboard_list"
-                  }
-                },
-                "examples": {
-                  "example-1": {
-                    "$ref": "#/components/examples/scrumboard_lists"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getScrumboardBoardLists",
-        "description": "Retrieve Scrumboard board lists.",
-        "tags": ["scrumboard_board_lists"]
-      },
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "boardId",
-          "in": "path",
-          "required": true,
-          "description": "boar id"
         }
-      ],
-      "post": {
-        "summary": "Create list",
-        "operationId": "createScrumboardBoardList",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "description": "Create Scrumboard board list.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/scrumboard_list"
-              },
-              "examples": {
-                "example-1": {
-                  "value": {
-                    "id": "string",
-                    "boardId": "string",
-                    "title": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": ["scrumboard_board_lists"]
       }
     },
     "/scrumboard/members/{memberId}": {
       "get": {
-        "summary": "Get member",
+        "summary": "Get Member",
         "responses": {
           "200": {
             "description": "OK",
@@ -1465,9 +1353,9 @@
             }
           }
         },
-        "operationId": "getScrumboardMember",
+        "operationId": "scrumboard_getMember",
         "description": "Retrieve Scrumboard member by id.",
-        "tags": ["scrumboard_member"]
+        "tags": ["scrumboard"]
       },
       "parameters": [
         {
@@ -1481,8 +1369,8 @@
         }
       ],
       "put": {
-        "summary": "Update member",
-        "operationId": "updateScrumboardMember",
+        "summary": "Update Member",
+        "operationId": "scrumboard_updateMember",
         "responses": {
           "200": {
             "description": "OK"
@@ -1511,11 +1399,11 @@
           },
           "description": ""
         },
-        "tags": ["scrumboard_member"]
+        "tags": ["scrumboard"]
       },
       "delete": {
         "summary": "Delete Member",
-        "operationId": "deleteScrumboardMember",
+        "operationId": "scrumboard_deleteMember",
         "responses": {
           "200": {
             "description": "OK"
@@ -1525,10 +1413,78 @@
           }
         },
         "description": "Delete Scrumboard member.",
-        "tags": ["scrumboard_members"]
+        "tags": ["scrumboard"]
       }
     },
-    "/scrumboard/boards/{boardId}/lists/{listId}": {
+    "/scrumboard/boards/{boardId}/lists": {
+      "get": {
+        "summary": "Get Lists",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/scrumboard_list"
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "$ref": "#/components/examples/scrumboard_lists"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "scrumboard_getLists",
+        "description": "Retrieve Scrumboard board lists.",
+        "tags": ["scrumboard"]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "boardId",
+          "in": "path",
+          "required": true,
+          "description": "boar id"
+        }
+      ],
+      "post": {
+        "summary": "Create List",
+        "operationId": "scrumboard_createList",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Create Scrumboard board list.",
+        "tags": ["scrumboard"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/scrumboard_list"
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "id": "string",
+                    "boardId": "string",
+                    "title": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scrumboard/boards/{bordId}/lists/{listId}": {
       "get": {
         "summary": "Get List",
         "responses": {
@@ -1552,9 +1508,9 @@
             }
           }
         },
-        "operationId": "getScrumboardBoardList",
+        "operationId": "scrumboard_getList",
         "description": "Retrieve Scrumboard board list by id.",
-        "tags": ["scrumboard_board_list"]
+        "tags": ["scrumboard"]
       },
       "parameters": [
         {
@@ -1570,15 +1526,15 @@
           "schema": {
             "type": "string"
           },
-          "name": "boardId",
+          "name": "bordId",
           "in": "path",
           "required": true,
           "description": "board id"
         }
       ],
       "put": {
-        "summary": "Update list",
-        "operationId": "updateScrumboardBoardList",
+        "summary": "Update List",
+        "operationId": "scrumboard_updateList",
         "responses": {
           "200": {
             "description": "OK"
@@ -1598,11 +1554,11 @@
           },
           "description": ""
         },
-        "tags": ["scrumboard_board_list"]
+        "tags": ["scrumboard"]
       },
       "delete": {
-        "summary": "Delete list",
-        "operationId": "deleteScrumboardBoardList",
+        "summary": "Delete List",
+        "operationId": "scrumboard_deleteList",
         "responses": {
           "200": {
             "description": "OK"
@@ -1612,12 +1568,12 @@
           }
         },
         "description": "Delete Scrumboard board list.",
-        "tags": ["scrumboard_board_lists"]
+        "tags": ["scrumboard"]
       }
     },
     "/scrumboard/boards/{boardId}/labels": {
       "get": {
-        "summary": "Get labels",
+        "summary": "Get Labels",
         "responses": {
           "200": {
             "description": "OK",
@@ -1638,9 +1594,9 @@
             }
           }
         },
-        "operationId": "getScrumboardBoardLabels",
-        "description": "Retrieve Scrumboard board label list.",
-        "tags": ["scrumboard_board_labels"]
+        "operationId": "scrumboard_getLabels",
+        "description": "Retrieve Scrumboard board labels.",
+        "tags": ["scrumboard"]
       },
       "parameters": [
         {
@@ -1654,14 +1610,15 @@
         }
       ],
       "post": {
-        "summary": "Create label",
-        "operationId": "createScrumboardBoardLabel",
+        "summary": "Create Label",
+        "operationId": "scrumboard_createLabel",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "description": "Create Scrumboard board label.",
+        "tags": ["scrumboard"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1679,13 +1636,12 @@
               }
             }
           }
-        },
-        "tags": ["scrumboard_board_labels"]
+        }
       }
     },
     "/scrumboard/boards/{boardId}/labels/{labelId}": {
       "get": {
-        "summary": "Get label",
+        "summary": "Get Label",
         "responses": {
           "200": {
             "description": "OK",
@@ -1707,9 +1663,9 @@
             }
           }
         },
-        "operationId": "getScrumboardBoardLabel",
+        "operationId": "scrumboard_getLabel",
         "description": "Retrieve Scrumboard board label by id.",
-        "tags": ["scrumboard_board_label"]
+        "tags": ["scrumboard"]
       },
       "parameters": [
         {
@@ -1732,8 +1688,8 @@
         }
       ],
       "put": {
-        "summary": "Update label",
-        "operationId": "updateScrumboardBoardLabel",
+        "summary": "Update Label",
+        "operationId": "scrumboard_updateLabel",
         "responses": {
           "200": {
             "description": "OK"
@@ -1762,11 +1718,11 @@
           },
           "description": ""
         },
-        "tags": ["scrumboard_board_label"]
+        "tags": ["scrumboard"]
       },
       "delete": {
-        "summary": "Delete label",
-        "operationId": "deleteScrumboardBoardLabel",
+        "summary": "Delete Label",
+        "operationId": "scrumboard_deleteLabel",
         "responses": {
           "200": {
             "description": "OK"
@@ -1776,12 +1732,12 @@
           }
         },
         "description": "Delete Scrumboard board label.",
-        "tags": ["scrumboard_board_labels"]
+        "tags": ["scrumboard"]
       }
     },
     "/scrumboard/boards/{boardId}/cards": {
       "get": {
-        "summary": "Get cards",
+        "summary": "Get Cards",
         "responses": {
           "200": {
             "description": "OK",
@@ -1802,9 +1758,9 @@
             }
           }
         },
-        "operationId": "getScrumboardBoardCards",
+        "operationId": "scrumboard_getCards",
         "description": "Retrieve Scrumboard board cards.",
-        "tags": ["scrumboard_board_cards"]
+        "tags": ["scrumboard"]
       },
       "parameters": [
         {
@@ -1818,14 +1774,15 @@
         }
       ],
       "post": {
-        "summary": "Create card",
-        "operationId": "createScrumboardBoardCard",
+        "summary": "Create Card",
+        "operationId": "scrumboard_createCard",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "description": "Create Scrumboard board card.",
+        "tags": ["scrumboard"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1869,7 +1826,7 @@
                     ],
                     "activities": [
                       {
-                        "id": "0",
+                        "id": 0,
                         "type": "string",
                         "idMember": "string",
                         "message": "string",
@@ -1881,13 +1838,12 @@
               }
             }
           }
-        },
-        "tags": ["scrumboard_board_cards"]
+        }
       }
     },
     "/scrumboard/boards/{boardId}/cards/{cardId}": {
       "get": {
-        "summary": "Get card",
+        "summary": "Get Card",
         "responses": {
           "200": {
             "description": "OK",
@@ -1933,7 +1889,7 @@
                       ],
                       "activities": [
                         {
-                          "id": "0",
+                          "id": 0,
                           "type": "string",
                           "idMember": "string",
                           "message": "string",
@@ -1947,9 +1903,9 @@
             }
           }
         },
-        "operationId": "getScrumboardBoardCard",
+        "operationId": "scrumboard_getCard",
         "description": "Retrieve Scrumboard board card by id.",
-        "tags": ["scrumboard_board_card"]
+        "tags": ["scrumboard"]
       },
       "parameters": [
         {
@@ -1972,8 +1928,8 @@
         }
       ],
       "put": {
-        "summary": "Update card",
-        "operationId": "updateScrumboardBoardCard",
+        "summary": "Update Card",
+        "operationId": "scrumboard_updateCard",
         "responses": {
           "200": {
             "description": "OK"
@@ -2026,7 +1982,7 @@
                     ],
                     "activities": [
                       {
-                        "id": "0",
+                        "id": 0,
                         "type": "string",
                         "idMember": "string",
                         "message": "string",
@@ -2040,11 +1996,11 @@
           },
           "description": ""
         },
-        "tags": ["scrumboard_board_card"]
+        "tags": ["scrumboard"]
       },
       "delete": {
-        "summary": "Delete card",
-        "operationId": "deleteScrumboardBoardCard",
+        "summary": "Delete Card",
+        "operationId": "scrumboard_deleteCard",
         "responses": {
           "200": {
             "description": "OK"
@@ -2054,12 +2010,12 @@
           }
         },
         "description": "Delete Scrumboard board card.",
-        "tags": ["scrumboard_board_cards"]
+        "tags": ["scrumboard"]
       }
     },
     "/scrumboard/boards": {
       "get": {
-        "summary": "Get boards",
+        "summary": "Get Boards",
         "responses": {
           "200": {
             "description": "OK",
@@ -2080,20 +2036,21 @@
             }
           }
         },
-        "operationId": "getScrumboardBoards",
+        "operationId": "scrumboard_getBoards",
         "description": "Retrieve Scrumboard boards.",
-        "tags": ["scrumboard_boards"]
+        "tags": ["scrumboard"]
       },
       "parameters": [],
       "post": {
-        "summary": "Create board",
-        "operationId": "createScrumboardBoard",
+        "summary": "Create Board",
+        "operationId": "scrumboard_createBoard",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "description": "Create Scrumboard board.",
+        "tags": ["scrumboard"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -2124,13 +2081,12 @@
               }
             }
           }
-        },
-        "tags": ["scrumboard_boards"]
+        }
       }
     },
     "/scrumboard/boards/{boardId}": {
       "get": {
-        "summary": "Get board",
+        "summary": "Get Board",
         "responses": {
           "200": {
             "description": "OK",
@@ -2165,9 +2121,9 @@
             }
           }
         },
-        "operationId": "getScrumboardBoard",
+        "operationId": "scrumboard_getBoard",
         "description": "Retrieve Scrumboard board by id.",
-        "tags": ["scrumboard_board"]
+        "tags": ["scrumboard"]
       },
       "parameters": [
         {
@@ -2181,8 +2137,8 @@
         }
       ],
       "put": {
-        "summary": "Update board",
-        "operationId": "updateScrumboardBoard",
+        "summary": "Update Board",
+        "operationId": "scrumboard_updateBoard",
         "responses": {
           "200": {
             "description": "OK"
@@ -2224,11 +2180,11 @@
           },
           "description": ""
         },
-        "tags": ["scrumboard_board"]
+        "tags": ["scrumboard"]
       },
       "delete": {
-        "summary": "Delete board",
-        "operationId": "deleteScrumboardBoard",
+        "summary": "Delete Board",
+        "operationId": "scrumboard_deleteBoard",
         "responses": {
           "200": {
             "description": "OK"
@@ -2238,12 +2194,12 @@
           }
         },
         "description": "Delete Scrumboard board.",
-        "tags": ["scrumboard_boards"]
+        "tags": ["scrumboard"]
       }
     },
     "/notes": {
       "get": {
-        "summary": "Get notes",
+        "summary": "Get Notes",
         "responses": {
           "200": {
             "description": "OK",
@@ -2264,14 +2220,14 @@
             }
           }
         },
-        "operationId": "getNotesList",
+        "operationId": "notes_getNotes",
         "description": "Retrieve all notes except archived ones.",
-        "tags": ["notes_list"]
+        "tags": ["notes"]
       },
       "parameters": [],
       "post": {
-        "summary": "Create note",
-        "operationId": "createNotesItem",
+        "summary": "Create Note",
+        "operationId": "notes_createNote",
         "responses": {
           "200": {
             "description": "OK"
@@ -2304,12 +2260,12 @@
           "description": ""
         },
         "description": "Create new note.",
-        "tags": ["notes_list", "notes_item"]
+        "tags": ["notes"]
       }
     },
     "/notes/{noteId}": {
       "get": {
-        "summary": "Get note",
+        "summary": "Get Note",
         "responses": {
           "200": {
             "description": "OK",
@@ -2338,9 +2294,9 @@
             }
           }
         },
-        "operationId": "getNotesItem",
+        "operationId": "notes_getNote",
         "description": "Retrieve note by id.",
-        "tags": ["notes_item"]
+        "tags": ["notes"]
       },
       "parameters": [
         {
@@ -2354,8 +2310,8 @@
         }
       ],
       "put": {
-        "summary": "Update note",
-        "operationId": "updateNotesItem",
+        "summary": "Update Note",
+        "operationId": "notes_updateNote",
         "responses": {
           "200": {
             "description": "OK"
@@ -2391,11 +2347,11 @@
           },
           "description": ""
         },
-        "tags": ["notes_item", "notes_list"]
+        "tags": ["notes"]
       },
       "delete": {
         "summary": "Delete Note",
-        "operationId": "deleteNotesItem",
+        "operationId": "notes_deleteNote",
         "responses": {
           "200": {
             "description": "OK"
@@ -2405,12 +2361,13 @@
           }
         },
         "description": "Delete note.",
-        "tags": ["notes_list"]
+        "tags": ["notes"]
       }
     },
     "/notes/labels": {
       "get": {
-        "summary": "Get labels",
+        "summary": "Get Labels",
+        "tags": ["notes"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2431,20 +2388,20 @@
             }
           }
         },
-        "operationId": "getNotesLabels",
-        "description": "Retrieve note labels.",
-        "tags": ["notes_labels"]
+        "operationId": "notes_getLabels",
+        "description": "Retrieve note labels."
       },
       "parameters": [],
       "post": {
-        "summary": "Create label",
-        "operationId": "createNotesLabel",
+        "summary": "Create New Label",
+        "tags": ["notes"],
+        "operationId": "notes_createLabel",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
-        "description": "Create a note Label.",
+        "description": "Create new note Label.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2462,13 +2419,13 @@
             }
           },
           "description": ""
-        },
-        "tags": ["notes_labels", "notes_label"]
+        }
       }
     },
     "/notes/labels/{labelId}": {
       "get": {
-        "summary": "Get label",
+        "summary": "Get Label",
+        "tags": ["notes"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2489,9 +2446,8 @@
             }
           }
         },
-        "operationId": "getNotesLabel",
-        "description": "Retrieve note label by id.",
-        "tags": ["note_labels"]
+        "operationId": "notes_getLabel",
+        "description": "Retrieve note label by id."
       },
       "parameters": [
         {
@@ -2505,8 +2461,9 @@
         }
       ],
       "put": {
-        "summary": "Update label",
-        "operationId": "updateNotesLabel",
+        "summary": "Update Label",
+        "tags": ["notes"],
+        "operationId": "notes_updateLabel",
         "responses": {
           "200": {
             "description": "OK"
@@ -2533,12 +2490,12 @@
             }
           },
           "description": ""
-        },
-        "tags": ["notes_labels"]
+        }
       },
       "delete": {
-        "summary": "Delete label",
-        "operationId": "deleteNotesLabel",
+        "summary": "Delete Label",
+        "tags": ["notes"],
+        "operationId": "notes_deleteLabel",
         "responses": {
           "200": {
             "description": "OK"
@@ -2547,13 +2504,13 @@
             "description": "Not Found"
           }
         },
-        "description": "Delete note label.",
-        "tags": ["notes_labels"]
+        "description": "Delete note label."
       }
     },
     "/notes/archive": {
       "get": {
-        "summary": "Get archived notes",
+        "summary": "Get Archived Notes",
+        "tags": ["notes"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2574,15 +2531,15 @@
             }
           }
         },
-        "operationId": "getNotesArchivedItems",
-        "description": "Retrieve all archived notes.",
-        "tags": ["notes_archived_items"]
+        "operationId": "notes_getArchivedNotes",
+        "description": "Retrieve all archived notes."
       },
       "parameters": []
     },
     "/notes/reminder": {
       "get": {
-        "summary": "Get reminder notes",
+        "summary": "Get Archived Notes",
+        "tags": ["notes"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2603,15 +2560,15 @@
             }
           }
         },
-        "operationId": "getNotesReminderItems",
-        "description": "Retrieve all notes with reminder.",
-        "tags": ["notes_reminder_items"]
+        "operationId": "notes_getReminderNotes",
+        "description": "Retrieve all notes with reminder."
       },
       "parameters": []
     },
     "/help-center/guides": {
       "get": {
-        "summary": "Get guides",
+        "summary": "Get Guides",
+        "tags": ["help-center"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2632,15 +2589,15 @@
             }
           }
         },
-        "operationId": "getHelpCenterGuides",
-        "description": "Retrieve Help Center guides.",
-        "tags": ["help_center_guides"]
+        "operationId": "helpCenter_getGuides",
+        "description": "Retrieve Help Center guides."
       },
       "parameters": []
     },
     "/help-center/guides/{categorySlug}": {
       "get": {
-        "summary": "Get guides by category",
+        "summary": "Get Guide List by Category",
+        "tags": ["help-center"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2661,9 +2618,8 @@
             }
           }
         },
-        "operationId": "getHelpCenterGuidesByCategory",
-        "description": "Retrieve Help Center guide list by category slug.",
-        "tags": ["help_center_guides_by_category"]
+        "operationId": "helpCenter_getGuidesByCategorySlug",
+        "description": "Retrieve Help Center guide list by category slug."
       },
       "parameters": [
         {
@@ -2679,7 +2635,8 @@
     },
     "/help-center/guides/{categorySlug}/{guideSlug}": {
       "get": {
-        "summary": "Get guide by category",
+        "summary": "Get Guide by Category",
+        "tags": ["help-center"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2703,9 +2660,8 @@
             }
           }
         },
-        "operationId": "getHelpCenterGuideByCategory",
-        "description": "Retrieve Help Center guide by category and guide slug.",
-        "tags": ["help_center_guide"]
+        "operationId": "helpCenter_getGuideByCategoryGuideSlug",
+        "description": "Retrieve Help Center guide by category and guide slug."
       },
       "parameters": [
         {
@@ -2730,7 +2686,8 @@
     },
     "/help-center/guides/categories": {
       "get": {
-        "summary": "Get guide categories",
+        "summary": "Get Guide Categories",
+        "tags": ["help-center"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2751,15 +2708,15 @@
             }
           }
         },
-        "operationId": "getHelpCenterGuideCategories",
-        "description": "Retrieve Help Center guide categories.",
-        "tags": ["help_center_guide_categories"]
+        "operationId": "helpCenter_getGuideCategories",
+        "description": "Retrieve Help Center guide categories."
       },
       "parameters": []
     },
     "/help-center/faqs": {
       "get": {
-        "summary": "Get faqs",
+        "summary": "Get FAQs",
+        "tags": ["help-center"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2780,15 +2737,15 @@
             }
           }
         },
-        "operationId": "getHelpCenterFaqs",
-        "description": "Retrieve Help Center faqs.",
-        "tags": ["help_center_faqs"]
+        "operationId": "helpCenter_getFaqs",
+        "description": "Retrieve Help Center faqs."
       },
       "parameters": []
     },
     "/help-center/faqs/{categorySlug}": {
       "get": {
-        "summary": "Get faqs by category",
+        "summary": "Get FAQ List by Category",
+        "tags": ["help-center"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2809,9 +2766,8 @@
             }
           }
         },
-        "operationId": "getHelpCenterFaqsByCategory",
-        "description": "Retrieve Help Center faqs by category slug.",
-        "tags": ["help_center_faqs_by_category"]
+        "operationId": "helpCenter_getFaqsByCategorySlug",
+        "description": "Retrieve Help Center faqs by category slug."
       },
       "parameters": [
         {
@@ -2827,7 +2783,8 @@
     },
     "/help-center/faqs/most": {
       "get": {
-        "summary": "Get most asked faqs",
+        "summary": "Get Mostly FAQs",
+        "tags": ["help-center"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2848,15 +2805,15 @@
             }
           }
         },
-        "operationId": "getHelpCenterMostlyFaqs",
-        "description": "Retrieve Help Center mostly asked faqs.",
-        "tags": ["help_center_most_asked_faqs"]
+        "operationId": "helpCenter_getMostlyFaqs",
+        "description": "Retrieve Help Center mostly asked faqs."
       },
       "parameters": []
     },
     "/help-center/faqs/categories": {
       "get": {
-        "summary": "Get faq categories",
+        "summary": "Get FAQ Categories",
+        "tags": ["help-center"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2877,15 +2834,15 @@
             }
           }
         },
-        "operationId": "getHelpCenterFaqCategories",
-        "description": "Retrieve Help Center faq categories.",
-        "tags": ["help_center_faq_categories"]
+        "operationId": "helpCenter_getFaqCategories",
+        "description": "Retrieve Help Center faq categories."
       },
       "parameters": []
     },
     "/file-manager/{folderId}": {
       "get": {
-        "summary": "Get folder",
+        "summary": "Get Folder",
+        "tags": ["file-manager"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2914,9 +2871,8 @@
             }
           }
         },
-        "operationId": "getFileManagerFolder",
-        "description": "Retrieve File Manager folder by id.",
-        "tags": ["file_manager_folder"]
+        "operationId": "fileManager_getFolder",
+        "description": "Retrieve File Manager folder by id."
       },
       "parameters": [
         {
@@ -2930,8 +2886,9 @@
         }
       ],
       "put": {
-        "summary": "Update folder",
-        "operationId": "updateFileManagerFolder",
+        "summary": "Update Folder",
+        "tags": ["file-manager"],
+        "operationId": "fileManager_updateFolder",
         "responses": {
           "200": {
             "description": "OK"
@@ -2950,12 +2907,12 @@
             }
           },
           "description": ""
-        },
-        "tags": ["file_manager_folder"]
+        }
       },
       "delete": {
-        "summary": "Delete folder",
-        "operationId": "deleteFileManagerFolder",
+        "summary": "Delete Folder",
+        "tags": ["file-manager"],
+        "operationId": "fileManager_deleteFolder",
         "responses": {
           "200": {
             "description": "OK"
@@ -2964,13 +2921,224 @@
             "description": "Not Found"
           }
         },
-        "description": "Delete folder.",
-        "tags": ["file_manager_folder"]
+        "description": "Delete folder."
+      }
+    },
+    "/ecommerce/orders": {
+      "get": {
+        "summary": "Get E-commerce Orders",
+        "tags": ["e-commerce"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ecommerce_order"
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "$ref": "#/components/examples/ecommerce_orders"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "ecommerce_getOrders",
+        "description": "Retrieve E-commerce orders."
+      },
+      "parameters": []
+    },
+    "/ecommerce/orders/{orderId}": {
+      "get": {
+        "summary": "Get E-commerce Order",
+        "tags": ["e-commerce"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ecommerce_order"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "id": "string",
+                      "reference": "string",
+                      "subtotal": "string",
+                      "tax": "string",
+                      "discount": "string",
+                      "total": "string",
+                      "date": "string",
+                      "customer": {
+                        "id": 0,
+                        "firstName": "string",
+                        "lastName": "string",
+                        "avatar": "string",
+                        "company": "string",
+                        "jobTitle": "string",
+                        "email": "string",
+                        "phone": "string",
+                        "invoiceAddress": {
+                          "address": "string",
+                          "lat": 0,
+                          "lng": 0
+                        },
+                        "shippingAddress": {
+                          "address": "string",
+                          "lat": 0,
+                          "lng": 0
+                        }
+                      },
+                      "products": [null],
+                      "status": [
+                        {
+                          "id": 0,
+                          "name": "string",
+                          "color": "string",
+                          "date": "string"
+                        }
+                      ],
+                      "payment": {
+                        "transactionId": "string",
+                        "amount": "string",
+                        "method": "string",
+                        "date": "string"
+                      },
+                      "shippingDetails": [
+                        {
+                          "tracking": "string",
+                          "carrier": "string",
+                          "weight": "string",
+                          "fee": "string",
+                          "date": "string"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "ecommerce_getOrder",
+        "description": "Retrieve E-commerce order by id."
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "orderId",
+          "in": "path",
+          "required": true,
+          "description": "order id"
+        }
+      ],
+      "put": {
+        "summary": "Update E-commerce Order",
+        "tags": ["e-commerce"],
+        "operationId": "ecommerce_updateOrder",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "description": "Update E-commerce order information.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ecommerce_order"
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "id": "string",
+                    "reference": "string",
+                    "subtotal": "string",
+                    "tax": "string",
+                    "discount": "string",
+                    "total": "string",
+                    "date": "string",
+                    "customer": {
+                      "id": 0,
+                      "firstName": "string",
+                      "lastName": "string",
+                      "avatar": "string",
+                      "company": "string",
+                      "jobTitle": "string",
+                      "email": "string",
+                      "phone": "string",
+                      "invoiceAddress": {
+                        "address": "string",
+                        "lat": 0,
+                        "lng": 0
+                      },
+                      "shippingAddress": {
+                        "address": "string",
+                        "lat": 0,
+                        "lng": 0
+                      }
+                    },
+                    "products": [null],
+                    "status": [
+                      {
+                        "id": 0,
+                        "name": "string",
+                        "color": "string",
+                        "date": "string"
+                      }
+                    ],
+                    "payment": {
+                      "transactionId": "string",
+                      "amount": "string",
+                      "method": "string",
+                      "date": "string"
+                    },
+                    "shippingDetails": [
+                      {
+                        "tracking": "string",
+                        "carrier": "string",
+                        "weight": "string",
+                        "fee": "string",
+                        "date": "string"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete E-commerce Order",
+        "tags": ["e-commerce"],
+        "operationId": "ecommerce_deleteOrder",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "description": "Delete E-commerce order."
       }
     },
     "/ecommerce/products": {
       "get": {
-        "summary": "Get products",
+        "summary": "Get E-commerce Products",
+        "tags": ["e-commerce"],
         "responses": {
           "200": {
             "description": "OK",
@@ -2991,14 +3159,14 @@
             }
           }
         },
-        "operationId": "getECommerceProducts",
-        "description": "Retrieve E-commerce products.",
-        "tags": ["eCommerce_products"]
+        "operationId": "ecommerce_getProducts",
+        "description": "Retrieve E-commerce products."
       },
       "parameters": [],
       "delete": {
-        "summary": "Delete products",
-        "operationId": "deleteECommerceProducts",
+        "summary": "",
+        "tags": ["e-commerce"],
+        "operationId": "ecommerce_removeProducts",
         "responses": {
           "200": {
             "description": "OK"
@@ -3017,13 +3185,13 @@
           },
           "description": "Product ids"
         },
-        "description": "Remove E-commerce products by ids",
-        "tags": ["eCommerce_products"]
+        "description": "Remove E-commerce products by ids"
       }
     },
     "/ecommerce/products/{productId}": {
       "get": {
-        "summary": "Get product",
+        "summary": "Get Product",
+        "tags": ["e-commerce"],
         "responses": {
           "200": {
             "description": "OK",
@@ -3062,9 +3230,8 @@
             }
           }
         },
-        "operationId": "getECommerceProduct",
-        "description": "Retrieve E-commerce product by id.",
-        "tags": ["eCommerce_product", "eCommerce_products"]
+        "operationId": "ecommerce_getProduct",
+        "description": "Retrieve E-commerce product by id."
       },
       "parameters": [
         {
@@ -3078,8 +3245,9 @@
         }
       ],
       "put": {
-        "summary": "Update product",
-        "operationId": "updateECommerceProduct",
+        "summary": "Update Product",
+        "tags": ["e-commerce"],
+        "operationId": "ecommerce_updateProduct",
         "responses": {
           "200": {
             "description": "OK"
@@ -3123,176 +3291,12 @@
               }
             }
           }
-        },
-        "tags": ["eCommerce_product", "eCommerce_products"]
-      },
-      "delete": {
-        "summary": "Delete product",
-        "operationId": "deleteECommerceProduct",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "description": "Delete E-commerce product.",
-        "tags": ["eCommerce_products", "eCommerce_product"]
-      }
-    },
-    "/ecommerce/orders": {
-      "get": {
-        "summary": "Get orders",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ecommerce_order"
-                  }
-                },
-                "examples": {
-                  "example-1": {
-                    "$ref": "#/components/examples/ecommerce_orders"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getECommerceOrders",
-        "description": "Retrieve E-commerce orders.",
-        "tags": ["eCommerce_orders"],
-        "x-stoplight": {
-          "id": "x71nx4hzq184b"
         }
       },
-      "parameters": [],
       "delete": {
-        "summary": "Delete Orders",
-        "operationId": "deleteEcommerceOrders",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "x-stoplight": {
-          "id": "92bu4y5riik1p"
-        },
-        "requestBody": {
-          "description": "Order ids",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "x-stoplight": {
-                    "id": "xs3u6yv88qfix"
-                  },
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "tags": ["eCommerce_order", "eCommerce_orders"],
-        "description": "Delete E-commerce orders."
-      }
-    },
-    "/ecommerce/orders/{orderId}": {
-      "get": {
-        "summary": "Get order",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ecommerce_order"
-                },
-                "examples": {
-                  "example-1": {
-                    "value": {
-                      "id": "string",
-                      "reference": "string",
-                      "subtotal": "string",
-                      "tax": "string",
-                      "discount": "string",
-                      "total": "string",
-                      "date": "string",
-                      "customer": {
-                        "id": "0",
-                        "firstName": "string",
-                        "lastName": "string",
-                        "avatar": "string",
-                        "company": "string",
-                        "jobTitle": "string",
-                        "email": "string",
-                        "phone": "string",
-                        "invoiceAddress": {
-                          "address": "string",
-                          "lat": 0,
-                          "lng": 0
-                        },
-                        "shippingAddress": {
-                          "address": "string",
-                          "lat": 0,
-                          "lng": 0
-                        }
-                      },
-                      "products": [null],
-                      "status": [
-                        {
-                          "id": "0",
-                          "name": "string",
-                          "color": "string",
-                          "date": "string"
-                        }
-                      ],
-                      "payment": {
-                        "transactionId": "string",
-                        "amount": "string",
-                        "method": "string",
-                        "date": "string"
-                      },
-                      "shippingDetails": [
-                        {
-                          "tracking": "string",
-                          "carrier": "string",
-                          "weight": "string",
-                          "fee": "string",
-                          "date": "string"
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getECommerceOrder",
-        "description": "Retrieve E-commerce order by id.",
-        "tags": ["eCommerce_order"]
-      },
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "orderId",
-          "in": "path",
-          "required": true,
-          "description": "order id"
-        }
-      ],
-      "put": {
-        "summary": "Update order",
-        "operationId": "updateECommerceOrder",
+        "summary": "Delete Product",
+        "tags": ["e-commerce"],
+        "operationId": "ecommerce_deleteProduct",
         "responses": {
           "200": {
             "description": "OK"
@@ -3301,93 +3305,13 @@
             "description": "Not Found"
           }
         },
-        "description": "Update E-commerce order information.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ecommerce_order"
-              },
-              "examples": {
-                "example-1": {
-                  "value": {
-                    "id": "string",
-                    "reference": "string",
-                    "subtotal": "string",
-                    "tax": "string",
-                    "discount": "string",
-                    "total": "string",
-                    "date": "string",
-                    "customer": {
-                      "id": "0",
-                      "firstName": "string",
-                      "lastName": "string",
-                      "avatar": "string",
-                      "company": "string",
-                      "jobTitle": "string",
-                      "email": "string",
-                      "phone": "string",
-                      "invoiceAddress": {
-                        "address": "string",
-                        "lat": 0,
-                        "lng": 0
-                      },
-                      "shippingAddress": {
-                        "address": "string",
-                        "lat": 0,
-                        "lng": 0
-                      }
-                    },
-                    "products": [null],
-                    "status": [
-                      {
-                        "id": "0",
-                        "name": "string",
-                        "color": "string",
-                        "date": "string"
-                      }
-                    ],
-                    "payment": {
-                      "transactionId": "string",
-                      "amount": "string",
-                      "method": "string",
-                      "date": "string"
-                    },
-                    "shippingDetails": [
-                      {
-                        "tracking": "string",
-                        "carrier": "string",
-                        "weight": "string",
-                        "fee": "string",
-                        "date": "string"
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": ["eCommerce_order", "eCommerce_orders"]
-      },
-      "delete": {
-        "summary": "Delete order",
-        "operationId": "deleteECommerceOrder",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "description": "Delete E-commerce order.",
-        "tags": ["eCommerce_orders", "eCommerce_order"]
+        "description": "Delete E-commerce product."
       }
     },
     "/academy/courses": {
       "get": {
-        "summary": "Get courses",
+        "summary": "Get Academy Courses",
+        "tags": ["academy"],
         "responses": {
           "200": {
             "description": "OK",
@@ -3408,15 +3332,15 @@
             }
           }
         },
-        "operationId": "getAcademyCourses",
-        "description": "Retrieve Academy courses.",
-        "tags": ["academy_courses"]
+        "operationId": "academy_getCourses",
+        "description": "Retrieve Academy courses."
       },
       "parameters": []
     },
     "/academy/courses/{courseId}": {
       "get": {
-        "summary": "Get course",
+        "summary": "Get Academy Course",
+        "tags": ["academy"],
         "responses": {
           "200": {
             "description": "OK",
@@ -3448,9 +3372,8 @@
             }
           }
         },
-        "operationId": "getAcademyCourse",
-        "description": "Retrieve Academy course by id.",
-        "tags": ["academy_course"]
+        "operationId": "academy_getCourse",
+        "description": "Retrieve Academy course by id."
       },
       "parameters": [
         {
@@ -3464,8 +3387,9 @@
         }
       ],
       "put": {
-        "summary": "Update course",
-        "operationId": "updateAcademyCourse",
+        "summary": "Update Academy Course",
+        "tags": ["academy"],
+        "operationId": "academy_updateCourse",
         "responses": {
           "200": {
             "description": "OK"
@@ -3502,12 +3426,12 @@
               }
             }
           }
-        },
-        "tags": ["academy_course", "academy_courses"]
+        }
       },
       "delete": {
-        "summary": "Delete course",
-        "operationId": "deleteAcademyCourse",
+        "summary": "Delete Academy Course",
+        "tags": ["academy"],
+        "operationId": "academy_deleteCourse",
         "responses": {
           "200": {
             "description": "OK"
@@ -3516,13 +3440,13 @@
             "description": "Not Found"
           }
         },
-        "description": "Delete Academy course.",
-        "tags": ["academy_courses"]
+        "description": "Delete Academy course."
       }
     },
     "/academy/categories": {
       "get": {
-        "summary": "Get categories",
+        "summary": "Get Academy Categories",
+        "tags": ["academy"],
         "responses": {
           "200": {
             "description": "OK",
@@ -3543,15 +3467,15 @@
             }
           }
         },
-        "operationId": "getAcademyCategories",
-        "description": "Retrieve Academy category list.",
-        "tags": ["academy_categories"]
+        "operationId": "academy_getCategories",
+        "description": "Retrieve Academy categories."
       },
       "parameters": []
     },
-    "/messenger/contacts": {
+    "/chat/contacts": {
       "get": {
-        "summary": "Get contacts",
+        "summary": "Get Chat Contacts",
+        "tags": ["chat"],
         "responses": {
           "200": {
             "description": "OK",
@@ -3572,18 +3496,15 @@
             }
           }
         },
-        "operationId": "getMessengerContacts",
-        "description": "Retrieve Messenger contacts.",
-        "x-stoplight": {
-          "id": "8wjzq1q8ngoef"
-        },
-        "tags": ["messenger_contacts"]
+        "operationId": "chat_getContacts",
+        "description": "Retrieve Chat contacts."
       },
       "parameters": []
     },
-    "/messenger/contacts/{contactId}": {
+    "/chat/contacts/{contactId}": {
       "get": {
-        "summary": "Get contact",
+        "summary": "Get Chat Contact",
+        "tags": ["chat"],
         "responses": {
           "200": {
             "description": "OK",
@@ -3630,12 +3551,8 @@
             }
           }
         },
-        "operationId": "getMessengerContact",
-        "description": "Retrieve Messenger contact by id.",
-        "x-stoplight": {
-          "id": "9isbvxatj57nk"
-        },
-        "tags": ["messenger_contact"]
+        "operationId": "chat_getContact",
+        "description": "Retrieve Chat contact by id."
       },
       "parameters": [
         {
@@ -3649,8 +3566,9 @@
         }
       ],
       "put": {
-        "summary": "Update contact",
-        "operationId": "updateMessengerContact",
+        "summary": "Update Chat Contact",
+        "tags": ["chat"],
+        "operationId": "chat_updateContact",
         "responses": {
           "200": {
             "description": "OK"
@@ -3702,15 +3620,12 @@
               }
             }
           }
-        },
-        "x-stoplight": {
-          "id": "y44id5lgo0dfq"
-        },
-        "tags": ["messenger_contact"]
+        }
       },
       "delete": {
-        "summary": "Delete contact",
-        "operationId": "deleteMessengerContact",
+        "summary": "Delete Chat Contact",
+        "tags": ["chat"],
+        "operationId": "chat_deleteContact",
         "responses": {
           "200": {
             "description": "OK"
@@ -3719,16 +3634,13 @@
             "description": "Not Found"
           }
         },
-        "description": "Delete contact.",
-        "x-stoplight": {
-          "id": "9q07xu89n43oz"
-        },
-        "tags": ["messenger_contacts"]
+        "description": "Delete contact."
       }
     },
-    "/messenger/chats": {
+    "/chat/chats": {
       "get": {
-        "summary": "Get chats",
+        "summary": "Get Chats",
+        "tags": ["chat"],
         "responses": {
           "200": {
             "description": "OK",
@@ -3749,16 +3661,12 @@
             }
           }
         },
-        "operationId": "getMessengerChats",
-        "description": "Retrieve list of chats.",
-        "x-stoplight": {
-          "id": "a914zho6g0v8j"
-        },
-        "tags": ["messenger_chats"]
+        "operationId": "chat_getChats",
+        "description": "Retrieve list of chats."
       },
       "parameters": []
     },
-    "/messenger/chats/{contactId}": {
+    "/chat/chats/{contactId}": {
       "parameters": [
         {
           "schema": {
@@ -3771,8 +3679,8 @@
         }
       ],
       "get": {
-        "summary": "Get chat",
-        "operationId": "getMessengerChat",
+        "summary": "Get Chat Messages",
+        "operationId": "chat_getChat",
         "responses": {
           "200": {
             "description": "OK",
@@ -3797,13 +3705,11 @@
           }
         },
         "description": "Retrieve the messages of the chat with the matching contact ID.",
-        "x-stoplight": {
-          "id": "h0ammo8n1ki73"
-        }
+        "tags": ["chat"]
       },
       "delete": {
-        "summary": "Delete chat",
-        "operationId": "deleteMessengerChat",
+        "summary": "Delete Chat",
+        "operationId": "chat_deleteChat",
         "responses": {
           "200": {
             "description": "OK"
@@ -3813,14 +3719,12 @@
           }
         },
         "description": "Delete an existing chat.",
-        "x-stoplight": {
-          "id": "2cgne09z6ye9x"
-        },
-        "tags": ["messenger_chats"]
+        "tags": ["chat"]
       },
       "put": {
-        "summary": "Send message",
-        "operationId": "sendMessengerMessage",
+        "summary": "Update Chat Messages",
+        "tags": ["chat"],
+        "operationId": "chat_updateChat",
         "responses": {
           "200": {
             "description": "OK",
@@ -3833,7 +3737,7 @@
             }
           }
         },
-        "description": "Send chat message.",
+        "description": "Update the messages of an existing chat.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3851,16 +3755,13 @@
             }
           },
           "description": "Update chat messages."
-        },
-        "x-stoplight": {
-          "id": "satehp9hs0v2m"
-        },
-        "tags": ["messenger_chat", "messenger_chats"]
+        }
       }
     },
-    "/messenger/profile": {
+    "/chat/profile": {
       "get": {
-        "summary": "Get user profile",
+        "summary": "Get Chat User Profile",
+        "tags": ["chat"],
         "responses": {
           "200": {
             "description": "OK",
@@ -3878,18 +3779,15 @@
             }
           }
         },
-        "operationId": "getMessengerUserProfile",
-        "description": "Retrieve Messenger user profile.",
-        "x-stoplight": {
-          "id": "ssc3msz8jtmf2"
-        },
-        "tags": ["messenger_user_profile"]
+        "operationId": "chat_getUserProfile",
+        "description": "Retrieve Chat user profile."
       },
       "parameters": []
     },
     "/tasks": {
       "get": {
-        "summary": "Get tasks",
+        "summary": "Get Tasks",
+        "tags": ["tasks"],
         "responses": {
           "200": {
             "description": "OK",
@@ -3910,13 +3808,12 @@
             }
           }
         },
-        "operationId": "getTasks",
-        "description": "Retrieve all of the tasks.",
-        "tags": ["tasks_list"]
+        "operationId": "tasks_getTasks",
+        "description": "Retrieve all of the tasks."
       },
       "post": {
-        "summary": "Create new task",
-        "operationId": "createTasksItem",
+        "summary": "Create New Task",
+        "operationId": "tasks_createTask",
         "responses": {
           "201": {
             "description": "Created",
@@ -3985,7 +3882,7 @@
           }
         },
         "description": "Creates a new task.",
-        "tags": ["tasks_list"]
+        "tags": ["tasks"]
       },
       "parameters": []
     },
@@ -4002,7 +3899,7 @@
         }
       ],
       "get": {
-        "summary": "Get task by id",
+        "summary": "Get Task by Task ID",
         "responses": {
           "200": {
             "description": "OK",
@@ -4041,13 +3938,13 @@
             "description": "Not Found"
           }
         },
-        "operationId": "getTasksItem",
+        "operationId": "tasks_getTask",
         "description": "Retrieve the information of the task with the matching task ID.",
-        "tags": ["tasks_item"]
+        "tags": ["tasks"]
       },
       "delete": {
-        "summary": "Delete task",
-        "operationId": "deleteTasksItem",
+        "summary": "Delete Task",
+        "operationId": "tasks_deleteTask",
         "responses": {
           "200": {
             "description": "OK"
@@ -4057,11 +3954,12 @@
           }
         },
         "description": "Delete an existing task.",
-        "tags": ["tasks_list"]
+        "tags": ["tasks"]
       },
       "put": {
-        "summary": "Update task",
-        "operationId": "updateTasksItem",
+        "summary": "Update Task Information",
+        "tags": ["tasks"],
+        "operationId": "tasks_updateTask",
         "responses": {
           "200": {
             "description": "OK",
@@ -4130,13 +4028,12 @@
             }
           },
           "description": "Update task properties."
-        },
-        "tags": ["tasks_item", "tasks_list"]
+        }
       }
     },
     "/tasks/tags": {
       "get": {
-        "summary": "Get tags",
+        "summary": "Get Tags",
         "responses": {
           "200": {
             "description": "OK",
@@ -4157,14 +4054,14 @@
             }
           }
         },
-        "operationId": "getTasksTags",
+        "operationId": "tasks_getTags",
         "description": "Retrieve all of the tags.",
-        "tags": ["tasks_tags"]
+        "tags": ["tasks"]
       },
       "parameters": [],
       "post": {
-        "summary": "Create new tag",
-        "operationId": "createTasksTag",
+        "summary": "Create New Tag",
+        "operationId": "tasks_createTag",
         "responses": {
           "200": {
             "description": "OK",
@@ -4203,7 +4100,7 @@
           }
         },
         "description": "Creates a new tag.",
-        "tags": ["tasks_tags"]
+        "tags": ["tasks"]
       }
     },
     "/contacts/{contactId}": {
@@ -4219,7 +4116,7 @@
         }
       ],
       "get": {
-        "summary": "Get contact by id",
+        "summary": "Get Contact by Contact ID",
         "responses": {
           "200": {
             "description": "User Found",
@@ -4264,13 +4161,13 @@
             "description": "Contact Not Found"
           }
         },
-        "operationId": "getContactsItem",
+        "operationId": "contacts_getContact",
         "description": "Retrieve the information of the contact with the matching contact ID.",
-        "tags": ["contacts_item"]
+        "tags": ["contacts"]
       },
       "put": {
-        "summary": "Update contact",
-        "operationId": "updateContactsItem",
+        "summary": "Update Contact Information",
+        "operationId": "contacts_updateContact",
         "responses": {
           "200": {
             "description": "Contact Updated",
@@ -4330,8 +4227,8 @@
         "tags": ["contacts"]
       },
       "delete": {
-        "summary": "Delete contact",
-        "operationId": "deleteContactsItem",
+        "summary": "Delete Contact",
+        "operationId": "contacts_deleteContact",
         "responses": {
           "200": {
             "description": "OK"
@@ -4346,7 +4243,7 @@
     },
     "/contacts": {
       "get": {
-        "summary": "Get contacts",
+        "summary": "Get Contacts",
         "tags": ["contacts"],
         "responses": {
           "200": {
@@ -4368,12 +4265,12 @@
             }
           }
         },
-        "operationId": "getContactsList",
+        "operationId": "contacts_getContacts",
         "description": "Retrieve all of the contacts."
       },
       "post": {
-        "summary": "Create new contact",
-        "operationId": "createContactsItem",
+        "summary": "Create New Contact",
+        "operationId": "contacts_createContact",
         "responses": {
           "201": {
             "description": "Created",
@@ -4471,7 +4368,7 @@
         }
       ],
       "get": {
-        "summary": "Get tag by id",
+        "summary": "Get Tag by Tag ID",
         "responses": {
           "200": {
             "description": "Tag Found",
@@ -4495,13 +4392,13 @@
             "description": "Not Found"
           }
         },
-        "operationId": "getContactsTag",
+        "operationId": "contacts_getTag",
         "description": "Retrieve the information of the tag with the matching tag ID.",
-        "tags": ["contacts_tag"]
+        "tags": ["contacts"]
       },
       "put": {
-        "summary": "Update tag info",
-        "operationId": "updateContactsTag",
+        "summary": "Update Tag Info",
+        "operationId": "contacts_updateTag",
         "responses": {
           "200": {
             "description": "Contact Updated",
@@ -4537,11 +4434,11 @@
           },
           "description": "Update tag properties to update."
         },
-        "tags": ["contacts_tag"]
+        "tags": ["contacts"]
       },
       "delete": {
-        "summary": "Delete tag",
-        "operationId": "deleteContactsTag",
+        "summary": "Delete Tag",
+        "operationId": "contacts_deleteTag",
         "responses": {
           "200": {
             "description": "OK"
@@ -4556,7 +4453,7 @@
     },
     "/contacts/tags": {
       "get": {
-        "summary": "Get tags",
+        "summary": "Get Tags",
         "responses": {
           "200": {
             "description": "OK",
@@ -4577,14 +4474,14 @@
             }
           }
         },
-        "operationId": "getContactsTags",
+        "operationId": "contacts_getTags",
         "description": "Retrieve all of the tags.",
-        "tags": ["contacts_tags"]
+        "tags": ["contacts"]
       },
       "parameters": [],
       "post": {
-        "summary": "Create new tag",
-        "operationId": "createContactsTag",
+        "summary": "Create New Tag",
+        "operationId": "contacts_createTag",
         "responses": {
           "200": {
             "description": "OK",
@@ -4622,12 +4519,13 @@
             }
           }
         },
-        "description": "Creates new tag."
+        "description": "Creates new tag.",
+        "tags": ["contacts"]
       }
     },
     "/countries": {
       "get": {
-        "summary": "Get countries",
+        "summary": "Get Countries",
         "tags": ["countries"],
         "responses": {
           "200": {
@@ -4649,7 +4547,7 @@
             }
           }
         },
-        "operationId": "getCountries",
+        "operationId": "countries_getCountries",
         "description": "Retrieve all of the countries."
       }
     }
@@ -5224,24 +5122,8 @@
         }
       },
       "academy_course": {
+        "description": "",
         "type": "object",
-        "x-examples": {
-          "example-1": {
-            "id": "694e4e5f-f25f-470b-bd0e-26b1d4f64028",
-            "title": "Basics of Angular",
-            "slug": "basics-of-angular",
-            "description": "Introductory course for Angular and framework basics",
-            "category": "web",
-            "duration": 30,
-            "totalSteps": 11,
-            "updatedAt": "Jun 28, 2021",
-            "featured": true,
-            "progress": {
-              "currentStep": 3,
-              "completed": 2
-            }
-          }
-        },
         "properties": {
           "id": {
             "type": "string",
@@ -5278,7 +5160,6 @@
           },
           "progress": {
             "type": "object",
-            "required": ["currentStep", "completed"],
             "properties": {
               "currentStep": {
                 "type": "number"
@@ -5286,51 +5167,8 @@
               "completed": {
                 "type": "number"
               }
-            }
-          },
-          "activeStep": {
-            "type": "number",
-            "x-stoplight": {
-              "id": "jgxsmp6cj1m6r"
-            }
-          },
-          "steps": {
-            "type": "array",
-            "x-stoplight": {
-              "id": "kh3diwk23a2sn"
             },
-            "items": {
-              "x-stoplight": {
-                "id": "47yp0y08xmcu9"
-              },
-              "type": "object",
-              "properties": {
-                "content": {
-                  "type": "string",
-                  "x-stoplight": {
-                    "id": "th8nsquqfvhdw"
-                  }
-                },
-                "title": {
-                  "type": "string",
-                  "x-stoplight": {
-                    "id": "ow8eu2rsuap3d"
-                  }
-                },
-                "subtitle": {
-                  "type": "string",
-                  "x-stoplight": {
-                    "id": "3z4gyiqtnarkm"
-                  }
-                },
-                "order": {
-                  "type": "number",
-                  "x-stoplight": {
-                    "id": "e8idhf4zaq9w7"
-                  }
-                }
-              }
-            }
+            "required": ["currentStep", "completed"]
           }
         },
         "required": [
@@ -5344,7 +5182,24 @@
           "updatedAt",
           "featured",
           "progress"
-        ]
+        ],
+        "x-examples": {
+          "example-1": {
+            "id": "694e4e5f-f25f-470b-bd0e-26b1d4f64028",
+            "title": "Basics of Angular",
+            "slug": "basics-of-angular",
+            "description": "Introductory course for Angular and framework basics",
+            "category": "web",
+            "duration": 30,
+            "totalSteps": 11,
+            "updatedAt": "Jun 28, 2021",
+            "featured": true,
+            "progress": {
+              "currentStep": 3,
+              "completed": 2
+            }
+          }
+        }
       },
       "academy_category": {
         "description": "",
@@ -5378,6 +5233,7 @@
         }
       },
       "ecommerce_order": {
+        "description": "",
         "type": "object",
         "x-examples": {
           "example-1": {
@@ -5485,7 +5341,7 @@
             ],
             "properties": {
               "id": {
-                "type": "string"
+                "type": "number"
               },
               "firstName": {
                 "type": "string",
@@ -5561,7 +5417,7 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "type": "string"
+                  "type": "number"
                 },
                 "name": {
                   "type": "string",
@@ -5840,16 +5696,8 @@
         }
       },
       "help_center_guide": {
+        "description": "",
         "type": "object",
-        "x-examples": {
-          "example-1": {
-            "id": "a008ffa3-7b3f-43be-8a8f-dbf5272ed2dd",
-            "categoryId": "0ee72de7-49c0-4880-9e89-b72a4edd6a81",
-            "slug": "what-is-this-app",
-            "title": "What is this app?",
-            "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
-          }
-        },
         "properties": {
           "id": {
             "type": "string",
@@ -5870,15 +5718,18 @@
           "subtitle": {
             "type": "string",
             "minLength": 1
-          },
-          "content": {
-            "type": "string",
-            "x-stoplight": {
-              "id": "8cob0a7979x9b"
-            }
           }
         },
-        "required": ["id", "categoryId", "slug", "title", "subtitle"]
+        "required": ["id", "categoryId", "slug", "title", "subtitle"],
+        "x-examples": {
+          "example-1": {
+            "id": "a008ffa3-7b3f-43be-8a8f-dbf5272ed2dd",
+            "categoryId": "0ee72de7-49c0-4880-9e89-b72a4edd6a81",
+            "slug": "what-is-this-app",
+            "title": "What is this app?",
+            "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+          }
+        }
       },
       "help_center_faq": {
         "description": "",
@@ -6163,6 +6014,7 @@
         "title": ""
       },
       "scrumboard_card": {
+        "description": "",
         "type": "object",
         "x-examples": {
           "example-1": {
@@ -6283,10 +6135,6 @@
             "type": "array",
             "items": {}
           },
-          "labels - copy": {
-            "type": "array",
-            "items": {}
-          },
           "dueDate": {
             "type": "number",
             "nullable": true
@@ -6378,7 +6226,7 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "type": "string"
+                  "type": "number"
                 },
                 "type": {
                   "type": "string",
@@ -6413,8 +6261,7 @@
           "subscribed",
           "checklists",
           "activities"
-        ],
-        "x-tags": ["courses", "course"]
+        ]
       },
       "scrumboard_label": {
         "description": "",
@@ -6894,7 +6741,7 @@
       "auth_user": {
         "type": "object",
         "properties": {
-          "uid": {
+          "uuid": {
             "type": "string"
           },
           "from": {
@@ -6942,7 +6789,8 @@
         },
         "x-examples": {
           "example-1": {
-            "uid": "XgbuVEXBU5gtSKdbQRP1Zbbby1i1",
+            "uuid": "XgbuVEXBU5gtSKdbQRP1Zbbby1i1",
+            "from": "custom-db",
             "password": "admin",
             "role": "admin",
             "data": {
@@ -18518,6 +18366,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -18525,6 +18374,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -18532,6 +18382,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -18599,6 +18450,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -18606,6 +18458,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -18613,6 +18466,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -18680,6 +18534,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -18687,6 +18542,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -18694,6 +18550,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -18761,6 +18618,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -18768,6 +18626,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -18775,6 +18634,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -18842,6 +18702,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -18849,6 +18710,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -18856,6 +18718,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -18923,6 +18786,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -18930,6 +18794,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -18937,6 +18802,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19004,6 +18870,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19011,6 +18878,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19018,6 +18886,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19085,6 +18954,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19092,6 +18962,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19099,6 +18970,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19166,6 +19038,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19173,6 +19046,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19180,6 +19054,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19247,6 +19122,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19254,6 +19130,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19261,6 +19138,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19328,6 +19206,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19335,6 +19214,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19342,6 +19222,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19409,6 +19290,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19416,6 +19298,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19423,6 +19306,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19490,6 +19374,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19497,6 +19382,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19504,6 +19390,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19571,6 +19458,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19578,6 +19466,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19585,6 +19474,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19652,6 +19542,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19659,6 +19550,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19666,6 +19558,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19733,6 +19626,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19740,6 +19634,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19747,6 +19642,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19814,6 +19710,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19821,6 +19718,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19828,6 +19726,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19895,6 +19794,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19902,6 +19802,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19909,6 +19810,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -19976,6 +19878,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -19983,6 +19886,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -19990,6 +19894,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -20057,6 +19962,7 @@
                 "name": "A Walk Amongst Friends - Canvas Print",
                 "price": "10.24",
                 "quantity": 1,
+                "total": "10.24",
                 "image": "assets/images/apps/ecommerce/a-walk-amongst-friends.jpg"
               },
               {
@@ -20064,6 +19970,7 @@
                 "name": "Lago di Braies - Canvas Print",
                 "price": "24.62",
                 "quantity": 1,
+                "total": "24.62",
                 "image": "assets/images/apps/ecommerce/lago-di-braies.jpg"
               },
               {
@@ -20071,6 +19978,7 @@
                 "name": "Never Stop Changing - Canvas Print",
                 "price": "49.29",
                 "quantity": 1,
+                "total": "49.29",
                 "image": "assets/images/apps/ecommerce/never-stop-changing.jpg"
               }
             ],
@@ -21674,7 +21582,7 @@
                 "time": 1642766137
               },
               {
-                "id": "3",
+                "id": 3,
                 "type": "attachment",
                 "idMember": "8af617d7-898e-4992-beda-d5ac1d7ceda4",
                 "message": "attached a link",
@@ -31574,57 +31482,24 @@
       "auth_users": {
         "value": [
           {
-            "uid": "XgbuVEXBU5gtSKdbQRP1Zbbby1i1",
-            "password": "admin",
-            "role": "admin",
-            "data": {
-              "displayName": "Abbott Keitch",
-              "photoURL": "assets/images/avatars/brian-hughes.jpg",
-              "email": "admin@fusetheme.com",
-              "settings": {
-                "layout": {},
-                "theme": {}
-              },
-              "shortcuts": ["apps.calendar", "apps.mailbox", "apps.contacts"]
-            }
-          },
-          {
-            "uid": "XgbuVEXBU6gtSKdbTYR1Zbbby1i3",
-            "password": "staff",
-            "role": "staff",
-            "data": {
-              "displayName": "Arnold Matlock",
-              "photoURL": "assets/images/avatars/Arnold.jpg",
-              "email": "staff@fusetheme.com",
-              "settings": {
-                "layout": {
-                  "style": "layout2",
-                  "config": {
-                    "mode": "boxed",
-                    "scroll": "content",
-                    "navbar": {
-                      "display": true
-                    },
-                    "toolbar": {
-                      "display": true,
-                      "position": "below"
-                    },
-                    "footer": {
-                      "display": true,
-                      "style": "fixed"
-                    }
-                  }
-                },
-                "customScrollbars": true,
-                "theme": {}
-              },
-              "shortcuts": [
-                "apps.calendar",
-                "apps.mailbox",
-                "apps.contacts",
-                "apps.tasks"
-              ]
-            }
+            "isActive": true,
+            "blocked": false,
+            "_id": "621eb92191e4190016114a3c",
+            "username": "sparkles-admin",
+            "registrationToken": null,
+            "firstname": "Dovid",
+            "lastname": "Kaleky",
+            "email": "admin@dosparkles.com",
+            "__v": 0,
+            "id": "621eb92191e4190016114a3c",
+            "roles": [
+              {
+                "id": "621eb84091e4190016114927",
+                "name": "Super Admin",
+                "description": "Super Admins can access and manage all features and settings.",
+                "code": "strapi-super-admin"
+              }
+            ]
           }
         ]
       },
@@ -31719,5 +31594,87 @@
       }
     },
     "responses": {}
-  }
+  },
+  "tags": [
+    {
+      "name": "academy",
+      "description": "Academy App"
+    },
+    {
+      "name": "analytics-dashboard",
+      "description": "Analytics Dashboard App"
+    },
+    {
+      "name": "auth",
+      "description": "Authentication"
+    },
+    {
+      "name": "calendar",
+      "description": "Calendar App"
+    },
+    {
+      "name": "chat",
+      "description": "Chat App"
+    },
+    {
+      "name": "contacts",
+      "description": "Contacts App"
+    },
+    {
+      "name": "countries",
+      "description": "Countries"
+    },
+    {
+      "name": "crypto-dashboard",
+      "description": "Crypto Dashboard App"
+    },
+    {
+      "name": "e-commerce",
+      "description": "E-Commerce App"
+    },
+    {
+      "name": "file-manager",
+      "description": "File Manager App"
+    },
+    {
+      "name": "finance-dashboard",
+      "description": "Finance Dashboard App"
+    },
+    {
+      "name": "help-center",
+      "description": "Help Center App"
+    },
+    {
+      "name": "icons",
+      "description": "Icons"
+    },
+    {
+      "name": "mailbox",
+      "description": "Mailbox App"
+    },
+    {
+      "name": "notes",
+      "description": "Notes App"
+    },
+    {
+      "name": "notifications",
+      "description": "Notifications"
+    },
+    {
+      "name": "profile",
+      "description": "Profile App"
+    },
+    {
+      "name": "project-dashboard",
+      "description": "Project Dashboard App"
+    },
+    {
+      "name": "scrumboard",
+      "description": "Scrumboard App"
+    },
+    {
+      "name": "tasks",
+      "description": "Tasks App"
+    }
+  ]
 }

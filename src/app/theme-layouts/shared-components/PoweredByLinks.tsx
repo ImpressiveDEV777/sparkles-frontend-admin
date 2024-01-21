@@ -9,7 +9,7 @@ function PoweredByLinks() {
   const container = {
     show: {
       transition: {
-        staggerChildren: 0.04,
+        staggerChildren: 0.1,
       },
     },
   }
@@ -44,12 +44,12 @@ function PoweredByLinks() {
           />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Redux Toolkit" placement="top">
+      <Tooltip title="React Redux" placement="top">
         <IconButton
           className="h-48 w-48 px-4"
           component={motion.a}
           variants={item}
-          href="https://redux-toolkit.js.org/"
+          href="https://github.com/reactjs/react-redux"
           target="_blank"
           rel="noreferrer noopener"
           role="button"
@@ -108,21 +108,6 @@ function PoweredByLinks() {
                                     `,
             }}
           />
-        </IconButton>
-      </Tooltip>
-
-      <Tooltip title="ViteJs" placement="top">
-        <IconButton
-          className="h-48 w-48 px-4"
-          component={motion.a}
-          variants={item}
-          href="https://vitejs.dev/"
-          target="_blank"
-          rel="noreferrer noopener"
-          role="button"
-          size="large"
-        >
-          <img src="/assets/images/logo/vite.svg" alt="vite" width="32" />
         </IconButton>
       </Tooltip>
     </motion.div>

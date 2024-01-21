@@ -11,8 +11,8 @@ import React, {
   useState,
 } from 'react'
 import history from '@history'
-import { selectCustomScrollbarsEnabled } from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from 'app/store'
+import { selectCustomScrollbarsEnabled } from 'app/store/fuse/settingsSlice'
 
 const Root = styled('div')(() => ({
   overscrollBehavior: 'contain',
@@ -73,7 +73,7 @@ const FuseScrollbars = forwardRef<HTMLDivElement, FuseScrollbarsProps>(
     const psRef = useRef<PerfectScrollbar | null>(null)
     const handlerByEvent = useRef<Map<string, EventListener>>(new Map())
     const [style, setStyle] = useState({})
-    const customScrollbars = useSelector(selectCustomScrollbarsEnabled)
+    const customScrollbars = useAppSelector(selectCustomScrollbarsEnabled)
 
     const hookUpEvents = useCallback(() => {
       Object.keys(handlerNameByEvent).forEach(key => {

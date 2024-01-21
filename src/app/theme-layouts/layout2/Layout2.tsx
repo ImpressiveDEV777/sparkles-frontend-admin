@@ -7,14 +7,14 @@ import clsx from 'clsx'
 import { ReactNode, memo, useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { useRoutes } from 'react-router-dom'
-import { selectFuseCurrentLayoutConfig } from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
+import { selectFuseCurrentLayoutConfig } from 'app/store/fuse/settingsSlice'
 import { Layout2ConfigDefaultsType } from 'app/theme-layouts/layout2/Layout2Config'
 import FooterLayout2 from './components/FooterLayout2'
 import LeftSideLayout2 from './components/LeftSideLayout2'
 import NavbarWrapperLayout2 from './components/NavbarWrapperLayout2'
 import RightSideLayout2 from './components/RightSideLayout2'
 import ToolbarLayout2 from './components/ToolbarLayout2'
-import Configurator from '../shared-components/configurator/Configurator'
+import SettingsPanel from '../shared-components/SettingsPanel'
 
 const Root = styled('div')<{ config: Layout2ConfigDefaultsType }>(
   ({ config }) => ({
@@ -78,7 +78,7 @@ function Layout2(props: Layout2Props) {
           )}
 
           <div className="sticky top-0 z-99">
-            <Configurator />
+            <SettingsPanel />
           </div>
 
           <div className="relative z-10 flex min-h-0 flex-auto flex-col">

@@ -3,13 +3,10 @@ import { Theme } from '@mui/system/createTheme'
 import { styled } from '@mui/material/styles'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import { useSelector } from 'react-redux'
-import { selectFuseCurrentLayoutConfig } from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
-import { useAppDispatch } from 'app/store/store'
+import { navbarCloseMobile, selectFuseNavbar } from 'app/store/fuse/navbarSlice'
+import { selectFuseCurrentLayoutConfig } from 'app/store/fuse/settingsSlice'
+import { useAppDispatch } from 'app/store'
 import { Layout1ConfigDefaultsType } from 'app/theme-layouts/layout1/Layout1Config'
-import {
-  navbarCloseMobile,
-  selectFuseNavbar,
-} from 'app/theme-layouts/shared-components/navbar/store/navbarSlice'
 import NavbarStyle1Content from './NavbarStyle1Content'
 
 const navbarWidth = 280
@@ -68,7 +65,7 @@ function NavbarStyle1() {
     <>
       <Hidden lgDown>
         <StyledNavBar
-          className="sticky top-0 z-20 h-screen flex-auto shrink-0 flex-col overflow-hidden shadow"
+          className="sticky top-0 z-20 h-screen flex-auto shrink-0 flex-col overflow-hidden shadow-5"
           open={navbar.open}
           position={config.navbar.position}
         >

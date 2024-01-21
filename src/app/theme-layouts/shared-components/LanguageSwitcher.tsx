@@ -13,7 +13,7 @@ import {
   selectCurrentLanguage,
   selectLanguages,
 } from 'app/store/i18nSlice'
-import { useAppDispatch } from 'app/store/store'
+import { useAppDispatch } from 'app/store'
 
 /**
  * The language switcher.

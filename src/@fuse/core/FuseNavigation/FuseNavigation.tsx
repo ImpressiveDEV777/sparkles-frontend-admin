@@ -13,6 +13,7 @@ import FuseNavVerticalGroup from './vertical/types/FuseNavVerticalGroup'
 import FuseNavVerticalItem from './vertical/types/FuseNavVerticalItem'
 import FuseNavVerticalLink from './vertical/types/FuseNavVerticalLink'
 import { registerComponent } from './FuseNavItem'
+import { FuseNavigationType } from './types/FuseNavigationType'
 import { FuseNavItemType } from './types/FuseNavItemType'
 
 const inputGlobalStyles = (
@@ -61,7 +62,7 @@ export type FuseNavigationProps = {
   dense?: boolean
   active?: boolean
   onItemClick?: (T: FuseNavItemType) => void
-  navigation?: FuseNavItemType[]
+  navigation: FuseNavigationType
   layout?: 'horizontal' | 'vertical' | 'vertical-2'
   firstLevel?: boolean
   selectedId?: string

@@ -1,3 +1,6 @@
+// Internet Explorer 11 requires polyfills and partially supported by this project.
+// import 'react-app-polyfill/ie11';
+// import 'react-app-polyfill/stable';
 import './i18n'
 import './styles/app-base.css'
 import './styles/app-components.css'

@@ -23,7 +23,8 @@ import { useNavigate } from 'react-router-dom'
 import * as React from 'react'
 import { PopperOwnProps } from '@mui/base/Popper'
 import FuseSvgIcon from '../FuseSvgIcon'
-import { FuseFlatNavItemType } from '../FuseNavigation/types/FuseNavItemType'
+import { FuseNavItemType } from '../FuseNavigation/types/FuseNavItemType'
+import { FuseNavigationType } from '../FuseNavigation/types/FuseNavigationType'
 
 const Root = styled('div')(({ theme }) => ({
   '& .FuseSearch-container': {
@@ -123,7 +124,7 @@ function renderInputComponent(props: RenderInputComponentProps) {
 }
 
 function renderSuggestion(
-  suggestion: FuseFlatNavItemType,
+  suggestion: FuseNavItemType,
   { query, isHighlighted }: RenderSuggestionParams,
 ) {
   const matches = match(suggestion.title, query)
@@ -160,8 +161,8 @@ function renderSuggestion(
 
 function getSuggestions(
   value: string,
-  data: FuseFlatNavItemType[],
-): FuseFlatNavItemType[] {
+  data: FuseNavigationType,
+): FuseNavigationType {
   const inputValue = _.deburr(value.trim()).toLowerCase()
   const inputLength = inputValue.length
   let count = 0
@@ -171,10 +172,7 @@ function getSuggestions(
   }
 
   return data.filter(suggestion => {
-    const keep =
-      count < 10 &&
-      suggestion?.title &&
-      match(suggestion?.title, inputValue)?.length > 0
+    const keep = count < 10 && match(suggestion.title, inputValue).length > 0
 
     if (keep) {
       count += 1
@@ -184,15 +182,15 @@ function getSuggestions(
   })
 }
 
-function getSuggestionValue(suggestion: FuseFlatNavItemType) {
+function getSuggestionValue(suggestion: FuseNavItemType) {
   return suggestion.title
 }
 
 type StateType = {
   searchText: string
   search: boolean
-  navigation: FuseFlatNavItemType[]
-  suggestions: FuseFlatNavItemType[]
+  navigation: FuseNavigationType
+  suggestions: FuseNavigationType
   noSuggestions: boolean
   opened: boolean
 }
@@ -208,7 +206,7 @@ const initialState: StateType = {
 
 type ActionType =
   | { type: 'setSearchText'; value: string }
-  | { type: 'setNavigation'; data: FuseFlatNavItemType[] }
+  | { type: 'setNavigation'; data: FuseNavigationType }
   | { type: 'updateSuggestions'; value: string }
   | { type: 'clearSuggestions' }
   | { type: 'open' }
@@ -271,7 +269,7 @@ function reducer(state: StateType, action: ActionType): StateType {
  */
 type FuseSearchProps = {
   className?: string
-  navigation: FuseFlatNavItemType[]
+  navigation: FuseNavigationType
   variant?: 'basic' | 'full'
   trigger?: ReactNode
   placeholder?: string
@@ -335,7 +333,7 @@ function FuseSearch(props: FuseSearchProps) {
 
   function handleSuggestionSelected(
     event: React.FormEvent<unknown>,
-    { suggestion }: { suggestion: FuseFlatNavItemType },
+    { suggestion }: { suggestion: FuseNavItemType },
   ) {
     event.preventDefault()
     event.stopPropagation()

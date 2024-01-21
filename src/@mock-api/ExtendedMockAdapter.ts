@@ -17,18 +17,11 @@ type matcherType = string | RegExp | undefined
 type RequestMatcherFunc = (matcher?: matcherType) => MockAdapter.RequestHandler
 
 class ExtendedMockAdapter extends MockAdapter {
-  private baseUrl: string
-
-  constructor(axiosInstance: any, mockAdapterOptions, baseUrl: string = '') {
-    super(axiosInstance)
-    this.baseUrl = baseUrl
-  }
-
   private RequestMatcherFunc(
     url: string | RegExp | undefined,
     requestType: string,
   ): RequestHandler {
-    const transformedUrl = transformUrlIfNeeded(this.baseUrl + (url || ''))
+    const transformedUrl = transformUrlIfNeeded(url)
     // @ts-ignore
     return createExtendedHandler(
       super[requestType](transformedUrl),

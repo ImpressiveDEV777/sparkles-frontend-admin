@@ -6,7 +6,7 @@ import {
   Dispatch,
   AnyAction,
 } from '@reduxjs/toolkit'
-import { RootState } from './store'
+import store from 'app/store'
 
 /**
  * The type of the dispatch function for this application (AppState).
@@ -24,7 +24,7 @@ export type AppAction<R = Promise<void>> =
 // export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootStateType, unknown, Action<string>>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
-  RootState,
+  RootStateType,
   { s: string; n: number },
   Action<string>
 >
@@ -33,9 +33,14 @@ export type AppDispatchType = Dispatch<Action<string>> &
   ((thunk: AppThunk) => Promise<AnyAction>)
 
 /**
+ * The base type of the root state for this application (AppState).
+ */
+export type BaseRootStateType = typeof store.getState
+
+/**
  * The extended type of the root state for this application (AppState).
  */
-type ExtendedRootStateType<T extends string, State> = RootState & {
+type ExtendedRootStateType<T extends string, State> = BaseRootStateType & {
   [K in T]: State
 }
 
@@ -108,7 +113,7 @@ type MultiplePathsToType<
  */
 export type RootStateWithSliceType<
   SliceType extends { name: string; getInitialState: () => unknown },
-> = RootState &
+> = BaseRootStateType &
   PathToType<SliceType['name'], ReturnType<SliceType['getInitialState']>>
 
 export type RootStateType<
@@ -120,10 +125,10 @@ export type RootStateType<
 > = T extends string
   ? ExtendedRootStateType<T, State>
   : T extends { name: string; getInitialState: () => unknown }
-    ? RootStateWithSliceType<T>
-    : T extends Array<{ name: string; getInitialState: () => unknown }>
-      ? RootState & MultiplePathsToType<T>
-      : RootState
+  ? RootStateWithSliceType<T>
+  : T extends Array<{ name: string; getInitialState: () => unknown }>
+  ? BaseRootStateType & MultiplePathsToType<T>
+  : BaseRootStateType
 
 export type AsyncStateType<T> = {
   data: T | null

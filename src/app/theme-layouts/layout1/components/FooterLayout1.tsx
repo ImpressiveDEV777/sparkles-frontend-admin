@@ -3,7 +3,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import { memo } from 'react'
 import { useSelector } from 'react-redux'
-import { selectFooterTheme } from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
+import { selectFooterTheme } from 'app/store/fuse/settingsSlice'
 import clsx from 'clsx'
 
 type FooterLayout1Props = { className?: string }
@@ -20,7 +20,7 @@ function FooterLayout1(props: FooterLayout1Props) {
     <ThemeProvider theme={footerTheme}>
       <AppBar
         id="fuse-footer"
-        className={clsx('relative z-20 shadow', className)}
+        className={clsx('relative z-20 shadow-md', className)}
         color="default"
         sx={{
           backgroundColor: theme =>
@@ -28,7 +28,6 @@ function FooterLayout1(props: FooterLayout1Props) {
               ? footerTheme.palette.background.paper
               : footerTheme.palette.background.default,
         }}
-        elevation={0}
       >
         <Toolbar className="min-h-48 md:min-h-64 px-8 sm:px-12 py-0 flex items-center overflow-x-auto">
           Footer

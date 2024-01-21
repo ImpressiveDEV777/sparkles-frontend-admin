@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { appSelector } from 'app/store/store'
-import { AppRootStateType } from '.'
+import { RootStateType } from 'app/store/types'
+
+type AppRootStateType = RootStateType<dataSliceType>
 
 /**
  * Quick Panel data slice.
@@ -44,18 +45,11 @@ export const dataSlice = createSlice({
       },
     ],
   },
-  reducers: {
-    removeEvents: state => {
-      state.events = []
-    },
-  },
+  reducers: {},
 })
 
-export const selectQuickPanelData = appSelector(
-  (state: AppRootStateType) => state.quickPanel.data,
-)
-
-export const { removeEvents } = dataSlice.actions
+export const selectQuickPanelData = (state: AppRootStateType) =>
+  state.quickPanel.data
 
 export type dataSliceType = typeof dataSlice
 

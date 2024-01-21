@@ -2,7 +2,11 @@ import _ from '@lodash'
 import * as colors from '@mui/material/colors'
 import { FuseSettingsConfigType } from '@fuse/core/FuseSettings/FuseSettings'
 import { RouteObject } from 'react-router-dom'
-import { User } from 'src/app/auth/user'
+import { PartialDeep } from 'type-fest'
+import { FuseNavigationType } from '@fuse/core/FuseNavigation/types/FuseNavigationType'
+import { FuseNavItemType } from '@fuse/core/FuseNavigation/types/FuseNavItemType'
+import FuseNavItemModel from '@fuse/core/FuseNavigation/models/FuseNavItemModel'
+import UserType from 'app/store/user/UserType'
 import EventEmitter from './EventEmitter'
 
 type TreeNode = {
@@ -84,28 +88,12 @@ class FuseUtils {
    * It takes in an array of objects and a search string as parameters and returns a filtered array of objects.
    *
    */
-
   static filterArrayByString<T>(mainArr: T[], searchText: string): T[] {
-    if (searchText?.length === 0 || !searchText) {
-      return mainArr // Return the original array
-    }
-
-    searchText = searchText.toLowerCase()
-    const filtered = mainArr.filter(itemObj =>
-      this.searchInObj(itemObj, searchText),
-    )
-    if (filtered.length === mainArr.length) {
-      return mainArr // If the filtered array is identical, return the original
-    }
-    return filtered
-  }
-
-  static filterArrayByString2<T>(mainArr: T[], searchText: string): T[] {
-    if (typeof searchText !== 'string' || searchText === '') {
+    if (searchText === '') {
       return mainArr
     }
 
-    searchText = searchText?.toLowerCase()
+    searchText = searchText.toLowerCase()
 
     return mainArr.filter((itemObj: unknown) =>
       this.searchInObj(itemObj, searchText),
@@ -298,6 +286,30 @@ class FuseUtils {
   }
 
   /**
+   *  The updateNavItem function updates a navigation item.
+   */
+  static getFlatNavigation(
+    navigationItems: FuseNavigationType = [],
+    flatNavigation = [],
+  ) {
+    for (let i = 0; i < navigationItems.length; i += 1) {
+      const navItem = navigationItems[i]
+
+      if (navItem.type === 'item') {
+        const _navtItem = FuseNavItemModel(navItem)
+        flatNavigation.push(_navtItem)
+      }
+
+      if (navItem.type === 'collapse' || navItem.type === 'group') {
+        if (navItem.children) {
+          this.getFlatNavigation(navItem.children, flatNavigation)
+        }
+      }
+    }
+    return flatNavigation as FuseNavigationType | []
+  }
+
+  /**
    * The randomMatColor function generates a random material color.
    */
   static randomMatColor(hue: hueTypes = '400') {
@@ -363,18 +375,123 @@ class FuseUtils {
    */
   static EventEmitter = EventEmitter
 
+  static updateNavItem(
+    nav: FuseNavigationType,
+    id: string,
+    item: PartialDeep<FuseNavItemType>,
+  ): FuseNavigationType {
+    return nav.map(_item => {
+      if (_item.id === id) {
+        return _.merge({}, _item, item)
+      }
+
+      if (_item.children) {
+        return _.merge({}, _item, {
+          children: this.updateNavItem(_item.children, id, item),
+        })
+      }
+
+      return _.merge({}, _item)
+    })
+  }
+
+  /**
+   * The removeNavItem function removes a navigation item.
+   */
+  static removeNavItem(
+    nav: FuseNavigationType,
+    id: string,
+  ): FuseNavigationType {
+    return nav
+      .map(_item => {
+        if (_item.id === id) {
+          return null
+        }
+
+        if (_item.children) {
+          return _.merge({}, _.omit(_item, ['children']), {
+            children: this.removeNavItem(_item.children, id),
+          })
+        }
+
+        return _.merge({}, _item)
+      })
+      .filter(s => s) as FuseNavigationType
+  }
+
+  /**
+   * The prependNavItem function prepends a navigation item.
+   */
+  static prependNavItem(
+    nav: FuseNavigationType,
+    item: FuseNavItemType,
+    parentId: string | null,
+  ): FuseNavigationType {
+    if (!parentId) {
+      return [item, ...nav]
+    }
+
+    return nav.map(_item => {
+      if (_item.id === parentId && _item.children) {
+        return {
+          ..._item,
+          children: [item, ..._item.children],
+        }
+      }
+
+      if (_item.children) {
+        return _.merge({}, _item, {
+          children: this.prependNavItem(_item.children, item, parentId),
+        })
+      }
+
+      return _.merge({}, _item)
+    })
+  }
+
+  /**
+   * The appendNavItem function appends a navigation item.
+   */
+  static appendNavItem(
+    nav: FuseNavigationType,
+    item: FuseNavItemType,
+    parentId: string | null,
+  ): FuseNavigationType {
+    if (!parentId) {
+      return [...nav, item]
+    }
+
+    return nav.map(_item => {
+      if (_item.id === parentId && _item.children) {
+        return {
+          ..._item,
+          children: [..._item.children, item],
+        }
+      }
+
+      if (_item.children) {
+        return _.merge({}, _item, {
+          children: this.appendNavItem(_item.children, item, parentId),
+        })
+      }
+
+      return _.merge({}, _item)
+    })
+  }
+
   /**
    * The hasPermission function checks if a user has permission to access a resource.
    */
   static hasPermission(
     authArr: string[] | string | undefined,
-    userRole: User['role'],
+    userRole: UserType['role'],
   ): boolean {
     /**
      * If auth array is not defined
      * Pass and allow
      */
     if (authArr === null || authArr === undefined) {
+      // console.info("auth is null || undefined:", authArr);
       return true
     }
 
@@ -383,12 +500,14 @@ class FuseUtils {
        * if auth array is empty means,
        * allow only user role is guest (null or empty[])
        */
+      // console.info("auth is empty[]:", authArr);
       return !userRole || userRole.length === 0
     }
 
     /**
      * Check if user has grants
      */
+    // console.info("auth arr:", authArr);
     /*
             Check if user role is array,
             */

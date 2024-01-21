@@ -1,14 +1,11 @@
 import Hidden from '@mui/material/Hidden'
 import { styled } from '@mui/material/styles'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
-import { useAppDispatch } from 'app/store/store'
+import { useAppDispatch } from 'app/store'
 import { useSelector } from 'react-redux'
-import {
-  navbarCloseMobile,
-  selectFuseNavbar,
-} from 'app/theme-layouts/shared-components/navbar/store/navbarSlice'
+import { navbarCloseMobile, selectFuseNavbar } from 'app/store/fuse/navbarSlice'
 import GlobalStyles from '@mui/material/GlobalStyles'
-import { selectFuseCurrentLayoutConfig } from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
+import { selectFuseCurrentLayoutConfig } from 'app/store/fuse/settingsSlice'
 import { Theme } from '@mui/system/createTheme'
 import { Layout1ConfigDefaultsType } from 'app/theme-layouts/layout1/Layout1Config'
 import clsx from 'clsx'
@@ -158,7 +155,7 @@ function NavbarStyle3(props: NavbarStyle3Props) {
           folded={folded ? 1 : 0}
           position={config.navbar.position}
           className={clsx(
-            'sticky top-0 z-20 h-screen flex-auto shrink-0 flex-col shadow',
+            'sticky top-0 z-20 h-screen flex-auto shrink-0 flex-col shadow-5',
             className,
           )}
         >

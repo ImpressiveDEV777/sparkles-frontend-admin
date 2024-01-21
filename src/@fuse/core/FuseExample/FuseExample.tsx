@@ -11,7 +11,7 @@ import FuseSvgIcon from '../FuseSvgIcon'
 
 type FuseExampleProps = {
   name?: string
-  raw?: string
+  raw?: { default: string }
   currentTabIndex?: number
   component: ElementType
   iframe?: ReactNode
@@ -39,7 +39,16 @@ function FuseExample(props: FuseExampleProps) {
   }
 
   return (
-    <Card className={clsx(className, 'shadow')}>
+    <Card
+      className={clsx(className, 'shadow')}
+      sx={{
+        backgroundColor: theme =>
+          darken(
+            theme.palette.background.paper,
+            theme.palette.mode === 'light' ? 0.01 : 0.1,
+          ),
+      }}
+    >
       <Box
         sx={{
           backgroundColor: theme =>
@@ -94,7 +103,7 @@ function FuseExample(props: FuseExampleProps) {
                 className="language-javascript w-full"
                 sx={{ borderRadius: '0!important' }}
               >
-                {raw}
+                {raw.default}
               </FuseHighlight>
             </div>
           )}

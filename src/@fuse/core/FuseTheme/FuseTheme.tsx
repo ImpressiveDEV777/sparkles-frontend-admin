@@ -12,7 +12,7 @@ const useEnhancedEffect =
 
 type FuseThemeProps = {
   children: ReactNode
-  direction: string
+  direction: 'rtl' | 'ltr'
   theme: Theme
 }
 

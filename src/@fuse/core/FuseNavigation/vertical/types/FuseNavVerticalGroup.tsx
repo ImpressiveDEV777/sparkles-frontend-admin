@@ -70,10 +70,7 @@ function FuseNavVerticalGroup(props: FuseNavItemComponentProps) {
               margin: 0,
               '& > .MuiListItemText-primary': {
                 fontSize: 12,
-                color: theme =>
-                  theme.palette.mode === 'dark'
-                    ? 'secondary.light'
-                    : 'secondary.main',
+                color: 'secondary.light',
                 fontWeight: 600,
                 textTransform: 'uppercase',
                 letterSpacing: '.05em',

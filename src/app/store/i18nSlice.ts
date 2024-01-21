@@ -1,19 +1,18 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import i18n from 'src/i18n'
-import { AppThunk, RootStateType } from 'app/store/types'
-import {
-  setDefaultSettings,
-  settingsSliceType,
-} from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
+import { AppThunkType, RootStateType } from 'app/store/types'
+import { setDefaultSettings, settingsSliceType } from './fuse/settingsSlice'
+
+type AppRootStateType = RootStateType<[i18nSliceType, settingsSliceType]>
 
 /**
  * Changes the language of the application and updates the settings if necessary.
  */
 export const changeLanguage =
-  (languageId: string): AppThunk =>
+  (languageId: string): AppThunkType =>
   async (dispatch, getState) => {
     const AppState = getState() as AppRootStateType
-    const { direction } = AppState.fuseSettings.defaults
+    const { direction } = AppState.fuse.settings.defaults
 
     const newLangDirection = i18n.dir(languageId)
 
@@ -79,7 +78,7 @@ export const selectLanguages = (state: AppRootStateType) => state.i18n.languages
 
 export const selectCurrentLanguageDirection = createSelector(
   [selectCurrentLanguageId],
-  (id: string): string => i18n.dir(id),
+  (id: string) => i18n.dir(id),
 )
 
 export const selectCurrentLanguage = createSelector(
@@ -88,7 +87,5 @@ export const selectCurrentLanguage = createSelector(
 )
 
 export type i18nSliceType = typeof i18nSlice
-
-type AppRootStateType = RootStateType<[i18nSliceType, settingsSliceType]>
 
 export default i18nSlice.reducer

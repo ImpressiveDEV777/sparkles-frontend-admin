@@ -1,13 +1,10 @@
+import { navbarToggle, navbarToggleMobile } from 'app/store/fuse/navbarSlice'
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from 'app/store/store'
+import { useAppDispatch } from 'app/store'
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery'
-import { selectFuseCurrentLayoutConfig } from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
+import { selectFuseCurrentLayoutConfig } from 'app/store/fuse/settingsSlice'
 import { Layout1ConfigDefaultsType } from 'app/theme-layouts/layout1/Layout1Config'
-import {
-  navbarToggle,
-  navbarToggleMobile,
-} from 'app/theme-layouts/shared-components/navbar/store/navbarSlice'
-import NavbarToggleFab from 'app/theme-layouts/shared-components/navbar/NavbarToggleFab'
+import NavbarToggleFab from 'app/theme-layouts/shared-components/NavbarToggleFab'
 
 type NavbarToggleFabLayout1Props = {
   className?: string

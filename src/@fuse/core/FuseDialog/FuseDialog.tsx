@@ -1,12 +1,6 @@
 import Dialog from '@mui/material/Dialog'
-import { useAppDispatch } from 'app/store/store'
-import { useSelector } from 'react-redux'
-import withSlices from 'app/store/withSlices'
-import {
-  closeDialog,
-  fuseDialogSlice,
-  selectFuseDialogProps,
-} from '@fuse/core/FuseDialog/store/fuseDialogSlice'
+import { closeDialog, selectFuseDialogProps } from 'app/store/fuse/dialogSlice'
+import { useAppDispatch, useAppSelector } from 'app/store'
 
 /**
  * FuseDialog component
@@ -15,7 +9,7 @@ import {
  */
 function FuseDialog() {
   const dispatch = useAppDispatch()
-  const options = useSelector(selectFuseDialogProps)
+  const options = useAppSelector(selectFuseDialogProps)
 
   return (
     <Dialog
@@ -29,4 +23,4 @@ function FuseDialog() {
   )
 }
 
-export default withSlices([fuseDialogSlice])(FuseDialog)
+export default FuseDialog
