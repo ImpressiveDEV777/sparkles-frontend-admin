@@ -65,6 +65,7 @@ const FusePageSimpleSidebar = forwardRef<
               position === 'left'
                 ? 'FusePageSimple-leftSidebar'
                 : 'FusePageSimple-rightSidebar',
+              'max-w-full',
             ),
           }}
           ModalProps={{

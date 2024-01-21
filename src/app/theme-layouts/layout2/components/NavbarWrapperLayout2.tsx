@@ -1,18 +1,23 @@
 import Hidden from '@mui/material/Hidden'
 import { styled, ThemeProvider } from '@mui/material/styles'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
-import { navbarCloseMobile, selectFuseNavbar } from 'app/store/fuse/navbarSlice'
 import { memo, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch } from 'app/store/store'
 import {
   selectFuseCurrentLayoutConfig,
   selectNavbarTheme,
-} from 'app/store/fuse/settingsSlice'
+} from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
 import { Layout2ConfigDefaultsType } from 'app/theme-layouts/layout2/Layout2Config'
 import NavbarToggleFabLayout2 from 'app/theme-layouts/layout2/components/NavbarToggleFabLayout2'
 import { useLocation } from 'react-router'
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery'
+import {
+  navbarCloseMobile,
+  navbarSlice,
+  selectFuseNavbar,
+} from 'app/theme-layouts/shared-components/navbar/store/navbarSlice'
+import withSlices from 'app/store/withSlices'
 import NavbarLayout2 from './NavbarLayout2'
 import NavbarMobileLayout2 from './NavbarMobileLayout2'
 
@@ -88,4 +93,6 @@ function NavbarWrapperLayout2(props: NavbarWrapperLayout2Props) {
   )
 }
 
-export default memo(NavbarWrapperLayout2)
+export default withSlices<NavbarWrapperLayout2Props>([navbarSlice])(
+  memo(NavbarWrapperLayout2),
+)

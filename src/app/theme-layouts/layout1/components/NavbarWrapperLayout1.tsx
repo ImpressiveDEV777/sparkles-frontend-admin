@@ -4,13 +4,18 @@ import { useSelector } from 'react-redux'
 import {
   selectFuseCurrentLayoutConfig,
   selectNavbarTheme,
-} from 'app/store/fuse/settingsSlice'
-import { selectFuseNavbar, navbarCloseMobile } from 'app/store/fuse/navbarSlice'
+} from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
 import { Layout1ConfigDefaultsType } from 'app/theme-layouts/layout1/Layout1Config'
 import NavbarToggleFabLayout1 from 'app/theme-layouts/layout1/components/NavbarToggleFabLayout1'
 import { useLocation } from 'react-router'
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch } from 'app/store/store'
+import {
+  navbarCloseMobile,
+  navbarSlice,
+  selectFuseNavbar,
+} from 'app/theme-layouts/shared-components/navbar/store/navbarSlice'
+import withSlices from 'app/store/withSlices'
 import NavbarStyle1 from './navbar/style-1/NavbarStyle1'
 import NavbarStyle2 from './navbar/style-2/NavbarStyle2'
 import NavbarStyle3 from './navbar/style-3/NavbarStyle3'
@@ -53,4 +58,4 @@ function NavbarWrapperLayout1() {
   )
 }
 
-export default memo(NavbarWrapperLayout1)
+export default withSlices([navbarSlice])(memo(NavbarWrapperLayout1))

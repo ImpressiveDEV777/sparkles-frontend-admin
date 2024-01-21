@@ -1,8 +1,8 @@
-import { styled } from '@mui/material/styles'
+import { darken, styled } from '@mui/material/styles'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
 import { useSelector } from 'react-redux'
-import { selectUser } from 'app/store/user/userSlice'
+import { selectUser } from 'src/app/auth/user/store/userSlice'
 
 const Root = styled('div')(({ theme }) => ({
   '& .username, & .email': {
@@ -13,7 +13,7 @@ const Root = styled('div')(({ theme }) => ({
   },
 
   '& .avatar': {
-    background: theme.palette.background.default,
+    background: darken(theme.palette.background.default, 0.05),
     transition: theme.transitions.create('all', {
       duration: theme.transitions.duration.shortest,
       easing: theme.transitions.easing.easeInOut,
@@ -39,21 +39,21 @@ function UserNavbarHeader() {
             backgroundColor: 'background.paper',
             color: 'text.secondary',
           }}
-          className="avatar h-96 w-96 text-32 font-bold"
-          src={user.photoURL || ''}
-          alt={user.username}
+          className="avatar uppercase h-96 w-96 text-32 font-bold"
+          src={user.data.photoURL}
+          alt={user.data.displayName}
         >
-          {user.username.charAt(0)}
+          {user?.data?.displayName?.charAt(0)}
         </Avatar>
       </div>
       <Typography className="username whitespace-nowrap text-14 font-medium">
-        {user.username}
+        {user?.data?.displayName}
       </Typography>
       <Typography
         className="email whitespace-nowrap text-13 font-medium"
         color="text.secondary"
       >
-        {user.email}
+        {user.data.email}
       </Typography>
     </Root>
   )

@@ -89,6 +89,374 @@ export const themesConfig: FuseThemesType = {
       },
     },
   },
+  darkBlueSilver: {
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#0D47A1',
+        light: '#5472D3',
+        dark: '#002171',
+        contrastText: darkPaletteText.primary,
+      },
+      secondary: {
+        main: '#B0BEC5',
+        light: '#E2F1F8',
+        dark: '#808E95',
+        contrastText: lightPaletteText.primary,
+      },
+      background: {
+        paper: '#FFFFFF',
+        default: '#f1f5f9',
+      },
+      text: lightPaletteText,
+      divider: '#d8d9da',
+    },
+  },
+  darkBlueSilverDark: {
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#0D47A1',
+        light: '#5472D3',
+        dark: '#002171',
+        contrastText: darkPaletteText.primary,
+      },
+      secondary: {
+        main: '#B0BEC5',
+        light: '#E2F1F8',
+        dark: '#808E95',
+        contrastText: lightPaletteText.primary,
+      },
+      background: {
+        default: '#263238',
+        paper: '#2d3940',
+      },
+      text: darkPaletteText,
+      divider: '#42474d',
+    },
+  },
+  slateCrimson: {
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#37474F',
+        light: '#62727B',
+        dark: '#102027',
+        contrastText: darkPaletteText.primary,
+      },
+      secondary: {
+        main: '#D32F2F',
+        light: '#FF6659',
+        dark: '#9A0007',
+        contrastText: darkPaletteText.primary,
+      },
+      background: {
+        default: '#e6e6e6',
+        paper: '#f2f2f2',
+      },
+      text: lightPaletteText,
+      divider: '#d9d9d9',
+    },
+  },
+  slateCrimsonDark: {
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#37474F',
+        light: '#62727B',
+        dark: '#102027',
+        contrastText: darkPaletteText.primary,
+      },
+      secondary: {
+        main: '#D32F2F',
+        light: '#FF6659',
+        dark: '#9A0007',
+        contrastText: darkPaletteText.primary,
+      },
+      background: {
+        default: '#212121',
+        paper: '#2e2e2e',
+      },
+      text: darkPaletteText,
+      divider: '#3a3d40',
+    },
+  },
+  emeraldGold: {
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#00695C',
+        light: '#439889',
+        dark: '#003D33',
+        contrastText: darkPaletteText.primary,
+      },
+      secondary: {
+        main: '#FFD740',
+        light: '#FFFF74',
+        dark: '#C8A600',
+        contrastText: lightPaletteText.primary,
+      },
+      background: {
+        default: '#dcf2f2',
+        paper: '#f2fdfa',
+      },
+      text: lightPaletteText,
+      divider: '#b3c4c3',
+    },
+  },
+  emeraldGoldDark: {
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#00695C',
+        light: '#439889',
+        dark: '#003D33',
+        contrastText: darkPaletteText.primary,
+      },
+      secondary: {
+        main: '#FFD740',
+        light: '#FFFF74',
+        dark: '#C8A600',
+        contrastText: lightPaletteText.primary,
+      },
+      background: {
+        default: '#004D40',
+        paper: '#00544a',
+      },
+      text: darkPaletteText,
+      divider: '#2d6360',
+    },
+  },
+  indigoCoral: {
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#283593',
+        light: '#5F5FC4',
+        dark: '#001064',
+        contrastText: darkPaletteText.primary,
+      },
+      secondary: {
+        main: '#FF7043',
+        light: '#FFA270',
+        dark: '#C63F17',
+        contrastText: lightPaletteText.primary,
+      },
+      background: {
+        default: '#eaebfb',
+        paper: '#f6f7fd',
+      },
+      text: lightPaletteText,
+      divider: '#dcdcf2',
+    },
+  },
+  indigoCoralDark: {
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#283593',
+        light: '#5F5FC4',
+        dark: '#001064',
+        contrastText: darkPaletteText.primary,
+      },
+      secondary: {
+        main: '#FF7043',
+        light: '#FFA270',
+        dark: '#C63F17',
+        contrastText: lightPaletteText.primary,
+      },
+      background: {
+        default: '#1A237E',
+        paper: '#283593',
+      },
+      text: darkPaletteText,
+      divider: '#4d557e',
+    },
+  },
+  charcoalTeal: {
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#094a43',
+        light: '#28635a',
+        dark: '#004a41',
+        contrastText: darkPaletteText.primary,
+      },
+      secondary: {
+        main: '#009688',
+        light: '#52C7B8',
+        dark: '#00675B',
+        contrastText: darkPaletteText.primary,
+      },
+      background: {
+        default: '#edf6fa',
+        paper: '#f7fcfc',
+      },
+      text: lightPaletteText,
+      divider: '#cee5f0',
+    },
+  },
+  charcoalTealDark: {
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#455A64',
+        light: '#718792',
+        dark: '#1C313A',
+        contrastText: darkPaletteText.primary,
+      },
+      secondary: {
+        main: '#009688',
+        light: '#52C7B8',
+        dark: '#00675B',
+        contrastText: darkPaletteText.primary,
+      },
+      background: {
+        default: '#000000',
+        paper: '#102027',
+      },
+      text: darkPaletteText,
+      divider: '#2d383d',
+    },
+  },
+  skyBlueOrange: {
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#64B5F6',
+        light: '#9BE7FF',
+        dark: '#2286C3',
+        contrastText: lightPaletteText.primary,
+      },
+      secondary: {
+        main: '#faa528',
+        light: '#f6ad3f',
+        dark: '#cb8721',
+        contrastText: lightPaletteText.primary,
+      },
+      background: {
+        default: '#F5F5F5',
+        paper: '#FFFFFF',
+      },
+      text: lightPaletteText,
+      divider: '#e9e6e0',
+    },
+  },
+  skyBlueOrangeDark: {
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#64B5F6',
+        light: '#9BE7FF',
+        dark: '#2286C3',
+        contrastText: lightPaletteText.primary,
+      },
+      secondary: {
+        main: '#faa528',
+        light: '#f6ad3f',
+        dark: '#cb8721',
+        contrastText: lightPaletteText.primary,
+      },
+      background: {
+        default: '#1a1a1a',
+        paper: '#333333',
+      },
+      text: darkPaletteText,
+      divider: '#544949',
+    },
+  },
+  softGreenMaroon: {
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#81C784',
+        light: '#B2F2B6',
+        dark: '#519657',
+        contrastText: lightPaletteText.primary,
+      },
+      secondary: {
+        main: '#D81B60',
+        light: '#FF5C8D',
+        dark: '#A00037',
+        contrastText: darkPaletteText.primary,
+      },
+      background: {
+        default: '#f5f5f5',
+        paper: '#fafcfa',
+      },
+      text: lightPaletteText,
+      divider: '#dadeda',
+    },
+  },
+  softGreenMaroonDark: {
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#81C784',
+        light: '#B2F2B6',
+        dark: '#519657',
+        contrastText: lightPaletteText.primary,
+      },
+      secondary: {
+        main: '#D81B60',
+        light: '#FF5C8D',
+        dark: '#A00037',
+        contrastText: darkPaletteText.primary,
+      },
+      background: {
+        default: '#1a1a1a',
+        paper: '#323332',
+      },
+      text: darkPaletteText,
+      divider: '#505250',
+    },
+  },
+  coolGreyPink: {
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#dde6eb',
+        light: '#FFFFFF',
+        dark: '#9EA7AA',
+        contrastText: lightPaletteText.primary,
+      },
+      secondary: {
+        main: '#F06292',
+        light: '#FF94C2',
+        dark: '#BA2D65',
+        contrastText: darkPaletteText.primary,
+      },
+      background: {
+        default: '#F5F5F5',
+        paper: '#FFFFFF',
+      },
+      text: lightPaletteText,
+      divider: '#e1e1e1',
+    },
+  },
+  coolGreyPinkDark: {
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#dde6eb',
+        light: '#FFFFFF',
+        dark: '#9EA7AA',
+        contrastText: lightPaletteText.primary,
+      },
+      secondary: {
+        main: '#F06292',
+        light: '#FF94C2',
+        dark: '#BA2D65',
+        contrastText: darkPaletteText.primary,
+      },
+      background: {
+        default: '#1a1a1a',
+        paper: '#292929',
+      },
+      text: darkPaletteText,
+      divider: '#424242',
+    },
+  },
   legacy: {
     palette: {
       mode: 'light',
@@ -155,118 +523,6 @@ export const themesConfig: FuseThemesType = {
       divider: '#e2e8f0',
       text: lightPaletteText,
       primary: {
-        light: '#fdf3da',
-        main: '#f8d683',
-        dark: '#f3bc53',
-        contrastText: lightPaletteText.primary,
-      },
-      secondary: {
-        light: '#FADCB3',
-        main: '#F3B25F',
-        dark: '#ec9339',
-        contrastText: lightPaletteText.primary,
-      },
-      background: {
-        paper: '#FAFBFD',
-        default: '#FFFFFF',
-      },
-      error: {
-        light: '#ffcdd2',
-        main: '#f44336',
-        dark: '#b71c1c',
-      },
-    },
-  },
-  light3: {
-    palette: {
-      mode: 'light',
-      divider: '#e2e8f0',
-      text: lightPaletteText,
-      primary: {
-        light: '#D9C8CE',
-        main: '#80485B',
-        dark: '#50212F',
-        contrastText: darkPaletteText.primary,
-      },
-      secondary: {
-        light: '#FFE3BF',
-        main: '#FFB049',
-        dark: '#FF8619',
-        contrastText: lightPaletteText.primary,
-      },
-      background: {
-        paper: '#FFF0DF',
-        default: '#FAFAFE',
-      },
-      error: {
-        light: '#ffcdd2',
-        main: '#f44336',
-        dark: '#b71c1c',
-      },
-    },
-  },
-  light4: {
-    palette: {
-      mode: 'light',
-      divider: '#e2e8f0',
-      text: lightPaletteText,
-      primary: {
-        light: '#CDCCE8',
-        main: '#5854B1',
-        dark: '#2D2988',
-        contrastText: darkPaletteText.primary,
-      },
-      secondary: {
-        light: '#F8EBF2',
-        main: '#E7BDD3',
-        dark: '#D798B7',
-        contrastText: lightPaletteText.primary,
-      },
-      background: {
-        paper: '#FFFFFF',
-        default: '#F6F7FB',
-      },
-      error: {
-        light: '#ffcdd2',
-        main: '#f44336',
-        dark: '#b71c1c',
-      },
-    },
-  },
-  light5: {
-    palette: {
-      mode: 'light',
-      divider: '#e2e8f0',
-      text: lightPaletteText,
-      primary: {
-        light: '#C2C7F1',
-        main: '#3543D0',
-        dark: '#161EB3',
-        contrastText: darkPaletteText.primary,
-      },
-      secondary: {
-        light: '#B3F1FE',
-        main: '#00CFFD',
-        dark: '#00B2FC',
-        contrastText: lightPaletteText.primary,
-      },
-      background: {
-        paper: '#FFFFFF',
-        default: '#F7FAFF',
-      },
-      error: {
-        light: '#ffcdd2',
-        main: '#f44336',
-        dark: '#b71c1c',
-      },
-    },
-  },
-  light6: {
-    palette: {
-      mode: 'light',
-      divider: '#e2e8f0',
-      text: lightPaletteText,
-      primary: {
         light: '#BBE2DA',
         main: '#1B9E85',
         dark: '#087055',
@@ -289,63 +545,7 @@ export const themesConfig: FuseThemesType = {
       },
     },
   },
-  light7: {
-    palette: {
-      mode: 'light',
-      divider: '#e2e8f0',
-      text: lightPaletteText,
-      primary: {
-        light: '#BFC4E6',
-        main: '#2A3BAB',
-        dark: '#0F1980',
-        contrastText: darkPaletteText.primary,
-      },
-      secondary: {
-        light: '#C2ECF0',
-        main: '#33C1CD',
-        dark: '#149EAE',
-        contrastText: lightPaletteText.primary,
-      },
-      background: {
-        paper: '#FFFFFF',
-        default: '#EDF0F6',
-      },
-      error: {
-        light: '#ffcdd2',
-        main: '#f44336',
-        dark: '#b71c1c',
-      },
-    },
-  },
-  light8: {
-    palette: {
-      mode: 'light',
-      divider: '#e2e8f0',
-      text: lightPaletteText,
-      primary: {
-        light: '#D2EFF2',
-        main: '#68C8D5',
-        dark: '#3AA7BA',
-        contrastText: lightPaletteText.primary,
-      },
-      secondary: {
-        light: '#FFF2C6',
-        main: '#FED441',
-        dark: '#FDB91C',
-        contrastText: lightPaletteText.primary,
-      },
-      background: {
-        paper: '#FAF6F3',
-        default: '#FFFFFF',
-      },
-      error: {
-        light: '#ffcdd2',
-        main: '#f44336',
-        dark: '#b71c1c',
-      },
-    },
-  },
-  light9: {
+  light3: {
     palette: {
       mode: 'light',
       divider: '#e2e8f0',
@@ -357,10 +557,10 @@ export const themesConfig: FuseThemesType = {
         contrastText: darkPaletteText.primary,
       },
       secondary: {
-        light: '#FDEAC9',
-        main: '#F9B84B',
-        dark: '#F59123',
-        contrastText: lightPaletteText.primary,
+        light: '#C3C2D2',
+        main: '#36336A',
+        dark: '#16143C',
+        contrastText: darkPaletteText.primary,
       },
       background: {
         paper: '#FFFFFF',
@@ -373,7 +573,7 @@ export const themesConfig: FuseThemesType = {
       },
     },
   },
-  light10: {
+  light4: {
     palette: {
       mode: 'light',
       divider: '#e2e8f0',
@@ -385,10 +585,10 @@ export const themesConfig: FuseThemesType = {
         contrastText: darkPaletteText.primary,
       },
       secondary: {
-        light: '#FEEDC7',
-        main: '#FCC344',
-        dark: '#FAA11F',
-        contrastText: lightPaletteText.primary,
+        light: '#C2C8D2',
+        main: '#354968',
+        dark: '#16213A',
+        contrastText: darkPaletteText.primary,
       },
       background: {
         paper: '#FFFFFF',
@@ -401,7 +601,7 @@ export const themesConfig: FuseThemesType = {
       },
     },
   },
-  light11: {
+  light5: {
     palette: {
       mode: 'light',
       divider: '#e2e8f0',
@@ -426,34 +626,6 @@ export const themesConfig: FuseThemesType = {
         light: '#F7EAEA',
         main: '#EBCECE',
         dark: '#E3B9B9',
-      },
-    },
-  },
-  light12: {
-    palette: {
-      mode: 'light',
-      divider: '#e2e8f0',
-      text: lightPaletteText,
-      primary: {
-        light: '#FFFAF6',
-        main: '#FFEDE2',
-        dark: '#FFE0CF',
-        contrastText: lightPaletteText.primary,
-      },
-      secondary: {
-        light: '#DBD8F7',
-        main: '#887CE3',
-        dark: '#584CD0',
-        contrastText: darkPaletteText.primary,
-      },
-      background: {
-        paper: '#FFFFFF',
-        default: '#FCF8F5',
-      },
-      error: {
-        light: '#ffcdd2',
-        main: '#f44336',
-        dark: '#b71c1c',
       },
     },
   },
@@ -603,62 +775,6 @@ export const themesConfig: FuseThemesType = {
       divider: 'rgba(241,245,249,.12)',
       text: darkPaletteText,
       primary: {
-        light: '#FFC7CE',
-        main: '#FF445D',
-        dark: '#FF1F30',
-        contrastText: darkPaletteText.primary,
-      },
-      secondary: {
-        light: '#B4E3FB',
-        main: '#05A2F3',
-        dark: '#0175EA',
-        contrastText: darkPaletteText.primary,
-      },
-      background: {
-        paper: '#2F3438',
-        default: '#25292E',
-      },
-      error: {
-        light: '#ffcdd2',
-        main: '#f44336',
-        dark: '#b71c1c',
-      },
-    },
-  },
-  dark7: {
-    palette: {
-      mode: 'dark',
-      divider: 'rgba(241,245,249,.12)',
-      text: darkPaletteText,
-      primary: {
-        light: 'FFECC5',
-        main: '#FEBE3E',
-        dark: '#FD991B',
-        contrastText: lightPaletteText.primary,
-      },
-      secondary: {
-        light: '#FFC8C7',
-        main: '#FE4644',
-        dark: '#FD201F',
-        contrastText: lightPaletteText.primary,
-      },
-      background: {
-        paper: '#2A2E32',
-        default: '#212529',
-      },
-      error: {
-        light: '#ffcdd2',
-        main: '#f44336',
-        dark: '#b71c1c',
-      },
-    },
-  },
-  dark8: {
-    palette: {
-      mode: 'dark',
-      divider: 'rgba(241,245,249,.12)',
-      text: darkPaletteText,
-      primary: {
         light: '#BEBFC8',
         main: '#252949',
         dark: '#0D0F21',
@@ -681,7 +797,7 @@ export const themesConfig: FuseThemesType = {
       },
     },
   },
-  dark9: {
+  dark7: {
     palette: {
       mode: 'dark',
       divider: 'rgba(241,245,249,.12)',
@@ -701,90 +817,6 @@ export const themesConfig: FuseThemesType = {
       background: {
         paper: '#1C1E27',
         default: '#15171E',
-      },
-      error: {
-        light: '#ffcdd2',
-        main: '#f44336',
-        dark: '#b71c1c',
-      },
-    },
-  },
-  dark10: {
-    palette: {
-      mode: 'dark',
-      divider: 'rgba(241,245,249,.12)',
-      text: darkPaletteText,
-      primary: {
-        light: '#C3C2D2',
-        main: '#36336A',
-        dark: '#16143C',
-        contrastText: darkPaletteText.primary,
-      },
-      secondary: {
-        light: '#D6CEFC',
-        main: '#765CF5',
-        dark: '#4630EE',
-        contrastText: darkPaletteText.primary,
-      },
-      background: {
-        paper: '#2D2A5D',
-        default: '#26244E',
-      },
-      error: {
-        light: '#ffcdd2',
-        main: '#f44336',
-        dark: '#b71c1c',
-      },
-    },
-  },
-  dark11: {
-    palette: {
-      mode: 'dark',
-      divider: 'rgba(241,245,249,.12)',
-      text: darkPaletteText,
-      primary: {
-        light: '#BFB7BF',
-        main: '#2A0F29',
-        dark: '#0F040F',
-        contrastText: darkPaletteText.primary,
-      },
-      secondary: {
-        light: '#D9B9C3',
-        main: '#801737',
-        dark: '#500716',
-        contrastText: darkPaletteText.primary,
-      },
-      background: {
-        paper: '#200D1F',
-        default: '#2D132C',
-      },
-      error: {
-        light: '#ffcdd2',
-        main: '#f44336',
-        dark: '#b71c1c',
-      },
-    },
-  },
-  dark12: {
-    palette: {
-      mode: 'dark',
-      divider: 'rgba(241,245,249,.12)',
-      text: darkPaletteText,
-      primary: {
-        light: '#CCC3C8',
-        main: '#543847',
-        dark: '#291720',
-        contrastText: darkPaletteText.primary,
-      },
-      secondary: {
-        light: '#DFB8BD',
-        main: '#BE717A',
-        dark: '#99424A',
-        contrastText: lightPaletteText.primary,
-      },
-      background: {
-        paper: '#4D4351',
-        default: '#27141F',
       },
       error: {
         light: '#ffcdd2',

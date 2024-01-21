@@ -11,9 +11,9 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import Switch from '@mui/material/Switch'
 import Typography from '@mui/material/Typography'
 import format from 'date-fns/format'
-import { memo, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch } from 'app/store/store'
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon'
 import withReducer from 'app/store/withReducer'
 import reducer from './store'
@@ -145,4 +145,4 @@ function QuickPanel() {
   )
 }
 
-export default withReducer('quickPanel', reducer)(memo(QuickPanel))
+export default withReducer('quickPanel', reducer)(QuickPanel)

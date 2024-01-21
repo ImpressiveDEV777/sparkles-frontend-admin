@@ -17,7 +17,7 @@ type FuseAuthorizationProps = {
   children: ReactNode
   location: Location
   userRole: string[] | string
-  loginRedirectUrl: string
+  loginRedirectUrl?: string
 } & WithRouterProps
 
 type State = AppContextType & {
@@ -109,7 +109,7 @@ class FuseAuthorization extends Component<FuseAuthorizationProps, State> {
   }
 
   redirectRoute() {
-    const { userRole, loginRedirectUrl } = this.props
+    const { userRole, loginRedirectUrl = '/' } = this.props
     const redirectUrl = getSessionRedirectUrl() || loginRedirectUrl
 
     /*

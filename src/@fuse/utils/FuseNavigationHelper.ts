@@ -1,13 +1,15 @@
-import { FuseNavigationType } from '@fuse/core/FuseNavigation/types/FuseNavigationType'
-import UserType from 'app/store/user/UserType'
-import { FuseNavItemType } from '@fuse/core/FuseNavigation/types/FuseNavItemType'
+import { User } from 'src/app/auth/user'
+import {
+  FuseFlatNavItemType,
+  FuseNavItemType,
+} from '@fuse/core/FuseNavigation/types/FuseNavItemType'
 import FuseNavItemModel from '@fuse/core/FuseNavigation/models/FuseNavItemModel'
 import _ from '@lodash'
 import { PartialDeep } from 'type-fest'
 
 class FuseNavigationHelper {
   static selectById(
-    nav: FuseNavigationType,
+    nav: FuseNavItemType[],
     id: string,
   ): FuseNavItemType | undefined {
     for (let i = 0; i < nav.length; i += 1) {
@@ -28,10 +30,10 @@ class FuseNavigationHelper {
   }
 
   static appendNavItem(
-    nav: FuseNavigationType,
+    nav: FuseNavItemType[],
     item: FuseNavItemType,
     parentId: string | null = null,
-  ): FuseNavigationType {
+  ): FuseNavItemType[] {
     if (!parentId) {
       return [...nav, item]
     }
@@ -52,10 +54,10 @@ class FuseNavigationHelper {
   }
 
   static prependNavItem(
-    nav: FuseNavigationType,
+    nav: FuseNavItemType[],
     item: FuseNavItemType,
     parentId: string | null = null,
-  ): FuseNavigationType {
+  ): FuseNavItemType[] {
     if (!parentId) {
       return [item, ...nav]
     }
@@ -76,10 +78,10 @@ class FuseNavigationHelper {
   }
 
   static filterNavigationByPermission(
-    nav: FuseNavigationType,
-    userRole: UserType['role'],
-  ): FuseNavigationType {
-    return nav.reduce((acc: FuseNavigationType, item) => {
+    nav: FuseNavItemType[],
+    userRole: User['role'],
+  ): FuseNavItemType[] {
+    return nav.reduce((acc: FuseNavItemType[], item) => {
       // If item has children, recursively filter them
       const children = item.children
         ? this.filterNavigationByPermission(item.children, userRole)
@@ -98,10 +100,7 @@ class FuseNavigationHelper {
   /**
    * The removeNavItem function removes a navigation item by its ID.
    */
-  static removeNavItem(
-    nav: FuseNavigationType,
-    id: string,
-  ): FuseNavigationType {
+  static removeNavItem(nav: FuseNavItemType[], id: string): FuseNavItemType[] {
     return nav.reduce((acc, node) => {
       if (node.id !== id) {
         if (node.children) {
@@ -114,17 +113,17 @@ class FuseNavigationHelper {
         }
       }
       return acc
-    }, [] as FuseNavigationType)
+    }, [] as FuseNavItemType[])
   }
 
   /**
    * The updateNavItem function updates a navigation item by its ID with new data.
    */
   static updateNavItem(
-    nav: FuseNavigationType,
+    nav: FuseNavItemType[],
     id: string,
     item: PartialDeep<FuseNavItemType>,
-  ): FuseNavigationType {
+  ): FuseNavItemType[] {
     return nav.map(node => {
       if (node.id === id) {
         return _.merge({}, node, item) // merge original node data with updated item data
@@ -143,7 +142,7 @@ class FuseNavigationHelper {
    *  Convert to flat navigation
    */
   static getFlatNavigation(
-    navigationItems: FuseNavigationType = [],
+    navigationItems: FuseNavItemType[] = [],
     flatNavigation = [],
   ) {
     for (let i = 0; i < navigationItems.length; i += 1) {
@@ -160,19 +159,18 @@ class FuseNavigationHelper {
         }
       }
     }
-    return flatNavigation as FuseNavigationType | []
+    return flatNavigation as FuseNavItemType[] | []
   }
 
   static hasPermission(
     authArr: string[] | string | undefined,
-    userRole: UserType['role'],
+    userRole: User['role'],
   ): boolean {
     /**
      * If auth array is not defined
      * Pass and allow
      */
     if (authArr === null || authArr === undefined) {
-      // console.info("auth is null || undefined:", authArr);
       return true
     }
 
@@ -181,17 +179,12 @@ class FuseNavigationHelper {
        * if auth array is empty means,
        * allow only user role is guest (null or empty[])
        */
-      // console.info("auth is empty[]:", authArr);
       return !userRole || userRole.length === 0
     }
 
     /**
      * Check if user has grants
      */
-    // console.info("auth arr:", authArr);
-    /*
-            Check if user role is array,
-            */
     if (userRole && Array.isArray(authArr) && Array.isArray(userRole)) {
       return authArr.some((r: string) => userRole.indexOf(r) >= 0)
     }
@@ -200,6 +193,54 @@ class FuseNavigationHelper {
             Check if user role is string,
             */
     return authArr.includes(userRole as string)
+  }
+
+  static flattenNavigation(
+    navigation: FuseNavItemType[],
+    parentOrder: string = '',
+  ): FuseFlatNavItemType[] {
+    return navigation.flatMap((item, index) => {
+      const order = parentOrder ? `${parentOrder}.${index + 1}` : `${index + 1}`
+      let flattened: FuseFlatNavItemType[] = [
+        { ...item, order, children: item.children?.map(child => child.id) },
+      ]
+
+      if (item.children) {
+        flattened = flattened.concat(
+          this.flattenNavigation(item.children, order),
+        )
+      }
+
+      return flattened
+    })
+  }
+
+  static unflattenNavigation(
+    navigation: FuseFlatNavItemType[],
+  ): FuseNavItemType[] {
+    const itemMap: { [id: string]: FuseNavItemType } = {}
+    navigation.forEach(item => {
+      itemMap[item.id] = { ...item, children: [] }
+    })
+
+    const rootItems: FuseNavItemType[] = []
+
+    navigation.forEach(item => {
+      if (item.order.includes('.')) {
+        const parentOrder = item.order.substring(0, item.order.lastIndexOf('.'))
+        const parent = navigation.find(navItem => navItem.order === parentOrder)
+        if (parent) {
+          itemMap[parent.id].children.push(itemMap[item.id])
+        }
+      } else {
+        rootItems.push(itemMap[item.id])
+      }
+    })
+
+    return rootItems.map(item => {
+      const { ...rest } = item
+      return rest
+    })
   }
 }
 

@@ -2,10 +2,10 @@ import FuseScrollbars from '@fuse/core/FuseScrollbars'
 import { styled } from '@mui/material/styles'
 import clsx from 'clsx'
 import { memo } from 'react'
+import NavbarToggleButton from 'app/theme-layouts/shared-components/navbar/NavbarToggleButton'
 import UserNavbarHeader from '../../shared-components/UserNavbarHeader'
-import NavbarToggleButton from '../../shared-components/NavbarToggleButton'
 import Logo from '../../shared-components/Logo'
-import Navigation from '../../shared-components/Navigation'
+import Navigation from '../../shared-components/navigation/Navigation'
 
 const Root = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
