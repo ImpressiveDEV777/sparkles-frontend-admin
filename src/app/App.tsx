@@ -9,16 +9,14 @@ import { selectCurrentLanguageDirection } from 'app/store/i18nSlice'
 import themeLayouts from 'app/theme-layouts/themeLayouts'
 import { selectMainTheme } from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
 import MockAdapterProvider from '@mock-api/MockAdapterProvider'
+import axios from 'axios'
 import withAppProviders from './withAppProviders'
 import { AuthRouteProvider } from './auth/AuthRouteProvider'
 
-// import axios from 'axios';
 /**
  * Axios HTTP Request defaults
  */
-// axios.defaults.baseURL = "";
-// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-// axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL
 
 const emotionCacheOptions = {
   rtl: {
