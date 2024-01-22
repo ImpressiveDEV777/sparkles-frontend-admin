@@ -1,92 +1,49 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Controller, useForm } from 'react-hook-form'
-import Button from '@mui/material/Button'
-import Checkbox from '@mui/material/Checkbox'
-import FormControl from '@mui/material/FormControl'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
-import { InferType } from 'yup'
-import * as yup from 'yup'
-import _ from '@lodash'
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon'
 import AvatarGroup from '@mui/material/AvatarGroup'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
-import { UserType } from 'app/store/user'
-import { useAppDispatch } from 'app/store'
-import { showMessage } from 'app/store/fuse/messageSlice'
-import jwtService from '../../auth/services/jwtService'
+import { useState } from 'react'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import CardContent from '@mui/material/CardContent'
+import _ from '@lodash'
+import Alert from '@mui/material/Alert'
+import Button from '@mui/material/Button'
+import FuseSvgIcon from '@fuse/core/FuseSvgIcon'
+import JwtLoginTab from './tabs/JwtSignInTab'
+import FirebaseSignInTab from './tabs/FirebaseSignInTab'
 
-/**
- * Form Validation Schema
- */
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email('You must enter a valid email')
-    .required('You must enter a email'),
-  password: yup
-    .string()
-    .required('Please enter your password.')
-    .min(4, 'Password is too short - must be at least 4 chars.'),
-  remember: yup.boolean(),
-})
-
-const defaultValues = {
-  email: '',
-  password: '',
-  remember: true,
-}
+const tabs = [
+  {
+    id: 'jwt',
+    title: 'JWT',
+    logo: 'assets/images/logo/jwt.svg',
+    logoClass: 'h-40 p-4 bg-black rounded-12',
+  },
+  {
+    id: 'firebase',
+    title: 'Firebase',
+    logo: 'assets/images/logo/firebase.svg',
+    logoClass: 'h-40',
+  },
+]
 
 /**
  * The sign in page.
  */
 function SignInPage() {
-  const dispatch = useAppDispatch()
-  const { control, formState, handleSubmit } = useForm({
-    mode: 'onChange',
-    defaultValues,
-    resolver: yupResolver(schema),
-  })
+  const [selectedTabId, setSelectedTabId] = useState(tabs[0].id)
 
-  const { isValid, dirtyFields, errors } = formState
-
-  function onSubmit({ email, password }: InferType<typeof schema>) {
-    jwtService
-      .signInWithEmailAndPassword(email, password)
-      .then((user: UserType) => {
-        // eslint-disable-next-line no-console
-        console.info(user)
-
-        // No need to do anything, user data will be set at app/auth/AuthContext
-      })
-      .catch(() => {
-        dispatch(
-          showMessage({
-            message: 'Incorrect Email or Password',
-            anchorOrigin: {
-              vertical: 'top',
-              horizontal: 'right',
-            },
-            variant: 'error',
-          }),
-        )
-        // _errors.forEach((error) => {
-        //   setError(error.type, {
-        //     type: 'manual',
-        //     message: error.message,
-        //   })
-        // })
-      })
+  function handleSelectTab(id: string) {
+    setSelectedTabId(id)
   }
 
   return (
     <div className="flex min-w-0 flex-1 flex-col items-center sm:flex-row sm:justify-center md:items-start md:justify-start">
       <Paper className="h-full w-full px-16 py-8 ltr:border-r-1 rtl:border-l-1 sm:h-auto sm:w-auto sm:rounded-2xl sm:p-48 sm:shadow md:flex md:h-full md:w-1/2 md:items-center md:justify-end md:rounded-none md:p-64 md:shadow-none">
-        <div className="mx-auto w-full max-w-320 sm:mx-0 sm:w-320">
+        <CardContent className="mx-auto w-full max-w-320 sm:mx-0 sm:w-320">
           <img className="w-48" src="assets/images/logo/logo.svg" alt="logo" />
 
           <Typography className="mt-32 text-4xl font-extrabold leading-tight tracking-tight">
@@ -99,110 +56,67 @@ function SignInPage() {
             </Link>
           </div>
 
-          <form
-            name="loginForm"
-            noValidate
-            className="mt-32 flex w-full flex-col justify-center"
-            onSubmit={handleSubmit(onSubmit)}
+          <Alert
+            icon={false}
+            severity="info"
+            className="mt-24 px-16 text-13 leading-relaxed"
           >
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  label="Email"
-                  autoFocus
-                  type="email"
-                  error={!!errors.email}
-                  helperText={errors?.email?.message}
-                  variant="outlined"
-                  required
-                  fullWidth
-                />
-              )}
-            />
+            You are browsing <b>Fuse React Demo</b>. Click on the "Sign in"
+            button to access the Demo and Documentation.
+          </Alert>
 
-            <Controller
-              name="password"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  label="Password"
-                  type="password"
-                  error={!!errors.password}
-                  helperText={errors?.password?.message}
-                  variant="outlined"
-                  required
-                  fullWidth
-                />
-              )}
-            />
-
-            <div className="flex flex-col items-center justify-center sm:flex-row sm:justify-between">
-              <Controller
-                name="remember"
-                control={control}
-                render={({ field }) => (
-                  <FormControl>
-                    <FormControlLabel
-                      label="Remember me"
-                      control={<Checkbox size="small" {...field} />}
-                    />
-                  </FormControl>
-                )}
+          <Tabs
+            value={_.findIndex(tabs, { id: selectedTabId })}
+            variant="fullWidth"
+            className="w-full mt-24 mb-32"
+            indicatorColor="secondary"
+          >
+            {tabs.map(item => (
+              <Tab
+                onClick={() => handleSelectTab(item.id)}
+                key={item.id}
+                icon={
+                  <img
+                    className={item.logoClass}
+                    src={item.logo}
+                    alt={item.title}
+                  />
+                }
+                className="min-w-0"
+                label={item.title}
               />
+            ))}
+          </Tabs>
 
-              <Link
-                className="text-md font-medium"
-                to="/pages/auth/forgot-password"
-              >
-                Forgot password?
-              </Link>
-            </div>
+          {selectedTabId === 'jwt' && <JwtLoginTab />}
+          {selectedTabId === 'firebase' && <FirebaseSignInTab />}
 
-            <Button
-              variant="contained"
-              color="secondary"
-              className=" mt-16 w-full"
-              aria-label="Sign in"
-              disabled={_.isEmpty(dirtyFields) || !isValid}
-              type="submit"
-              size="large"
-            >
-              Sign in
+          <div className="mt-32 flex items-center">
+            <div className="mt-px flex-auto border-t" />
+            <Typography className="mx-8" color="text.secondary">
+              Or continue with
+            </Typography>
+            <div className="mt-px flex-auto border-t" />
+          </div>
+
+          <div className="mt-32 flex items-center space-x-16">
+            <Button variant="outlined" className="flex-auto">
+              <FuseSvgIcon size={20} color="action">
+                feather:facebook
+              </FuseSvgIcon>
             </Button>
-
-            <div className="mt-32 flex items-center">
-              <div className="mt-px flex-auto border-t" />
-              <Typography className="mx-8" color="text.secondary">
-                Or continue with
-              </Typography>
-              <div className="mt-px flex-auto border-t" />
-            </div>
-
-            <div className="mt-32 flex items-center space-x-16">
-              <Button variant="outlined" className="flex-auto">
-                <FuseSvgIcon size={20} color="action">
-                  feather:facebook
-                </FuseSvgIcon>
-              </Button>
-              <Button variant="outlined" className="flex-auto">
-                <FuseSvgIcon size={20} color="action">
-                  feather:twitter
-                </FuseSvgIcon>
-              </Button>
-              <Button variant="outlined" className="flex-auto">
-                <FuseSvgIcon size={20} color="action">
-                  feather:github
-                </FuseSvgIcon>
-              </Button>
-            </div>
-          </form>
-        </div>
+            <Button variant="outlined" className="flex-auto">
+              <FuseSvgIcon size={20} color="action">
+                feather:twitter
+              </FuseSvgIcon>
+            </Button>
+            <Button variant="outlined" className="flex-auto">
+              <FuseSvgIcon size={20} color="action">
+                feather:github
+              </FuseSvgIcon>
+            </Button>
+          </div>
+        </CardContent>
       </Paper>
 
       <Box

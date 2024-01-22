@@ -18,12 +18,13 @@ import { useSelector } from 'react-redux'
 import {
   selectFuseCurrentSettings,
   setDefaultSettings,
-} from 'app/store/fuse/settingsSlice'
-import { selectUser } from 'app/store/user/userSlice'
-import { useAppDispatch } from 'app/store'
+} from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
+import { selectUser } from 'src/app/auth/user/store/userSlice'
+import { useAppDispatch } from 'app/store/store'
 import { Palette } from '@mui/material/styles/createPalette'
 import ThemeFormConfigTypes from '@fuse/core/FuseSettings/ThemeFormConfigTypes'
 import { PartialDeep } from 'type-fest'
+import { showMessage } from '@fuse/core/FuseMessage/store/fuseMessageSlice'
 import PaletteSelector from './palette-generator/PaletteSelector'
 import SectionPreview from './palette-generator/SectionPreview'
 
@@ -108,7 +109,9 @@ function FuseSettings() {
   const settingsChanged = !_.isEqual(settings, prevSettings)
 
   const handleUpdate = useDebounce((newSettings: FuseSettingsConfigType) => {
-    dispatch(setDefaultSettings(newSettings))
+    dispatch(setDefaultSettings(newSettings)).then(() => {
+      dispatch(showMessage({ message: 'User settings saved with the api' }))
+    })
   }, 300)
 
   useEffect(() => {

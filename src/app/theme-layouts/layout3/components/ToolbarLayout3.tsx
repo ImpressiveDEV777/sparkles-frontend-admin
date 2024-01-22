@@ -8,16 +8,15 @@ import { useSelector } from 'react-redux'
 import {
   selectFuseCurrentLayoutConfig,
   selectToolbarTheme,
-} from 'app/store/fuse/settingsSlice'
+} from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
+import NavbarToggleButton from 'app/theme-layouts/shared-components/navbar/NavbarToggleButton'
 import AdjustFontSize from '../../shared-components/AdjustFontSize'
 import FullScreenToggle from '../../shared-components/FullScreenToggle'
 import LanguageSwitcher from '../../shared-components/LanguageSwitcher'
-import NotificationPanelToggleButton from '../../shared-components/notificationPanel/NotificationPanelToggleButton'
-import NavigationSearch from '../../shared-components/NavigationSearch'
+import NavigationSearch from '../../shared-components/navigation/NavigationSearch'
 import UserMenu from '../../shared-components/UserMenu'
 import QuickPanelToggleButton from '../../shared-components/quickPanel/QuickPanelToggleButton'
 import Logo from '../../shared-components/Logo'
-import NavbarToggleButton from '../../shared-components/NavbarToggleButton'
 import { Layout3ConfigDefaultsType } from '../Layout3Config'
 
 type ToolbarLayout3Props = {
@@ -69,7 +68,6 @@ function ToolbarLayout3(props: ToolbarLayout3Props) {
             <AdjustFontSize />
             <FullScreenToggle />
             <QuickPanelToggleButton />
-            <NotificationPanelToggleButton />
             <UserMenu />
           </div>
         </Toolbar>

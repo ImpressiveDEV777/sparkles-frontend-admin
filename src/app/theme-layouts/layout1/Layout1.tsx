@@ -1,19 +1,20 @@
-import FuseDialog from '@fuse/core/FuseDialog'
 import { styled } from '@mui/material/styles'
 import FuseMessage from '@fuse/core/FuseMessage'
-import FuseSuspense from '@fuse/core/FuseSuspense'
 import AppContext from 'app/AppContext'
-import { memo, ReactNode, useContext } from 'react'
+import { lazy, memo, ReactNode, Suspense, useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { useRoutes } from 'react-router-dom'
-import { selectFuseCurrentLayoutConfig } from 'app/store/fuse/settingsSlice'
+import { selectFuseCurrentLayoutConfig } from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
 import { Layout1ConfigDefaultsType } from 'app/theme-layouts/layout1/Layout1Config'
+import Configurator from 'app/theme-layouts/shared-components/configurator/Configurator'
+import FuseSuspense from '@fuse/core/FuseSuspense'
 import FooterLayout1 from './components/FooterLayout1'
 import LeftSideLayout1 from './components/LeftSideLayout1'
 import NavbarWrapperLayout1 from './components/NavbarWrapperLayout1'
 import RightSideLayout1 from './components/RightSideLayout1'
 import ToolbarLayout1 from './components/ToolbarLayout1'
-import SettingsPanel from '../shared-components/SettingsPanel'
+
+const FuseDialog = lazy(() => import('@fuse/core/FuseDialog/FuseDialog'))
 
 const Root = styled('div')(
   ({ config }: { config: Layout1ConfigDefaultsType }) => ({
@@ -69,12 +70,15 @@ function Layout1(props: Layout1Props) {
           )}
 
           <div className="sticky top-0 z-99">
-            <SettingsPanel />
+            <Configurator />
           </div>
 
           <div className="relative z-10 flex min-h-0 flex-auto flex-col">
-            <FuseDialog />
             <FuseSuspense>{useRoutes(routes)}</FuseSuspense>
+
+            <Suspense>
+              <FuseDialog />
+            </Suspense>
             {children}
           </div>
 

@@ -3,14 +3,15 @@
 // import { create } from 'jss';
 // import jssExtend from 'jss-plugin-extend';
 // import rtl from 'jss-rtl';
-import Provider from 'react-redux/es/components/Provider'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { StyledEngineProvider } from '@mui/material/styles'
 import routes from 'app/configs/routesConfig'
 import { useMemo } from 'react'
-import store from './store'
+import { Provider } from 'react-redux'
+import ErrorBoundary from '@fuse/utils/ErrorBoundary'
 import AppContext from './AppContext'
+import store from './store/store'
 
 type ComponentProps = {
   name?: string
@@ -35,15 +36,17 @@ function withAppProviders(Component: React.ComponentType<ComponentProps>) {
     )
 
     return (
-      <AppContext.Provider value={val}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Provider store={store}>
-            <StyledEngineProvider injectFirst>
-              <Component {...props} />
-            </StyledEngineProvider>
-          </Provider>
-        </LocalizationProvider>
-      </AppContext.Provider>
+      <ErrorBoundary>
+        <AppContext.Provider value={val}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <Provider store={store}>
+              <StyledEngineProvider injectFirst>
+                <Component {...props} />
+              </StyledEngineProvider>
+            </Provider>
+          </LocalizationProvider>
+        </AppContext.Provider>
+      </ErrorBoundary>
     )
   }
 

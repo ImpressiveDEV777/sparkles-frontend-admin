@@ -1,6 +1,5 @@
 import { SxProps } from '@mui/system'
 import { FuseNavBadgeType } from './FuseNavBadgeType'
-import { FuseNavigationType } from './FuseNavigationType'
 
 /**
  * FuseNavItemType
@@ -23,6 +22,11 @@ export type FuseNavItemType = {
   exact?: boolean
   end?: boolean
   badge?: FuseNavBadgeType
-  children?: FuseNavigationType
+  children?: FuseNavItemType[]
   hasPermission?: boolean
+}
+
+export type FuseFlatNavItemType = Omit<FuseNavItemType, 'children' | 'sx'> & {
+  children?: string[]
+  order: string
 }

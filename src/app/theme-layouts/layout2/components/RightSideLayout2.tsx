@@ -1,17 +1,17 @@
-import { memo } from 'react'
-import QuickPanel from '../../shared-components/quickPanel/QuickPanel'
-import NotificationPanel from '../../shared-components/notificationPanel/NotificationPanel'
+import { lazy, memo, Suspense } from 'react'
+
+const QuickPanel = lazy(
+  () => import('app/theme-layouts/shared-components/quickPanel/QuickPanel'),
+)
 
 /**
  * The right side layout 2.
  */
 function RightSideLayout2() {
   return (
-    <>
+    <Suspense>
       <QuickPanel />
-
-      <NotificationPanel />
-    </>
+    </Suspense>
   )
 }
 

@@ -6,10 +6,10 @@ import {
   navbarCloseMobile,
   navbarOpenFolded,
   selectFuseNavbar,
-} from 'app/store/fuse/navbarSlice'
-import { useAppDispatch } from 'app/store'
+} from 'app/theme-layouts/shared-components/navbar/store/navbarSlice'
+import { useAppDispatch } from 'app/store/store'
 import { useSelector } from 'react-redux'
-import { selectFuseCurrentLayoutConfig } from 'app/store/fuse/settingsSlice'
+import { selectFuseCurrentLayoutConfig } from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
 import { Theme } from '@mui/system/createTheme'
 import { Layout1ConfigDefaultsType } from 'app/theme-layouts/layout1/Layout1Config'
 import NavbarStyle2Content from './NavbarStyle2Content'
@@ -153,7 +153,7 @@ function NavbarStyle2() {
       folded={folded ? 1 : 0}
       open={navbar.open}
       id="fuse-navbar"
-      className="sticky top-0 z-20 h-screen shrink-0 shadow-5"
+      className="sticky top-0 z-20 h-screen shrink-0 shadow"
     >
       <Hidden lgDown>
         <StyledNavbar
