@@ -3,6 +3,8 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 import jwtDecode, { JwtPayload } from 'jwt-decode'
 import _ from '@lodash'
 import { PartialDeep } from 'type-fest'
+import { Auth } from 'src/app/res-types/Auth'
+import { mapToUser } from 'src/app/utils/maps'
 
 const defaultAuthConfig = {
   tokenStorageKey: 'jwt_access_token',
@@ -73,10 +75,11 @@ const useJwtAuth = <User, SignInPayload, SignUpPayload>(
   /**
    * Set session
    */
-  const setSession = useCallback((accessToken: string) => {
-    if (accessToken) {
-      localStorage.setItem(authConfig.tokenStorageKey, accessToken)
-      axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
+  type SessionData = { accessToken: string; userData: User }
+  const setSession = useCallback((session: SessionData) => {
+    if (session) {
+      localStorage.setItem(authConfig.tokenStorageKey, JSON.stringify(session))
+      axios.defaults.headers.common.Authorization = `Bearer ${session.accessToken}`
     }
   }, [])
 
@@ -89,7 +92,8 @@ const useJwtAuth = <User, SignInPayload, SignUpPayload>(
    * Get access token from local storage
    */
   const getAccessToken = useCallback(() => {
-    return localStorage.getItem(authConfig.tokenStorageKey)
+    const token = localStorage.getItem(authConfig.tokenStorageKey)
+    return token && (JSON.parse(token) as SessionData)
   }, [])
 
   /**
@@ -97,7 +101,7 @@ const useJwtAuth = <User, SignInPayload, SignUpPayload>(
    */
   const handleSignInSuccess = useCallback(
     (userData: User, accessToken: string) => {
-      setSession(accessToken)
+      setSession({ accessToken, userData })
 
       setIsAuthenticated(true)
 
@@ -113,7 +117,7 @@ const useJwtAuth = <User, SignInPayload, SignUpPayload>(
 
   const handleSignUpSuccess = useCallback(
     (userData: User, accessToken: string) => {
-      setSession(accessToken)
+      setSession({ accessToken, userData })
 
       setIsAuthenticated(true)
 
@@ -178,19 +182,19 @@ const useJwtAuth = <User, SignInPayload, SignUpPayload>(
    */
   useEffect(() => {
     const attemptAutoLogin = async () => {
-      const accessToken = getAccessToken()
+      const { accessToken, userData } = getAccessToken() ?? {}
       if (isTokenValid(accessToken)) {
         try {
           setIsLoading(true)
 
-          const response: AxiosResponse<User> = await axios.get(
-            authConfig.getUserUrl,
-            {
-              headers: { Authorization: `Bearer ${accessToken}` },
-            },
-          )
+          // const response: AxiosResponse<User> = await axios.get(
+          //   authConfig.getUserUrl,
+          //   {
+          //     headers: { Authorization: `Bearer ${accessToken}` },
+          //   },
+          // )
 
-          const userData = response?.data
+          // const userData = response?.data
 
           handleSignInSuccess(userData, accessToken)
 
@@ -229,11 +233,11 @@ const useJwtAuth = <User, SignInPayload, SignUpPayload>(
     const response = axios.post(authConfig.signInUrl, credentials)
 
     response.then(
-      (res: AxiosResponse<{ user: User; access_token: string }>) => {
-        const userData = res?.data?.user
-        const accessToken = res?.data?.access_token
+      (res: AxiosResponse<Auth>) => {
+        const userData = res?.data?.data?.user
+        const accessToken = res?.data?.data?.token
 
-        handleSignInSuccess(userData, accessToken)
+        handleSignInSuccess(mapToUser(userData) as User, accessToken)
 
         return userData
       },
@@ -317,16 +321,16 @@ const useJwtAuth = <User, SignInPayload, SignUpPayload>(
   const refreshToken = async () => {
     setIsLoading(true)
     try {
-      const response: AxiosResponse<string> = await axios.post(
-        authConfig.tokenRefreshUrl,
-      )
+      // const response: AxiosResponse<string> = await axios.post(
+      //   authConfig.tokenRefreshUrl,
+      // )
 
-      const accessToken = response?.headers?.['New-Access-Token'] as string
+      // const accessToken = response?.headers?.['New-Access-Token'] as string
 
-      if (accessToken) {
-        setSession(accessToken)
-        return accessToken
-      }
+      // if (accessToken) {
+      //   setSession(accessToken)
+      //   return accessToken
+      // }
       return null
     } catch (error) {
       const axiosError = error as AxiosError
@@ -341,32 +345,32 @@ const useJwtAuth = <User, SignInPayload, SignUpPayload>(
    * updates the access token from it.
    *
    */
-  useEffect(() => {
-    if (authConfig.updateTokenFromHeader && isAuthenticated) {
-      axios.interceptors.response.use(
-        response => {
-          const newAccessToken = response?.headers?.[
-            'New-Access-Token'
-          ] as string
+  // useEffect(() => {
+  //   if (authConfig.updateTokenFromHeader && isAuthenticated) {
+  //     axios.interceptors.response.use(
+  //       response => {
+  //         const newAccessToken = response?.headers?.[
+  //           'New-Access-Token'
+  //         ] as string
 
-          if (newAccessToken) {
-            setSession(newAccessToken)
-          }
-          return response
-        },
-        error => {
-          const axiosError = error as AxiosError
+  //         if (newAccessToken) {
+  //           setSession(newAccessToken)
+  //         }
+  //         return response
+  //       },
+  //       error => {
+  //         const axiosError = error as AxiosError
 
-          if (axiosError?.response?.status === 401) {
-            signOut()
-            // eslint-disable-next-line no-console
-            console.warn('Unauthorized request. User was signed out.')
-          }
-          return Promise.reject(axiosError)
-        },
-      )
-    }
-  }, [isAuthenticated])
+  //         if (axiosError?.response?.status === 401) {
+  //           signOut()
+  //           // eslint-disable-next-line no-console
+  //           console.warn('Unauthorized request. User was signed out.')
+  //         }
+  //         return Promise.reject(axiosError)
+  //       },
+  //     )
+  //   }
+  // }, [isAuthenticated])
 
   return {
     user,

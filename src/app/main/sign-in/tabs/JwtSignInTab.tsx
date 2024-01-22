@@ -2,13 +2,14 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { Controller, useForm } from 'react-hook-form'
 import _ from '@lodash'
-import { AxiosError } from 'axios'
 import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import { useAuth } from 'src/app/auth/AuthRouteProvider'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { showMessage } from '@fuse/core/FuseMessage/store/fuseMessageSlice'
+import { useAppDispatch } from 'app/store/store'
 
 /**
  * Form Validation Schema
@@ -38,8 +39,9 @@ const defaultValues = {
 
 function jwtSignInTab() {
   const { jwtService } = useAuth()
+  const dispatch = useAppDispatch()
 
-  const { control, formState, handleSubmit, setError } = useForm<FormType>({
+  const { control, formState, handleSubmit } = useForm<FormType>({
     mode: 'onChange',
     defaultValues,
     resolver: zodResolver(schema),
@@ -55,30 +57,18 @@ function jwtSignInTab() {
         email,
         password,
       })
-      .catch(
-        (
-          error: AxiosError<
-            {
-              type:
-                | 'email'
-                | 'password'
-                | 'remember'
-                | `root.${string}`
-                | 'root'
-              message: string
-            }[]
-          >,
-        ) => {
-          const errorData = error.response.data
-
-          errorData.forEach(err => {
-            setError(err.type, {
-              type: 'manual',
-              message: err.message,
-            })
-          })
-        },
-      )
+      .catch(() => {
+        dispatch(
+          showMessage({
+            message: 'Incorrect Email or Password',
+            anchorOrigin: {
+              vertical: 'top',
+              horizontal: 'right',
+            },
+            variant: 'error',
+          }),
+        )
+      })
   }
 
   return (
