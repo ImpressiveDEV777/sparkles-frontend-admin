@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 import createAppAsyncThunk from 'app/store/createAppAsyncThunk'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { AsyncStateType, RootStateType } from 'app/store/types'
 import { Supplier } from '../../types/SupplierType'
 import { Image } from '../../types/ImageType'
+import SupplierModel from '../supplier/models/SupplierModel'
 
 export type SupplierType = {
   type: string
   whitelabelapps: string[]
-  id: string
+  id?: string
   title: string
   image: Image | File
 }
@@ -50,8 +51,9 @@ export const saveSupplier = createAppAsyncThunk(
     const AppState = getState() as AppRootStateType
 
     const { id } = AppState.suppliersApp.supplier.data as SupplierType
-
-    const response = await axios.put(`/product-providers/${id}`, supplierData)
+    let response: AxiosResponse
+    if (id) response = await axios.put(`/product-providers/${id}`, supplierData)
+    else response = await axios.post(`/product-providers`, supplierData)
 
     const data = (await response.data) as Supplier
     const res: SupplierType = {
@@ -79,7 +81,7 @@ export const supplierSlice = createSlice({
   reducers: {
     resetSupplier: () => initialState,
     newSupplier: state => {
-      state.data = null
+      state.data = SupplierModel({})
     },
   },
   extraReducers: builder => {

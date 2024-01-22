@@ -19,7 +19,7 @@ export default function Suppliers() {
 
   return (
     <FusePageCarded
-      header={<CommonHeader title="Suppliers" url={PATHS.SUPPLIERS} />}
+      header={<CommonHeader title="Suppliers" url={PATHS.SUPPLIERS} create />}
       content={<SupplierAppsContent />}
       scroll={isMobile ? 'normal' : 'content'}
     />

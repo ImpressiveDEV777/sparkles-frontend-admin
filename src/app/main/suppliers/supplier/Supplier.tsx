@@ -28,6 +28,7 @@ import SupplierForm from './SupplierForm'
 const schema = yup.object().shape({
   title: yup.string().required('You must enter a Supplier Name'),
   type: yup.string().required('You must select a Supplier Type'),
+  image: yup.mixed().required('You must select a Image'),
 })
 
 /**

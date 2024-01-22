@@ -1,16 +1,22 @@
 import Typography from '@mui/material/Typography'
 import { motion } from 'framer-motion'
-import { Box, IconButton, Tooltip } from '@mui/material'
+import { Box, Button, IconButton, Tooltip } from '@mui/material'
 import { FormatListBulleted, GridView } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 import useQuery from 'src/app/hooks/useQuery'
+import FuseSvgIcon from '@fuse/core/FuseSvgIcon'
 
 type CommonHeaderProps = {
   title: string
   url: string
+  create?: boolean
 }
 
-export default function CommonHeader({ title, url }: CommonHeaderProps) {
+export default function CommonHeader({
+  title,
+  url,
+  create = false,
+}: CommonHeaderProps) {
   const query = useQuery()
 
   return (
@@ -49,6 +55,23 @@ export default function CommonHeader({ title, url }: CommonHeaderProps) {
             </IconButton>
           </Tooltip>
         </Box>
+        {create && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
+          >
+            <Button
+              component={Link}
+              to={`${url}/new`}
+              variant="contained"
+              color="secondary"
+              startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
+              className="ml-10"
+            >
+              Add
+            </Button>
+          </motion.div>
+        )}
       </div>
     </div>
   )
