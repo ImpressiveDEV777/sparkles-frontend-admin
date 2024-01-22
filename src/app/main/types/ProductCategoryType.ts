@@ -15,3 +15,4 @@ export type ProductCategory = {
   provider_product: null
   id: string
 }
+export type ProductCategories = [ProductCategory]

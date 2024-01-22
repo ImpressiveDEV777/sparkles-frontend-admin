@@ -5,10 +5,12 @@ import { FormatListBulleted, GridView } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 import useQuery from 'src/app/hooks/useQuery'
 
-/**
- * The orders header.
- */
-function WhitelabelAppsHeader() {
+type CommonHeaderProps = {
+  title: string
+  url: string
+}
+
+export default function CommonHeader({ title, url }: CommonHeaderProps) {
   const query = useQuery()
 
   return (
@@ -18,7 +20,7 @@ function WhitelabelAppsHeader() {
         animate={{ x: 0, transition: { delay: 0.2 } }}
       >
         <Typography className="flex text-24 md:text-32 font-extrabold tracking-tight">
-          Whitelabel Apps
+          {title}
         </Typography>
       </motion.span>
 
@@ -30,7 +32,7 @@ function WhitelabelAppsHeader() {
               component={Link}
               type="file"
               color="primary"
-              to="/whitelabel-apps?view=list"
+              to={`${url}?view=list`}
               disabled={query.get('view') === 'list'}
             >
               <FormatListBulleted />
@@ -40,7 +42,7 @@ function WhitelabelAppsHeader() {
             <IconButton
               aria-label="grid"
               component={Link}
-              to="/whitelabel-apps?view=grid"
+              to={`${url}?view=grid`}
               disabled={query.get('view') === 'grid'}
             >
               <GridView />
@@ -51,5 +53,3 @@ function WhitelabelAppsHeader() {
     </div>
   )
 }
-
-export default WhitelabelAppsHeader

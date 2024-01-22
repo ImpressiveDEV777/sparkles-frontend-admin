@@ -19,7 +19,7 @@ import {
   statusFilterOperators,
 } from 'src/app/utils/filterOperators'
 import useQuery from 'src/app/hooks/useQuery'
-import { WhitelabelType } from '../types/WhitelabelType'
+import { Whitelabel } from '../types/WhitelabelType'
 import {
   selectWhitelabels,
   selectWhitelabelsLoading,
@@ -28,7 +28,7 @@ import { Provider } from '../types/ProviderType'
 
 // Define a type for the params object
 type CellParams = {
-  row: WhitelabelType
+  row: Whitelabel
 }
 
 export default function WhitelabelAppsContent() {
@@ -136,76 +136,71 @@ export default function WhitelabelAppsContent() {
       filterOperators: statusFilterOperators,
     },
   ]
-  return (
-    <>
-      {query.get('view') === 'grid' && (
-        <Grid item xs={12} className="p-10">
-          <Grid container spacing={3}>
-            {whitelabels?.map(label => (
-              <Grid item lg={3} md={4} sm={6} xs={12} key={label.id}>
-                <Card sx={{ position: 'relative' }}>
-                  <CardMedia
-                    sx={{ height: 140 }}
-                    image={label?.icon?.url}
-                    title="green iguana"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h6" component="div">
-                      {label?.title}
-                    </Typography>
+  return query.get('view') === 'grid' ? (
+    <Grid item xs={12} className="p-10">
+      <Grid container spacing={3}>
+        {whitelabels?.map(label => (
+          <Grid item lg={3} md={4} sm={6} xs={12} key={label.id}>
+            <Card sx={{ position: 'relative' }}>
+              <CardMedia
+                sx={{ height: 140 }}
+                image={label?.icon?.url}
+                title="green iguana"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  {label?.title}
+                </Typography>
 
-                    <div>
-                      <Typography variant="subtitle1">Suppliers</Typography>
-                      <div className="flex flex-wrap">
-                        {label?.providers?.length > 0
-                          ? label?.providers?.map(provider => {
-                              return (
-                                <Box pr={1} py={0.5} key={provider?._id}>
-                                  <Chip label={provider?.title} size="small" />
-                                </Box>
-                              )
-                            })
-                          : 'N/A'}
-                      </div>
-                    </div>
-                    <div>
-                      <Typography variant="subtitle1">Category</Typography>
-                      <div className="flex flex-wrap">
-                        {label?.product_categories?.length > 0
-                          ? label?.product_categories?.map(category => {
-                              return (
-                                <Box pr={1} py={0.5} key={category?._id}>
-                                  <Chip label={category?.title} size="small" />
-                                </Box>
-                              )
-                            })
-                          : 'N/A'}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
+                <div>
+                  <Typography variant="subtitle1">Suppliers</Typography>
+                  <div className="flex flex-wrap">
+                    {label?.providers?.length > 0
+                      ? label?.providers?.map(provider => {
+                          return (
+                            <Box pr={1} py={0.5} key={provider?._id}>
+                              <Chip label={provider?.title} size="small" />
+                            </Box>
+                          )
+                        })
+                      : 'N/A'}
+                  </div>
+                </div>
+                <div>
+                  <Typography variant="subtitle1">Category</Typography>
+                  <div className="flex flex-wrap">
+                    {label?.product_categories?.length > 0
+                      ? label?.product_categories?.map(category => {
+                          return (
+                            <Box pr={1} py={0.5} key={category?._id}>
+                              <Chip label={category?.title} size="small" />
+                            </Box>
+                          )
+                        })
+                      : 'N/A'}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </Grid>
-        </Grid>
-      )}
-      {query.get('view') === 'list' && (
-        <DataGridPro
-          hideFooter
-          rows={whitelabels}
-          columns={columns}
-          loading={loading}
-          getRowHeight={() => 'auto'}
-          sx={{
-            [`& .${gridClasses.cell}`]: {
-              py: 1,
-            },
-            '& .MuiDataGrid-main > div:last-child': {
-              display: 'none',
-            },
-          }}
-        />
-      )}
-    </>
+        ))}
+      </Grid>
+    </Grid>
+  ) : (
+    <DataGridPro
+      hideFooter
+      rows={whitelabels}
+      columns={columns}
+      loading={loading}
+      getRowHeight={() => 'auto'}
+      sx={{
+        [`& .${gridClasses.cell}`]: {
+          py: 1,
+        },
+        '& .MuiDataGrid-main > div:last-child': {
+          display: 'none',
+        },
+      }}
+    />
   )
 }

@@ -2,7 +2,7 @@ import FusePageCarded from '@fuse/core/FusePageCarded'
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery'
 import { useEffect } from 'react'
 import { useAppDispatch } from 'app/store'
-import WhitelabelAppsHeader from './WhitelabelAppsHeader'
+import CommonHeader from 'app/shared-components/CommonHeader'
 import WhitelabelAppsContent from './WhitelabelAppsContent'
 import { getWhitelabels } from './store/whitelabelsSlice'
 
@@ -18,7 +18,7 @@ function WhitelabelAppsPage() {
 
   return (
     <FusePageCarded
-      header={<WhitelabelAppsHeader />}
+      header={<CommonHeader title="Whitelabel Apps" url="/whitelabel-apps" />}
       content={<WhitelabelAppsContent />}
       scroll={isMobile ? 'normal' : 'content'}
     />

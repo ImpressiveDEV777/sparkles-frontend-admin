@@ -6,7 +6,7 @@ import { ProviderProduct } from './ProviderProductType'
 import { Provider } from './ProviderType'
 import { ThirdPartyApi } from './ThirdPartyApiType'
 
-export type WhitelabelType = {
+export type Whitelabel = {
   id: string
   _id: string
   active: boolean
@@ -16,12 +16,12 @@ export type WhitelabelType = {
   createdAt: string
   updatedAt: string
   icon: Image
-  product_categories: [ProductCategory]
-  providers: [Provider]
-  provider_products: [ProviderProduct]
-  third_party_apis: ThirdPartyApi
-  banners: Banner
-  coupons: Coupon
+  product_categories?: [ProductCategory]
+  providers?: [Provider]
+  provider_products?: [ProviderProduct]
+  third_party_apis?: ThirdPartyApi
+  banners?: Banner
+  coupons?: Coupon
 }
 
-export type WhitelabelsType = WhitelabelType[]
+export type Whitelabels = Whitelabel[]

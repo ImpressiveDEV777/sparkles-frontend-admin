@@ -2,22 +2,22 @@ import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 import createAppAsyncThunk from 'app/store/createAppAsyncThunk'
 import axios from 'axios'
 import { RootStateType } from 'app/store/types'
-import { WhitelabelType, WhitelabelsType } from '../../types/WhitelabelType'
+import { Whitelabel, Whitelabels } from '../../types/WhitelabelType'
 
 export type AppRootStateType = RootStateType<whitelabelsSliceType>
 
 /**
  * Get whitelabels from server
  */
-export const getWhitelabels = createAppAsyncThunk<WhitelabelsType>(
+export const getWhitelabels = createAppAsyncThunk<Whitelabels>(
   'whitelabels/getWhitelabels',
   async () => {
     const response = await axios.get('/whitelabelapps')
-    return response.data as WhitelabelsType
+    return response.data as Whitelabels
   },
 )
 
-const whitelabelsAdapter = createEntityAdapter<WhitelabelType>({})
+const whitelabelsAdapter = createEntityAdapter<Whitelabel>({})
 
 export const {
   selectAll: selectWhitelabels,

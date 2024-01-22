@@ -20,3 +20,4 @@ export type Coupon = {
   coupon_type: string
   id: string
 }
+export type Coupons = [Coupon]
