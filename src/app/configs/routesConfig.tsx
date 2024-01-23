@@ -7,8 +7,10 @@ import SignInConfig from '../main/sign-in/SignInConfig'
 import SignOutConfig from '../main/sign-out/SignOutConfig'
 import Error404Page from '../main/404/Error404Page'
 import WhitelabelAppsConfig from '../main/whitelabel-apps/WhitelabelAppsConfig'
+import SuppliersAppConfig from '../main/suppliers/SuppliersAppConfig'
 
 const routeConfigs: FuseRouteConfigsType = [
+  SuppliersAppConfig,
   WhitelabelAppsConfig,
   SignOutConfig,
   SignInConfig,
@@ -24,7 +26,7 @@ const routes: FuseRoutesType = [
   ),
   {
     path: '/',
-    element: <Navigate to="/example" />,
+    element: <Navigate to="/whitelabel-apps" />,
     auth: settingsConfig.defaultAuth,
   },
   {

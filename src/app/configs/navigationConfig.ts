@@ -20,6 +20,13 @@ const navigationConfig: FuseNavItemType[] = [
     icon: 'heroicons-outline:clipboard-list',
     url: PATHS.WHITELABEL_APPS,
   },
+  {
+    id: PATHS.SUPPLIERS,
+    title: 'Supplier',
+    type: 'item',
+    icon: 'heroicons-outline:clipboard-list',
+    url: PATHS.SUPPLIERS,
+  },
 ]
 
 export default navigationConfig

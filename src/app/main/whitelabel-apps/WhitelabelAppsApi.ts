@@ -47,6 +47,7 @@ export type Whitelabel = {
   banners?: Banner
   coupons?: Coupon
 }
+export type Whitelabels = Whitelabel[]
 
 export const { useGetWhitelabelsQuery } = WhitelabelAppsApi
 

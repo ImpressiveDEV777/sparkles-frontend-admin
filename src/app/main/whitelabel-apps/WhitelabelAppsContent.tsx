@@ -183,7 +183,7 @@ export default function WhitelabelAppsContent() {
   ) : (
     <DataGridPro
       hideFooter
-      rows={whitelabels}
+      rows={whitelabels || []}
       columns={columns}
       loading={isLoading}
       getRowHeight={() => 'auto'}
