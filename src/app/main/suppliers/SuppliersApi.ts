@@ -64,10 +64,10 @@ export type GetSupplierApiResponse = /** status 200 OK */ SupplierForm
 export type GetSupplierApiArg = string
 
 export type CreateSupplierApiResponse = /** status 200 OK */ SupplierForm
-export type CreateSupplierApiArg = SupplierForm
+export type CreateSupplierApiArg = SupplierArg
 
 export type UpdateSupplierApiResponse = /** status 200 OK */ SupplierForm
-export type UpdateSupplierApiArg = SupplierForm
+export type UpdateSupplierApiArg = SupplierArg
 
 export type Supplier = {
   type: string
@@ -94,8 +94,18 @@ export type SupplierForm = {
   whitelabelapps: string[]
   id?: string
   title: string
-  image: Image | File
+  image: ImageData
 }
+
+export type SupplierArg = {
+  type: string
+  whitelabelapps: string[]
+  id?: string
+  title: string
+  image: string
+}
+
+type ImageData = Image & File
 
 export const {
   useGetSuppliersQuery,

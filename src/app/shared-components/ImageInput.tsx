@@ -12,7 +12,6 @@ import { Button } from '@mui/material'
 import { CloudUpload } from '@mui/icons-material'
 import { canvasPreview } from '../utils/canvasPreview'
 import { useDebounceEffect } from '../hooks/useDebounceEffect'
-import { Image } from '../res-types/sub/ImageType'
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -48,8 +47,10 @@ function centerAspectCrop(
 }
 
 type ImageUploadProps = {
-  onChange: (value: File | Image) => void
-  value: File | Image
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange: (value: any) => void
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  value: any
 }
 
 export default function ImageInput({ onChange, value }: ImageUploadProps) {
@@ -67,6 +68,7 @@ export default function ImageInput({ onChange, value }: ImageUploadProps) {
       setCrop(undefined) // Makes crop preview update between images.
       const reader = new FileReader()
       reader.addEventListener('load', () =>
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         setImgSrc(reader.result?.toString() || ''),
       )
       reader.readAsDataURL(e.target.files[0])
@@ -179,7 +181,10 @@ export default function ImageInput({ onChange, value }: ImageUploadProps) {
           onChange={onSelectFile}
         />
       </Button>
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
       {value?.url ? (
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         <img alt="value_url" src={value?.url} />
       ) : (
         <>

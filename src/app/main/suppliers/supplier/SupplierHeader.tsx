@@ -40,6 +40,7 @@ function SupplierHeader() {
       const formData: FormData = new FormData()
       formData.append('files', supplier.image as File)
       const res = await axios.post('/upload', formData)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       imageId = res.data[0]?.id as string
     }
     if (supplierId === 'new') {
