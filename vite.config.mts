@@ -22,12 +22,11 @@ export default defineConfig({
           })
           return []
         }
-        return
       },
     },
   ],
   build: {
-    outDir: 'build',
+    outDir: 'dist',
   },
   server: {
     open: true,
