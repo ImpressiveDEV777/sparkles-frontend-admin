@@ -19,7 +19,6 @@ export type Order = {
       quantity: 1
       properties: {
         print_url: string
-        string
       }
     },
   ]

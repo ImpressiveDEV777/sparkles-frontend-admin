@@ -143,7 +143,7 @@ class FuseNavigationHelper {
    */
   static getFlatNavigation(
     navigationItems: FuseNavItemType[] = [],
-    flatNavigation = [],
+    flatNavigation: FuseNavItemType[] = [],
   ) {
     for (let i = 0; i < navigationItems.length; i += 1) {
       const navItem = navigationItems[i]

@@ -20,7 +20,7 @@ const authRoles = {
   /**
    * The onlyGuest role grants access to unauthenticated users.
    */
-  onlyGuest: [],
+  onlyGuest: [] as undefined[],
 }
 
 export default authRoles

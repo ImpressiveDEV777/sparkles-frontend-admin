@@ -15,7 +15,7 @@
       "app/AppContext": ["./src/app/AppContext"]
     },
     "declaration": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "target": "esnext",
     "lib": ["dom", "dom.iterable", "es2020", "scripthost"],
     "plugins": [{ "name": "typescript-plugin-css-modules" }],

@@ -25,7 +25,7 @@ const emotionCacheOptions = {
   },
   ltr: {
     key: 'muiltr',
-    stylisPlugins: [],
+    stylisPlugins: [] as undefined[],
     insertionPoint: document.getElementById('emotion-insertion-point'),
   },
 }
@@ -37,7 +37,9 @@ function App() {
   /**
    * The language direction from the Redux store.
    */
-  const langDirection = useSelector(selectCurrentLanguageDirection)
+  const langDirection = useSelector(selectCurrentLanguageDirection) as
+    | 'rtl'
+    | 'ltr'
 
   /**
    * The main theme from the Redux store.

@@ -21,10 +21,22 @@ import {
 } from '@fuse/core/FuseSettings/store/fuseSettingsSlice'
 import { selectUser } from 'src/app/auth/user/store/userSlice'
 import { useAppDispatch } from 'app/store/store'
-import { Palette } from '@mui/material/styles/createPalette'
+import {
+  CommonColors,
+  PaletteAugmentColorOptions,
+  PaletteTonalOffset,
+  TypeDivider,
+} from '@mui/material/styles/createPalette'
 import ThemeFormConfigTypes from '@fuse/core/FuseSettings/ThemeFormConfigTypes'
 import { PartialDeep } from 'type-fest'
 import { showMessage } from '@fuse/core/FuseMessage/store/fuseMessageSlice'
+import {
+  Color,
+  PaletteMode,
+  TypeAction,
+  TypeBackground,
+  TypeText,
+} from '@mui/material'
 import PaletteSelector from './palette-generator/PaletteSelector'
 import SectionPreview from './palette-generator/SectionPreview'
 
@@ -63,6 +75,27 @@ const Root = styled('div')(({ theme }) => ({
     },
   },
 }))
+
+type PaletteColor = Record<string, string>
+export interface Palette {
+  common: CommonColors
+  mode: PaletteMode
+  contrastThreshold: number
+  tonalOffset: PaletteTonalOffset
+  primary: PaletteColor
+  secondary: PaletteColor
+  error: PaletteColor
+  warning: PaletteColor
+  info: PaletteColor
+  success: PaletteColor
+  grey: Color
+  text: TypeText
+  divider: TypeDivider
+  action: TypeAction
+  background: TypeBackground
+  getContrastText: (background: string) => string
+  augmentColor: (options: PaletteAugmentColorOptions) => PaletteColor
+}
 
 export type FuseThemeType = {
   palette: PartialDeep<Palette>

@@ -46,7 +46,7 @@ function WYSIWYGEditorComponent(
   /**
    * The function to call when the editor state changes.
    */
-  function onEditorStateChange(_editorState) {
+  function onEditorStateChange(_editorState: EditorState) {
     setEditorState(_editorState)
 
     return onChange(draftToHtml(convertToRaw(_editorState.getCurrentContent())))
