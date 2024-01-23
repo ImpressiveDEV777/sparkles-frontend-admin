@@ -1,11 +1,11 @@
 import _ from '@lodash'
 import { PartialDeep } from 'type-fest'
-import { SupplierType } from '../../store/supplierSlice'
+import { SupplierForm } from '../../SuppliersApi'
 
 /**
  * The product model.
  */
-const SupplierModel = (data: PartialDeep<SupplierType>) =>
+const SupplierModel = (data: PartialDeep<SupplierForm>) =>
   _.defaults(data || {}, {
     type: '',
     whitelabelapps: [],

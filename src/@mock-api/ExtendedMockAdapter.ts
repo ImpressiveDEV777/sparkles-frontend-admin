@@ -33,6 +33,7 @@ class ExtendedMockAdapter extends MockAdapter {
     return createExtendedHandler(
       super[requestType](transformedUrl),
       transformedUrl,
+      // @ts-ignore
       url,
     )
   }

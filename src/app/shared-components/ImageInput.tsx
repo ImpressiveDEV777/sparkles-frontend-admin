@@ -12,7 +12,7 @@ import { Button } from '@mui/material'
 import { CloudUpload } from '@mui/icons-material'
 import { canvasPreview } from '../utils/canvasPreview'
 import { useDebounceEffect } from '../hooks/useDebounceEffect'
-import { Image } from '../main/types/ImageType'
+import { Image } from '../res-types/sub/ImageType'
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',

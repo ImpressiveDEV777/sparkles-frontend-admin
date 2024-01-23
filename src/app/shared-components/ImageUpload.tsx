@@ -16,7 +16,7 @@ import { Cancel } from '@mui/icons-material'
 import 'react-image-crop/dist/ReactCrop.css'
 
 import CropIcon from '@mui/icons-material/Crop'
-import { Image } from '../main/types/ImageType'
+import { Image } from '../res-types/sub/ImageType'
 
 function setCanvasImage(
   image: HTMLImageElement,
@@ -53,31 +53,7 @@ function setCanvasImage(
     crop.height * scaleY,
   )
 }
-function generateDownload(canvas: HTMLCanvasElement, crop: Crop) {
-  if (!crop || !canvas) {
-    return
-  }
 
-  canvas.toBlob(
-    blob => {
-      const previewUrl = window.URL.createObjectURL(blob)
-
-      const anchor = document.createElement('a')
-
-      anchor.download = 'cropPreview.png'
-
-      anchor.href = URL.createObjectURL(blob)
-
-      anchor.click()
-
-      window.URL.revokeObjectURL(previewUrl)
-    },
-
-    'image/png',
-
-    1,
-  )
-}
 const UploadImageCard = styled(Paper)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   boxShadow: theme.shadows[1],
@@ -96,7 +72,6 @@ export default function ImageUpload({ onChange, value }: ImageUploadProps) {
   const imgRef = useRef<HTMLImageElement>(null)
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
 
-  const previewCanvasRefPreview = useRef(null)
   const [crop, setCrop] = useState<Crop>({
     unit: 'px', // Can be 'px' or '%'
     x: 25,

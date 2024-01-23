@@ -2,7 +2,7 @@ import {
   GridComparatorFn,
   gridStringOrNumberComparator,
 } from '@mui/x-data-grid-pro'
-import { Commons } from '../main/types/CommonType'
+import { Commons } from '../res-types/sub/CommonType'
 
 export const commonSortComparator: GridComparatorFn = (
   v1,

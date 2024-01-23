@@ -17,7 +17,7 @@ export type ProviderProduct = {
   markup: number
   videos: [Video]
   catalog: [Image]
-  gallery: [Video | Image]
+  gallery: [Image]
   whitelabelapps: [string]
   _id: string
   published_at: string

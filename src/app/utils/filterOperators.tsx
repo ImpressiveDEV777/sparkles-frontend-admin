@@ -1,7 +1,7 @@
 import { GridFilterItem, GridFilterOperator } from '@mui/x-data-grid'
 import GridFilterInput from 'app/shared-components/GridFilterInput'
 import StatusFilterInput from 'app/shared-components/StatusFilterInput'
-import { Provider } from '../main/types/ProviderType'
+import { Provider } from '../res-types/sub/ProviderType'
 
 export const commonFilterOperators: GridFilterOperator[] = [
   {

@@ -8,9 +8,9 @@ import _ from '@lodash'
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon'
 import { PATHS } from 'src/app/constants/common'
 import axios from 'axios'
-import { SupplierType } from '../store/supplierSlice'
 import {
   Supplier,
+  SupplierForm,
   useCreateSupplierMutation,
   useUpdateSupplierMutation,
 } from '../SuppliersApi'
@@ -34,7 +34,7 @@ function SupplierHeader() {
   const { title } = watch() as Supplier
 
   async function handleSaveSupplier() {
-    const supplier = getValues() as SupplierType
+    const supplier = getValues() as SupplierForm
     let imageId: string
     if (typeof supplier.image.url !== 'string') {
       const formData: FormData = new FormData()
