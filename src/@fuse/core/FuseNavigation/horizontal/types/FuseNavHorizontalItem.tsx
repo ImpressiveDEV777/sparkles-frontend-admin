@@ -9,6 +9,7 @@ import { WithRouterProps } from '@fuse/core/withRouter/withRouter'
 import FuseNavBadge from '../../FuseNavBadge'
 import FuseSvgIcon from '../../../FuseSvgIcon'
 import { FuseNavItemComponentProps } from '../../FuseNavItem'
+import { ItemProps } from '../../types/ItemPropsType'
 
 const Root = styled(ListItemButton)<ListItemButtonProps>(({ theme }) => ({
   color: theme.palette.text.primary,
@@ -41,7 +42,7 @@ function FuseNavHorizontalItem(props: FuseNavHorizontalItemProps) {
 
   const component = item.url ? NavLinkAdapter : 'li'
 
-  let itemProps
+  let itemProps: ItemProps
 
   if (typeof component !== 'string') {
     itemProps = {

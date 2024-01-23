@@ -16,6 +16,7 @@ import { WithRouterProps } from '@fuse/core/withRouter/withRouter'
 import * as PopperJS from '@popperjs/core'
 import FuseNavItem, { FuseNavItemComponentProps } from '../../FuseNavItem'
 import FuseSvgIcon from '../../../FuseSvgIcon'
+import { ItemProps } from '../../types/ItemPropsType'
 
 const Root = styled(ListItemButton)<ListItemButtonProps>(({ theme }) => ({
   color: theme.palette.text.primary,
@@ -70,7 +71,7 @@ function FuseNavHorizontalGroup(props: FuseNavHorizontalGroupProps) {
 
     const component = item.url ? NavLinkAdapter : 'li'
 
-    let itemProps
+    let itemProps: ItemProps
 
     if (typeof component !== 'string') {
       itemProps = {

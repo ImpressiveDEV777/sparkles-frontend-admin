@@ -16,6 +16,7 @@ import isUrlInChildren from '@fuse/core/FuseNavigation/isUrlInChildren'
 import FuseNavBadge from '../../FuseNavBadge'
 import FuseNavItem, { FuseNavItemComponentProps } from '../../FuseNavItem'
 import FuseSvgIcon from '../../../FuseSvgIcon'
+import { ItemProps } from '../../types/ItemPropsType'
 
 const Root = styled(ListItemButton)<ListItemButtonProps>(({ theme }) => ({
   color: theme.palette.text.primary,
@@ -58,7 +59,7 @@ function FuseNavHorizontalCollapse(props: FuseNavHorizontalCollapseProps) {
 
   const component = item.url ? NavLinkAdapter : 'li'
 
-  let itemProps
+  let itemProps: ItemProps
 
   if (typeof component !== 'string') {
     itemProps = {
