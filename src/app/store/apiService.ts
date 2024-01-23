@@ -5,7 +5,7 @@ const axiosBaseQuery =
   (): BaseQueryFn<AxiosRequestConfig<unknown>, unknown, AxiosError> =>
   async ({ url, method, data, params }) => {
     try {
-      Axios.defaults.baseURL = '/api'
+      Axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL
       const result = await Axios({
         url,
         method,

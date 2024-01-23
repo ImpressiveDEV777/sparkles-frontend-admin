@@ -6,10 +6,10 @@ import { FuseRouteConfigsType, FuseRoutesType } from '@fuse/utils/FuseUtils'
 import SignInConfig from '../main/sign-in/SignInConfig'
 import SignOutConfig from '../main/sign-out/SignOutConfig'
 import Error404Page from '../main/404/Error404Page'
-import ExampleConfig from '../main/example/ExampleConfig'
+import WhitelabelAppsConfig from '../main/whitelabel-apps/WhitelabelAppsConfig'
 
 const routeConfigs: FuseRouteConfigsType = [
-  ExampleConfig,
+  WhitelabelAppsConfig,
   SignOutConfig,
   SignInConfig,
 ]
