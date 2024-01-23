@@ -304,6 +304,8 @@ function PaletteSelector(props: PaletteSelectorProps) {
               >
                 Preview
               </Typography>
+              {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+              {/* @ts-expect-error */}
               <PalettePreview palette={form.palette} />
             </div>
           </div>
