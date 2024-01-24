@@ -302,7 +302,7 @@ export default function CouponForm({
           <Controller
             name="discount_amount"
             control={control}
-            render={({ field }) => (
+            render={({ field: { value, onChange } }) => (
               <FormControl
                 error={!!errors.discount_amount}
                 required
@@ -311,7 +311,8 @@ export default function CouponForm({
               >
                 <InputLabel>Discount Amount</InputLabel>
                 <OutlinedInput
-                  {...field}
+                  value={value as string}
+                  onChange={e => onChange(Number(e.target.value))}
                   type="number"
                   required
                   label="Discount Amount"
@@ -337,6 +338,9 @@ export default function CouponForm({
                     </InputAdornment>
                   }
                 />
+                <FormHelperText>
+                  {errors?.discount_amount?.message as string}
+                </FormHelperText>
               </FormControl>
             )}
           />

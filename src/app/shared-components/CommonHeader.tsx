@@ -11,6 +11,7 @@ type CommonHeaderProps = {
   url: string
   create?: boolean
   deleteBtn?: boolean
+  disableDeleteBtn?: boolean
   onDeleteBtnClick?: () => void
 }
 
@@ -19,6 +20,7 @@ export default function CommonHeader({
   url,
   create = false,
   deleteBtn = false,
+  disableDeleteBtn = false,
   onDeleteBtnClick,
 }: CommonHeaderProps) {
   const query = useQuery()
@@ -59,6 +61,7 @@ export default function CommonHeader({
           >
             <Button
               onClick={() => onDeleteBtnClick()}
+              disabled={disableDeleteBtn}
               variant="contained"
               color="secondary"
               startIcon={

@@ -20,19 +20,13 @@ import CouponModel from './models/CouponModel'
  * Form Validation Schema
  */
 const schema = z.object({
-  CouponCode: z.string().nonempty('You must enter an id'),
-  // appliedFor: z.string().nonempty('You must enter an id'),
-  // whitelabelapps: z.string().nonempty('You must enter an id'),
-  // suppliers: z.string().nonempty('You must enter an id'),
-  // coupon_type: z.string().nonempty('You must enter an id'),
-  // ImpactOnPrice: z.string().nonempty('You must enter an id'),
-  // provider_products: z.string().nonempty('You must enter an id'),
-  // expiryType: z.string().nonempty('You must enter an id'),
-  // wantToNotifyUser: z.string().nonempty('You must enter an id'),
-  // subject: z.string().nonempty('You must enter an id'),
-  // message: z.string().nonempty('You must enter an id'),
-  // noOfDays: z.string().nonempty('You must enter an id'),
-  // couponId: z.string().nonempty('You must enter an id'),
+  CouponCode: z.string().min(1, 'You must enter a(an) CouponCode field'),
+  appliedFor: z.string().min(1, 'You must enter a(an) appliedFor field'),
+  coupon_type: z.string().min(1, 'You must enter a(an) coupon_type field'),
+  discount_amount: z.number(),
+  expiryType: z.enum(['date_range', 'no_of_days']),
+  subject: z.string().min(1, 'You must enter a(an) subject field'),
+  message: z.string().min(1, 'You must enter a(an) message field'),
 })
 
 /**

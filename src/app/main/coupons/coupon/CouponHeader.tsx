@@ -27,7 +27,7 @@ function CouponHeader() {
   const routeParams = useParams()
   const isCouponCodeAvailable = useSelector(selectIsCouponCodeAvailableState)
 
-  const { supplierId } = routeParams
+  const { couponId } = routeParams
   const { formState, watch, getValues } = methods
   const { isValid, dirtyFields } = formState
 
@@ -37,11 +37,11 @@ function CouponHeader() {
 
   async function handleSaveCoupon() {
     const coupon = getValues() as CouponForm
-    if (supplierId === 'new') {
+    if (couponId === 'new') {
       createCoupon(coupon)
         .unwrap()
         .then(data => {
-          navigate(`${PATHS.SUPPLIERS}/${data.id}`)
+          navigate(`${PATHS.COUPONS}/${data.id}`)
         })
     } else {
       updateCoupon(coupon)

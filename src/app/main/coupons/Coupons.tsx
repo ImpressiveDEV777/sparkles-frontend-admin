@@ -33,9 +33,10 @@ export default function Coupons() {
       header={
         <CommonHeader
           title="Coupons"
-          url={PATHS.SUPPLIERS}
+          url={PATHS.COUPONS}
           create
           deleteBtn
+          disableDeleteBtn={selectedIds.length === 0}
           onDeleteBtnClick={() =>
             dispatch(
               openDialog({
@@ -57,7 +58,15 @@ export default function Coupons() {
                         Cancel
                       </Button>
                       <Button
-                        onClick={() => selectedIds.map(id => deleteCoupon(id))}
+                        onClick={() =>
+                          selectedIds.map((id, i) =>
+                            deleteCoupon(id).then(
+                              () =>
+                                selectedIds.length - 1 === i &&
+                                dispatch(closeDialog()),
+                            ),
+                          )
+                        }
                         color="primary"
                         autoFocus
                       >

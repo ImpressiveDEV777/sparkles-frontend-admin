@@ -16,7 +16,9 @@ import { PATHS } from 'src/app/constants/common'
 import { commonSortComparator } from 'src/app/utils/sortComparator'
 import { commonFilterOperators } from 'src/app/utils/filterOperators'
 
+import { useAppDispatch } from 'app/store/store'
 import { Coupon, useGetCouponsQuery } from './CouponsApi'
+import { setSelectedIds } from './store/selectedIdsSlice'
 
 // Define a type for the params object
 type CellParams = {
@@ -24,6 +26,7 @@ type CellParams = {
 }
 
 export default function CouponsAppsContent() {
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const query = useQuery()
   const { data: coupons, isLoading } = useGetCouponsQuery()
@@ -32,19 +35,19 @@ export default function CouponsAppsContent() {
     {
       field: 'CouponCode',
       headerName: 'Coupon Code',
-      flex: 2,
+      flex: 1,
       renderCell: (params: CellParams) => params?.row?.CouponCode,
     },
     {
       field: 'ImpactOnPrice',
       headerName: 'Impact on Price',
-      width: 180,
+      width: 150,
       renderCell: (params: CellParams) => params?.row?.ImpactOnPrice,
     },
     {
       field: 'whitelabelapps',
       headerName: 'WhiteLabel Apps',
-      width: 250,
+      width: 190,
       sortComparator: commonSortComparator,
       filterOperators: commonFilterOperators,
       renderCell: (params: CellParams) => {
@@ -61,8 +64,8 @@ export default function CouponsAppsContent() {
     },
     {
       field: 'supplier',
+      width: 280,
       headerName: 'Supplier',
-      flex: 2,
       renderCell: (params: CellParams) => {
         return (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -127,7 +130,7 @@ export default function CouponsAppsContent() {
       loading={isLoading}
       getRowHeight={() => 'auto'}
       onRowSelectionModelChange={newRowSelectionModel => {
-        console.log(newRowSelectionModel)
+        dispatch(setSelectedIds(newRowSelectionModel))
       }}
       onRowClick={(params: GridRowParams) => {
         navigate(`${PATHS.COUPONS}/${params?.id}`)
