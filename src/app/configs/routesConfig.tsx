@@ -8,9 +8,11 @@ import SignOutConfig from '../main/sign-out/SignOutConfig'
 import Error404Page from '../main/404/Error404Page'
 import WhitelabelAppsConfig from '../main/whitelabel-apps/WhitelabelAppsConfig'
 import SuppliersAppConfig from '../main/suppliers/SuppliersAppConfig'
+import CouponsAppConfig from '../main/coupons/CouponsAppConfig'
 
 const routeConfigs: FuseRouteConfigsType = [
   SuppliersAppConfig,
+  CouponsAppConfig,
   WhitelabelAppsConfig,
   SignOutConfig,
   SignInConfig,

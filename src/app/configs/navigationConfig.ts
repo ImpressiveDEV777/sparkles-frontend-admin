@@ -14,11 +14,11 @@ i18next.addResourceBundle('ar', 'navigation', ar)
  */
 const navigationConfig: FuseNavItemType[] = [
   {
-    id: PATHS.WHITELABEL_APPS,
-    title: 'Whitelabel Apps',
+    id: PATHS.COUPONS,
+    title: 'Coupons',
     type: 'item',
     icon: 'heroicons-outline:clipboard-list',
-    url: PATHS.WHITELABEL_APPS,
+    url: PATHS.COUPONS,
   },
   {
     id: PATHS.SUPPLIERS,
@@ -26,6 +26,13 @@ const navigationConfig: FuseNavItemType[] = [
     type: 'item',
     icon: 'heroicons-outline:clipboard-list',
     url: PATHS.SUPPLIERS,
+  },
+  {
+    id: PATHS.WHITELABEL_APPS,
+    title: 'Whitelabel Apps',
+    type: 'item',
+    icon: 'heroicons-outline:clipboard-list',
+    url: PATHS.WHITELABEL_APPS,
   },
 ]
 

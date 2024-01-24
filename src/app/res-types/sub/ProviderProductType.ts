@@ -47,4 +47,4 @@ export type ProviderProduct = {
   skuID: string
   id: string
 }
-export type ProviderProducts = [ProviderProduct]
+export type ProviderProducts = ProviderProduct[]

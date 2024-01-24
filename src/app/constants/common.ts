@@ -1,5 +1,6 @@
 export const PATHS = {
   SUPPLIERS: '/suppliers',
+  COUPONS: '/coupons',
   WHITELABEL_APPS: '/whitelabel-apps',
 }
 

@@ -163,3 +163,7 @@ input:-webkit-autofill:active {
 .fc-scrollgrid-section-liquid {
   height: 1px !important;
 }
+
+.MuiPickersPopper-paper .MuiDateRangeCalendar-root > div:first-child {
+  display: none;
+}

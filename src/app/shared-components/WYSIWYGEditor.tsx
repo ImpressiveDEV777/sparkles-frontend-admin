@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
-import { convertToRaw, EditorState } from 'draft-js'
+import { ContentState, convertToRaw, EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import draftToHtml from 'draftjs-to-html'
+import htmlToDraft from 'html-to-draftjs'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import clsx from 'clsx'
 
@@ -29,6 +30,7 @@ const Root = styled('div')({
  */
 type WYSIWYGEditorComponentProps = {
   className?: string
+  value?: string
   onChange: (T: string) => void
 }
 
@@ -39,9 +41,17 @@ function WYSIWYGEditorComponent(
   props: WYSIWYGEditorComponentProps,
   ref: React.ForwardedRef<HTMLDivElement>,
 ) {
-  const { onChange, className = '' } = props
+  const { onChange, className = '', value = '' } = props
+  const blocksFromHtml = htmlToDraft(value)
+  const { contentBlocks, entityMap } = blocksFromHtml
+  const contentState = ContentState.createFromBlockArray(
+    contentBlocks,
+    entityMap,
+  )
 
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
+  const [editorState, setEditorState] = useState(
+    EditorState.createWithContent(contentState),
+  )
 
   /**
    * The function to call when the editor state changes.

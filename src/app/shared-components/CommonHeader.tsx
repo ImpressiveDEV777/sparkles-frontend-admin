@@ -10,12 +10,16 @@ type CommonHeaderProps = {
   title: string
   url: string
   create?: boolean
+  deleteBtn?: boolean
+  onDeleteBtnClick?: () => void
 }
 
 export default function CommonHeader({
   title,
   url,
   create = false,
+  deleteBtn = false,
+  onDeleteBtnClick,
 }: CommonHeaderProps) {
   const query = useQuery()
 
@@ -31,6 +35,43 @@ export default function CommonHeader({
       </motion.span>
 
       <div className="flex flex-1 items-center justify-end space-x-8 w-full sm:w-auto">
+        {create && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
+          >
+            <Button
+              component={Link}
+              to={`${url}/new`}
+              variant="contained"
+              color="secondary"
+              startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
+              className="mr-2"
+            >
+              Add
+            </Button>
+          </motion.div>
+        )}
+        {deleteBtn && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
+          >
+            <Button
+              onClick={() => onDeleteBtnClick()}
+              variant="contained"
+              color="secondary"
+              startIcon={
+                <FuseSvgIcon className="hidden sm:flex">
+                  heroicons-outline:trash
+                </FuseSvgIcon>
+              }
+              className="mr-10"
+            >
+              Remove
+            </Button>
+          </motion.div>
+        )}
         <Box>
           <Tooltip title="Switch to List View" placement="top">
             <IconButton
@@ -55,23 +96,6 @@ export default function CommonHeader({
             </IconButton>
           </Tooltip>
         </Box>
-        {create && (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
-          >
-            <Button
-              component={Link}
-              to={`${url}/new`}
-              variant="contained"
-              color="secondary"
-              startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
-              className="ml-10"
-            >
-              Add
-            </Button>
-          </motion.div>
-        )}
       </div>
     </div>
   )

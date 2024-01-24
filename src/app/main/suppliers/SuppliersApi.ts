@@ -1,5 +1,4 @@
 import { apiService as api } from 'app/store/apiService'
-import { createSelector } from '@reduxjs/toolkit'
 import { Image } from 'src/app/res-types/sub/ImageType'
 import { ProductCategories } from 'src/app/res-types/sub/ProductCategoryType'
 import { ProviderProducts } from 'src/app/res-types/sub/ProviderProductType'
@@ -57,7 +56,7 @@ const SupplierAppsApi = api
   })
 export { SupplierAppsApi }
 
-export type GetSuppliersApiResponse = /** status 200 OK */ Supplier[]
+export type GetSuppliersApiResponse = /** status 200 OK */ Suppliers
 export type GetSuppliersApiArg = void
 
 export type GetSupplierApiResponse = /** status 200 OK */ SupplierForm
@@ -89,6 +88,8 @@ export type Supplier = {
   id: string
 }
 
+export type Suppliers = Supplier[]
+
 export type SupplierForm = {
   type: string
   whitelabelapps: string[]
@@ -117,9 +118,3 @@ export const {
 export type SupplierAppsApiType = {
   [SupplierAppsApi.reducerPath]: ReturnType<typeof SupplierAppsApi.reducer>
 }
-
-/**
- * Select filtered products
- */
-export const selectMappedSupplier = (supplier: Supplier) =>
-  createSelector([], () => mapToFormSupplier(supplier))
