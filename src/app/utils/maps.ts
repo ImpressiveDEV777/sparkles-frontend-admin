@@ -2,8 +2,12 @@ import { map } from 'lodash'
 import { User } from '../auth/user'
 import { Coupon, CouponForm } from '../main/coupons/CouponsApi'
 import { Supplier, SupplierForm } from '../main/suppliers/SuppliersApi'
-import { Image } from '../res-types/sub/ImageType'
+import { FormImage } from '../res-types/sub/ImageType'
 import { User as ResUser } from '../res-types/sub/User'
+import {
+  Category,
+  CategoryForm,
+} from '../main/product-management/categories/CategoriesApi'
 
 export const mapToUser = (user: ResUser): User => ({
   uid: user._id,
@@ -21,7 +25,7 @@ export const mapToFormSupplier = (data: Supplier): SupplierForm | null => {
         whitelabelapps: data.whitelabelapps.map(label => label._id),
         id: data.id,
         title: data.title,
-        image: data.image as Image & File,
+        image: data.image as FormImage,
       }
     : null
 }
@@ -44,6 +48,20 @@ export const mapToFormCoupon = (data: Coupon): CouponForm | null => {
         CouponCode: data.CouponCode,
         coupon_type: data.coupon_type._id,
         id: data.id,
+      }
+    : null
+}
+
+export const mapToFormCategory = (data: Category): CategoryForm | null => {
+  return data
+    ? {
+        active: data.active,
+        providers: data.providers.map(label => label._id),
+        whitelabelapps: data.whitelabelapps.map(label => label._id),
+        title: data.title,
+        description: data.description,
+        Image: data.Image,
+        categoryId: data.id,
       }
     : null
 }

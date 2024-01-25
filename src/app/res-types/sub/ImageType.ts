@@ -30,3 +30,5 @@ export type Image = {
   __v: number
   id: string
 }
+
+export type FormImage = Image | File | string

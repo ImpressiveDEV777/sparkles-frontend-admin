@@ -20,13 +20,11 @@ import CategoryModel from './models/CategoryModel'
  * Form Validation Schema
  */
 const schema = z.object({
-  CategoryCode: z.string().min(1, 'You must enter a(an) CategoryCode field'),
-  appliedFor: z.string().min(1, 'You must enter a(an) appliedFor field'),
-  category_type: z.string().min(1, 'You must enter a(an) category_type field'),
-  discount_amount: z.number(),
-  expiryType: z.enum(['date_range', 'no_of_days']),
-  subject: z.string().min(1, 'You must enter a(an) subject field'),
-  message: z.string().min(1, 'You must enter a(an) message field'),
+  title: z.string().min(1),
+  active: z.boolean(),
+  description: z.string().min(1),
+  whitelabelapps: z.array(z.string()),
+  providers: z.array(z.string()),
 })
 
 /**
@@ -96,7 +94,7 @@ export default function Category() {
   if (
     _.isEmpty(form) ||
     (category &&
-      routeParams.categoryId !== category.id &&
+      routeParams.categoryId !== category.categoryId &&
       routeParams.categoryId !== 'new')
   ) {
     return <FuseLoading />
@@ -108,7 +106,7 @@ export default function Category() {
         header={<CategoryHeader />}
         content={
           <div className="p-16 sm:p-24">
-            <CategoryForm initialCategoryCode={category?.CategoryCode} />
+            <CategoryForm />
           </div>
         }
         scroll={isMobile ? 'normal' : 'content'}

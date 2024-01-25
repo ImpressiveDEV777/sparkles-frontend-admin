@@ -1,5 +1,5 @@
 import { apiService as api } from 'app/store/apiService'
-import { Image } from 'src/app/res-types/sub/ImageType'
+import { FormImage, Image } from 'src/app/res-types/sub/ImageType'
 import { ProductCategories } from 'src/app/res-types/sub/ProductCategoryType'
 import { ProviderProducts } from 'src/app/res-types/sub/ProviderProductType'
 import { Coupons } from 'src/app/res-types/sub/CouponType'
@@ -94,7 +94,7 @@ export type SupplierForm = {
   whitelabelapps: string[]
   id?: string
   title: string
-  image: ImageData
+  image: FormImage
 }
 
 export type SupplierArg = {
@@ -104,8 +104,6 @@ export type SupplierArg = {
   title: string
   image: string
 }
-
-type ImageData = Image & File
 
 export const {
   useGetSuppliersQuery,

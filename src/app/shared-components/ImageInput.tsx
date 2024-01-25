@@ -50,10 +50,10 @@ type ImageUploadProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (value: any) => void
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value: any
+  src?: string
 }
 
-export default function ImageInput({ onChange, value }: ImageUploadProps) {
+export default function ImageInput({ onChange, src }: ImageUploadProps) {
   const [imgSrc, setImgSrc] = useState('')
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -183,9 +183,9 @@ export default function ImageInput({ onChange, value }: ImageUploadProps) {
       </Button>
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
-      {value?.url ? (
+      {src && imgSrc === '' ? (
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-        <img alt="value_url" src={value?.url} />
+        <img alt="value_url" src={src} />
       ) : (
         <>
           {!!imgSrc && (

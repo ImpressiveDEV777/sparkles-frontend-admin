@@ -7,14 +7,16 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import _ from '@lodash'
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon'
 import { PATHS } from 'src/app/constants/common'
-import { useSelector } from 'react-redux'
+import axios from 'axios'
+import { Image } from 'src/app/res-types/sub/ImageType'
+import { useAppDispatch } from 'app/store/store'
+import { showMessage } from '@fuse/core/FuseMessage/store/fuseMessageSlice'
 import {
   Category,
   CategoryForm,
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
 } from '../CategoriesApi'
-import { selectIsCategoryCodeAvailableState } from '../store/isCategoryCodeAvailableSlice'
 
 /**
  * The supplier header.
@@ -25,25 +27,45 @@ function CategoryHeader() {
   const [updateCategory] = useUpdateCategoryMutation()
   const navigate = useNavigate()
   const routeParams = useParams()
-  const isCategoryCodeAvailable = useSelector(
-    selectIsCategoryCodeAvailableState,
-  )
-
+  const dispatch = useAppDispatch()
   const { categoryId } = routeParams
   const { formState, watch, getValues } = methods
   const { isValid, dirtyFields } = formState
 
   const theme = useTheme()
 
-  const { CategoryCode } = watch() as Category
+  const { title } = watch() as Category
 
   async function handleSaveCategory() {
     const category = getValues() as CategoryForm
+    const Image = category.Image as Image
+    if (category.imageFile) {
+      const formData: FormData = new FormData()
+      formData.append('files', category.imageFile)
+      const res = await axios.post('/upload', formData)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      category.Image = res.data[0]?.id as string
+    } else if (Image?.id) {
+      category.Image = Image.id
+    } else {
+      dispatch(
+        showMessage({
+          message: 'Please Select Category Image.',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+          variant: 'error',
+        }),
+      )
+      return
+    }
+    delete category.imageFile
     if (categoryId === 'new') {
       createCategory(category)
         .unwrap()
         .then(data => {
-          navigate(`${PATHS.CATEGORIES}/${data.id}`)
+          navigate(`${PATHS.CATEGORIES}/${data.categoryId}`)
         })
     } else {
       updateCategory(category)
@@ -80,7 +102,7 @@ function CategoryHeader() {
             animate={{ x: 0, transition: { delay: 0.3 } }}
           >
             <Typography className="text-16 sm:text-20 truncate font-semibold">
-              {CategoryCode || 'New Category'}
+              {title || 'New Category'}
             </Typography>
             <Typography variant="caption" className="font-medium">
               Category Detail
@@ -97,9 +119,7 @@ function CategoryHeader() {
           className="whitespace-nowrap mx-4"
           variant="contained"
           color="secondary"
-          disabled={
-            _.isEmpty(dirtyFields) || !isValid || !isCategoryCodeAvailable
-          }
+          disabled={_.isEmpty(dirtyFields) || !isValid}
           onClick={handleSaveCategory}
         >
           Save

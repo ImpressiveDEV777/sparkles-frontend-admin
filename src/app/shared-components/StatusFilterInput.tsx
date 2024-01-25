@@ -21,7 +21,7 @@ export default function StatusFilterInput(props: GridFilterInputValueProps) {
         select
         variant="standard"
         placeholder="Filter value"
-        value={item.value}
+        value={item.value as string}
         SelectProps={{
           native: true,
         }}

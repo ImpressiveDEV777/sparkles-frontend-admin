@@ -5,6 +5,7 @@ import { Providers } from 'src/app/res-types/sub/ProviderType'
 import { Image } from 'src/app/res-types/sub/ImageType'
 import { ProductSubCategories } from 'src/app/res-types/sub/ProductSubCategoryType'
 import { ProductAttributes } from 'src/app/res-types/sub/ProductAttributeType'
+import { mapToFormCategory } from 'src/app/utils/maps'
 import { Whitelabels } from '../../whitelabel-apps/WhitelabelAppsApi'
 
 export const addTagTypes = ['categories', 'category'] as const
@@ -24,7 +25,7 @@ const CategoryAppsApi = api
       getCategory: build.query<GetCategoryApiResponse, GetCategoryApiArg>({
         query: categoryId => ({ url: `${API_URLS.CATEGORIES}/${categoryId}` }),
         providesTags: ['category', 'categories'],
-        // transformResponse: (response: Category) => mapToFormCategory(response),
+        transformResponse: (response: Category) => mapToFormCategory(response),
       }),
       createCategory: build.mutation<
         CreateCategoryApiResponse,
@@ -36,17 +37,19 @@ const CategoryAppsApi = api
           data: newCategory,
         }),
         invalidatesTags: ['categories', 'category'],
+        transformResponse: (response: Category) => mapToFormCategory(response),
       }),
       updateCategory: build.mutation<
         UpdateCategoryApiResponse,
         UpdateCategoryApiArg
       >({
         query: category => ({
-          url: `${API_URLS.CATEGORIES}/${category.id}`,
+          url: `${API_URLS.CATEGORIES}/${category.categoryId}`,
           method: 'PUT',
           data: category,
         }),
         invalidatesTags: ['categories', 'category'],
+        transformResponse: (response: Category) => mapToFormCategory(response),
       }),
       deleteCategory: build.mutation<
         DeleteCategoryApiResponse,
@@ -63,7 +66,7 @@ const CategoryAppsApi = api
   })
 export { CategoryAppsApi }
 
-export type GetCategoriesApiResponse = /** status 200 OK */ Category[]
+export type GetCategoriesApiResponse = /** status 200 OK */ Categories
 export type GetCategoriesApiArg = void
 
 export type GetCategoryApiResponse = /** status 200 OK */ CategoryForm
@@ -97,24 +100,17 @@ export type Category = {
   id: string
 }
 
-export type Categories = [Category]
+export type Categories = Category[]
 
 export type CategoryForm = {
-  ImpactOnPrice: string
-  wantToNotifyUser: boolean
-  isExpired: boolean
-  noOfDays: number
-  expiryType: string
-  discount_amount: number
-  appliedFor: string
+  active: boolean
+  providers: string[]
   whitelabelapps: string[]
-  provider_products: string[]
-  suppliers: string[]
-  message: string
-  subject: string
-  CategoryCode: string
-  category_type: string
-  id: string
+  title: string
+  description: string
+  Image: Image | string
+  imageFile?: File
+  categoryId: string
 }
 
 export const {
