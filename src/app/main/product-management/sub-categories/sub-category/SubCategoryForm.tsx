@@ -10,13 +10,11 @@ import { Controller, useFormContext } from 'react-hook-form'
 import WYSIWYGEditor from 'app/shared-components/WYSIWYGEditor'
 import ImageInput from 'app/shared-components/ImageInput'
 import { Image } from 'src/app/res-types/sub/ImageType'
-import { useGetWhitelabelsQuery } from '../../../whitelabel-apps/WhitelabelAppsApi'
-import { useGetSuppliersQuery } from '../../../suppliers/SuppliersApi'
 import { SubCategoryForm } from '../SubCategoriesApi'
+import { useGetCategoriesQuery } from '../../categories/CategoriesApi'
 
 export default function SubCategoryContent() {
-  const { data: whitelabels } = useGetWhitelabelsQuery()
-  const { data: suppliers } = useGetSuppliersQuery()
+  const { data: categories } = useGetCategoriesQuery()
   const methods = useFormContext()
   const { control, formState, getValues } = methods
   const { Image } = getValues() as SubCategoryForm
@@ -32,7 +30,7 @@ export default function SubCategoryContent() {
               {...field}
               className="my-8"
               required
-              label="SubCategory Name"
+              label="Sub Category Name"
               id="title"
               variant="outlined"
               fullWidth
@@ -69,71 +67,40 @@ export default function SubCategoryContent() {
           )}
         />
         <Controller
-          render={({ field }) => (
-            <WYSIWYGEditor className="mt-8 mb-16" {...field} />
-          )}
-          name="description"
-          control={control}
-        />
-        <Controller
-          name="whitelabelapps"
+          name="product_category"
           control={control}
           render={({ field }) => (
             <FormControl
-              error={!!errors.whitelabelapps}
+              error={!!errors.product_category}
               required
               fullWidth
               className="my-8"
             >
-              <InputLabel>White Label App</InputLabel>
-              <Select
-                {...field}
-                variant="outlined"
-                label="White Label App"
-                fullWidth
-                multiple
-              >
-                {whitelabels?.map(({ id, title }) => (
-                  <MenuItem key={id} value={id}>
-                    {title}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>
-                {errors?.whitelabels?.message as string}
-              </FormHelperText>
-            </FormControl>
-          )}
-        />
-        <Controller
-          name="providers"
-          control={control}
-          render={({ field }) => (
-            <FormControl
-              error={!!errors.providers}
-              required
-              fullWidth
-              className="my-8"
-            >
-              <InputLabel>Suppliers</InputLabel>
+              <InputLabel>Main Category</InputLabel>
               <Select
                 {...field}
                 variant="outlined"
                 fullWidth
-                multiple
-                label="Suppliers"
+                label="Main Category"
               >
-                {suppliers?.map(({ id, title }) => (
+                {categories?.map(({ id, title }) => (
                   <MenuItem key={id} value={id}>
                     {title}
                   </MenuItem>
                 )) || []}
               </Select>
               <FormHelperText>
-                {errors?.providers?.message as string}
+                {errors?.product_category?.message as string}
               </FormHelperText>
             </FormControl>
           )}
+        />
+        <Controller
+          render={({ field }) => (
+            <WYSIWYGEditor className="mt-8 mb-16" {...field} />
+          )}
+          name="description"
+          control={control}
         />
       </div>
       <div className="w-1/3 pl-20">

@@ -50,7 +50,7 @@ const SubCategoryAppsApi = api
         UpdateSubCategoryApiArg
       >({
         query: category => ({
-          url: `${API_URLS.SUB_CATEGORIES}/${category.subCategoryId}`,
+          url: `${API_URLS.SUB_CATEGORIES}/${category.id}`,
           method: 'PUT',
           data: category,
         }),
@@ -106,14 +106,13 @@ export type SubCategory = {
 export type SubCategories = SubCategory[]
 
 export type SubCategoryForm = {
-  active: boolean
-  providers: string[]
-  whitelabelapps: string[]
+  active: true
   title: string
   description: string
   Image: FormImage
   imageFile?: File
-  subCategoryId: string
+  product_category: string
+  id: string
 }
 
 export const {

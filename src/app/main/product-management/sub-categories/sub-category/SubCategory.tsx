@@ -23,8 +23,7 @@ const schema = z.object({
   title: z.string().min(1),
   active: z.boolean(),
   description: z.string().min(1),
-  whitelabelapps: z.array(z.string()),
-  providers: z.array(z.string()),
+  product_category: z.string().min(1),
 })
 
 /**
@@ -98,7 +97,7 @@ export default function SubCategory() {
   if (
     _.isEmpty(form) ||
     (category &&
-      routeParams.subCategoryId !== category.subCategoryId &&
+      routeParams.subCategoryId !== category.id &&
       routeParams.subCategoryId !== 'new')
   ) {
     return <FuseLoading />

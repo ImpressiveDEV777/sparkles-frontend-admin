@@ -7,12 +7,11 @@ import { SubCategoryForm } from '../../SubCategoriesApi'
  */
 const SubCategoryModel = (data: PartialDeep<SubCategoryForm>) =>
   _.defaults(data || {}, {
-    whitelabelapps: [],
-    providers: [],
     title: '',
     active: false,
     subCategoryId: null,
     description: '',
+    product_category: '',
   })
 
 export default SubCategoryModel

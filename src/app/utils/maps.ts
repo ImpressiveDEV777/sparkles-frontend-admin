@@ -76,12 +76,11 @@ export const mapToFormSubCategory = (
   return data
     ? {
         active: data.active,
-        providers: data.providers.map(label => label._id),
-        whitelabelapps: data.whitelabelapps.map(label => label._id),
         title: data.title,
         description: data.description,
         Image: data.Image,
-        categoryId: data.id,
+        product_category: data.product_category._id,
+        id: data.id,
       }
     : null
 }

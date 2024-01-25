@@ -65,7 +65,7 @@ function SubCategoryHeader() {
       createSubCategory(category)
         .unwrap()
         .then(data => {
-          navigate(`${PATHS.SUB_CATEGORIES}/${data.subCategoryId}`)
+          navigate(`${PATHS.SUB_CATEGORIES}/${data.id}`)
         })
     } else {
       updateSubCategory(category)
