@@ -3,7 +3,7 @@ import GridFilterInput from 'app/shared-components/GridFilterInput'
 import StatusFilterInput from 'app/shared-components/StatusFilterInput'
 import { Commons } from '../res-types/sub/CommonType'
 
-export const commonFilterOperators: GridFilterOperator[] = [
+export const arrayFilterOperators: GridFilterOperator[] = [
   {
     label: 'Contains',
     value: 'above',

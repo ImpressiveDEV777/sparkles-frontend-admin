@@ -19,6 +19,7 @@ import {
 } from 'src/app/utils/filterOperators'
 import { Provider } from 'src/app/res-types/sub/ProviderType'
 import useQuery from 'src/app/hooks/useQuery'
+import { commonSortComparator } from 'src/app/utils/sortComparator'
 import { Whitelabel, useGetWhitelabelsQuery } from './WhitelabelAppsApi'
 
 // Define a type for the params object
@@ -29,20 +30,6 @@ type CellParams = {
 export default function WhitelabelAppsContent() {
   const query = useQuery()
   const { data: whitelabels, isLoading } = useGetWhitelabelsQuery()
-  const supplierSortComparator: GridComparatorFn = (v1, v2, param1, param2) => {
-    return gridStringOrNumberComparator(
-      (v1 as [Provider]).reduce(
-        (prev, current) => `${prev}${current.title}`,
-        '',
-      ),
-      (v2 as [Provider]).reduce(
-        (prev, current) => `${prev}${current.title}`,
-        '',
-      ),
-      param1,
-      param2,
-    )
-  }
   const categorySortComparator: GridComparatorFn = (v1, v2, param1, param2) => {
     return gridStringOrNumberComparator(
       (v1 as [Provider]).reduce(
@@ -95,7 +82,7 @@ export default function WhitelabelAppsContent() {
       field: 'providers',
       headerName: 'Supplier',
       flex: 1,
-      sortComparator: supplierSortComparator,
+      sortComparator: commonSortComparator,
       filterOperators: arrayFilterOperators,
       renderCell: (params: CellParams) => {
         const providers = params?.row?.providers

@@ -16,6 +16,8 @@ import { PATHS } from 'src/app/constants/common'
 import { convert } from 'html-to-text'
 
 import { useAppDispatch } from 'app/store/store'
+import { commonSortComparator } from 'src/app/utils/sortComparator'
+import { arrayFilterOperators } from 'src/app/utils/filterOperators'
 import { Category, useGetCategoriesQuery } from './CategoriesApi'
 import { setSelectedIds } from './store/selectedIdsSlice'
 
@@ -32,8 +34,8 @@ export default function CategoriesAppsContent() {
 
   const columns = [
     {
-      field: 'CategoryCode',
-      headerName: 'Category Code',
+      field: 'title',
+      headerName: 'Catergory Name',
       width: 200,
       renderCell: (params: CellParams) => (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -56,6 +58,8 @@ export default function CategoriesAppsContent() {
       field: 'providers',
       headerName: 'Supplier',
       width: 180,
+      sortComparator: commonSortComparator,
+      filterOperators: arrayFilterOperators,
       renderCell: (params: CellParams) => (
         <Box
           sx={{
@@ -75,6 +79,8 @@ export default function CategoriesAppsContent() {
       field: 'whitelabelapps',
       headerName: 'WhiteLabel Apps',
       width: 220,
+      sortComparator: commonSortComparator,
+      filterOperators: arrayFilterOperators,
       renderCell: (params: CellParams) => (
         <Box
           sx={{

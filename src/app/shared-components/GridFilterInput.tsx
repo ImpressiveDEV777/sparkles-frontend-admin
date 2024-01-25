@@ -11,7 +11,7 @@ export default function GridFilterInput(props: GridFilterInputValueProps) {
         display: 'inline-flex',
         flexDirection: 'row',
         alignItems: 'center',
-        height: 48,
+        height: 56,
         pl: '20px',
       }}
     >
@@ -20,9 +20,9 @@ export default function GridFilterInput(props: GridFilterInputValueProps) {
         label="Value"
         variant="standard"
         placeholder="Filter value"
-        value={item.value}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          applyValue({ ...item, value: event.target.value })
+        value={item.value as string}
+        onChange={e => {
+          applyValue({ ...item, value: e.target.value })
         }}
       />
     </Box>
