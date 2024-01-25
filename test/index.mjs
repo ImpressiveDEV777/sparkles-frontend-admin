@@ -1,7 +1,13 @@
-import _ from 'lodash'
+import { convert } from 'html-to-text'
 
-const a = { b: [1, 2, 3] }
-// The `_.property` iteratee shorthand.
-// console.log(_.unionBy([{ x: 1 }], [{ x: 2 }, { x: 1 }], 'x'))
-// => [{ 'x': 1 }, { 'x': 2 }]
-console.log(a.b.map(c => c*2))
+const html =
+  `<thead>
+  <tr>
+  <th>Old option</th>
+  <th>Depr.</th>
+  <th>Rem.</th>
+  <th>Instead use</th>
+  </tr>
+  </thead>`
+const text = convert(html)
+console.log(text) // Page [https://example.com/page.html]

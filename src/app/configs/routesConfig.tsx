@@ -9,10 +9,12 @@ import Error404Page from '../main/404/Error404Page'
 import WhitelabelAppsConfig from '../main/whitelabel-apps/WhitelabelAppsConfig'
 import SuppliersAppConfig from '../main/suppliers/SuppliersAppConfig'
 import CouponsAppConfig from '../main/coupons/CouponsAppConfig'
+import CategoriesAppConfig from '../main/product-management/categories/CategoriesAppConfig'
 
 const routeConfigs: FuseRouteConfigsType = [
   SuppliersAppConfig,
   CouponsAppConfig,
+  CategoriesAppConfig,
   WhitelabelAppsConfig,
   SignOutConfig,
   SignInConfig,
