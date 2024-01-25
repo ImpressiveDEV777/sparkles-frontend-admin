@@ -15,7 +15,7 @@ import useQuery from 'src/app/hooks/useQuery'
 import { useNavigate } from 'react-router'
 import { PATHS } from 'src/app/constants/common'
 import { commonSortComparator } from 'src/app/utils/sortComparator'
-import { commonFilterOperators } from 'src/app/utils/filterOperators'
+import { arrayFilterOperators } from 'src/app/utils/filterOperators'
 import { Supplier, useGetSuppliersQuery } from './SuppliersApi'
 
 // Define a type for the params object
@@ -57,7 +57,7 @@ export default function SupplierAppsContent() {
       headerName: 'WhiteLabel Apps',
       flex: 1,
       sortComparator: commonSortComparator,
-      filterOperators: commonFilterOperators,
+      filterOperators: arrayFilterOperators,
       renderCell: (params: CellParams) => {
         return (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

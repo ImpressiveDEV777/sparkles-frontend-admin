@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@mui/material'
 import {
-  commonFilterOperators,
+  arrayFilterOperators,
   statusFilterOperators,
 } from 'src/app/utils/filterOperators'
 import { Provider } from 'src/app/res-types/sub/ProviderType'
@@ -89,14 +89,14 @@ export default function WhitelabelAppsContent() {
         return categories.map(category => category.title).join(', ')
       },
       sortComparator: categorySortComparator,
-      filterOperators: commonFilterOperators,
+      filterOperators: arrayFilterOperators,
     },
     {
       field: 'providers',
       headerName: 'Supplier',
       flex: 1,
       sortComparator: supplierSortComparator,
-      filterOperators: commonFilterOperators,
+      filterOperators: arrayFilterOperators,
       renderCell: (params: CellParams) => {
         const providers = params?.row?.providers
         return (
