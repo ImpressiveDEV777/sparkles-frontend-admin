@@ -32,7 +32,7 @@ export default function SubCategories() {
     <FusePageCarded
       header={
         <CommonHeader
-          title="SubCategories"
+          title="Sub Categories"
           url={PATHS.SUB_CATEGORIES}
           create
           deleteBtn
@@ -43,11 +43,11 @@ export default function SubCategories() {
                 children: (
                   <>
                     <DialogTitle id="alert-dialog-title">
-                      Delete SubCategories
+                      Delete Sub Categories
                     </DialogTitle>
                     <DialogContent>
                       <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to Delete these SubCategories?
+                        Are you sure you want to Delete these Sub Categories?
                       </DialogContentText>
                     </DialogContent>
                     <DialogActions>

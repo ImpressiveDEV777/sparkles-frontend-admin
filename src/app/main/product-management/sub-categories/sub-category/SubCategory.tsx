@@ -76,7 +76,7 @@ export default function SubCategory() {
         className="flex flex-col flex-1 items-center justify-center h-full"
       >
         <Typography color="text.secondary" variant="h5">
-          There is no such category!
+          There is no such sub category!
         </Typography>
         <Button
           className="mt-24"
@@ -85,7 +85,7 @@ export default function SubCategory() {
           to={PATHS.SUB_CATEGORIES}
           color="inherit"
         >
-          Go to SubCategories Page
+          Go to Sub Categories Page
         </Button>
       </motion.div>
     )

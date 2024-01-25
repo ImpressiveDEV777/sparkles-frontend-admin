@@ -50,7 +50,7 @@ function SubCategoryHeader() {
     } else {
       dispatch(
         showMessage({
-          message: 'Please Select SubCategory Image.',
+          message: 'Please Select Sub Category Image.',
           anchorOrigin: {
             vertical: 'top',
             horizontal: 'right',
