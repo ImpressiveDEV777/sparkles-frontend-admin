@@ -76,7 +76,6 @@ export type Supplier = {
   title: string
   createdAt: string
   updatedAt: string
-  __v: number
   image: Image
   provider_products: ProviderProducts
   product_categories: ProductCategories
