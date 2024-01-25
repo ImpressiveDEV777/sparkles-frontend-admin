@@ -8,7 +8,7 @@ const initialState: string[] = []
  * The Contacts App Contacts slice.
  */
 export const selectedIdsSlice = createSlice({
-  name: 'categoriesApp/selectedIds',
+  name: 'subCategoriesApp/selectedIds',
   initialState,
   reducers: {
     setSelectedIds: (state, action) => action.payload as string[],
@@ -19,7 +19,7 @@ export const selectedIdsSlice = createSlice({
 export const { setSelectedIds, resetSelectedIds } = selectedIdsSlice.actions
 
 export const selectSelectedIds = appSelector(
-  (state: AppRootStateType) => state.categoriesApp.selectedIds,
+  (state: AppRootStateType) => state.subCategoriesApp.selectedIds,
 )
 const selectedIdsReducer = selectedIdsSlice.reducer
 
