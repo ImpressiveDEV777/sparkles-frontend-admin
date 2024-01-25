@@ -5,6 +5,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  CardMedia,
   Chip,
   Grid,
   Typography,
@@ -16,27 +17,29 @@ import { PATHS } from 'src/app/constants/common'
 import { convert } from 'html-to-text'
 
 import { useAppDispatch } from 'app/store/store'
-import { commonSortComparator } from 'src/app/utils/sortComparator'
-import { arrayFilterOperators } from 'src/app/utils/filterOperators'
-import { Category, useGetCategoriesQuery } from './CategoriesApi'
+import {
+  categoryFilterOperators,
+  statusFilterOperators,
+} from 'src/app/utils/filterOperators'
+import { SubCategory, useGetSubCategoriesQuery } from './SubCategoriesApi'
 import { setSelectedIds } from './store/selectedIdsSlice'
 
 // Define a type for the params object
 type CellParams = {
-  row: Category
+  row: SubCategory
 }
 
-export default function CategoriesAppsContent() {
+export default function SubCategoriesAppsContent() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const query = useQuery()
-  const { data: categories, isLoading } = useGetCategoriesQuery()
+  const { data: subCategories, isLoading } = useGetSubCategoriesQuery()
 
   const columns = [
     {
       field: 'title',
-      headerName: 'Category Name',
-      width: 200,
+      headerName: 'Sub Category Name',
+      width: 220,
       renderCell: (params: CellParams) => (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <Box>
@@ -55,46 +58,15 @@ export default function CategoriesAppsContent() {
       ),
     },
     {
-      field: 'providers',
-      headerName: 'Supplier',
-      width: 180,
-      sortComparator: commonSortComparator,
-      filterOperators: arrayFilterOperators,
+      field: 'product_category',
+      headerName: 'Catergory Name',
+      width: 190,
+      filterOperators: categoryFilterOperators,
       renderCell: (params: CellParams) => (
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '10px',
-          }}
-        >
-          {params?.row?.providers.map(provider => (
-            <Chip key={provider.id} label={provider.title} />
-          ))}
-        </Box>
-      ),
-    },
-    {
-      field: 'whitelabelapps',
-      headerName: 'WhiteLabel Apps',
-      width: 220,
-      sortComparator: commonSortComparator,
-      filterOperators: arrayFilterOperators,
-      renderCell: (params: CellParams) => (
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '10px',
-          }}
-        >
-          {params?.row?.whitelabelapps?.length > 0
-            ? params?.row?.whitelabelapps?.map(label => (
-                <Chip label={label?.title} key={label?._id} />
-              ))
-            : 'N/A '}
+        <Box>
+          <Typography variant="inherit" className="rowText">
+            {params?.row?.product_category?.title}
+          </Typography>
         </Box>
       ),
     },
@@ -110,28 +82,46 @@ export default function CategoriesAppsContent() {
         </Box>
       ),
     },
+    {
+      field: 'active',
+      headerName: 'Status',
+      width: 120,
+      renderCell: (params: CellParams) =>
+        params?.row?.active ? 'Active' : 'Disabled',
+      filterOperators: statusFilterOperators,
+    },
   ]
 
   return query.get('view') === 'grid' ? (
     <Grid item xs={12} className="p-10">
       <Grid container spacing={3}>
-        {categories?.map(category => (
-          <Grid item lg={3} md={4} sm={6} xs={12} key={category.id}>
+        {subCategories?.map(subCategory => (
+          <Grid item lg={3} md={4} sm={6} xs={12} key={subCategory.id}>
             <Card sx={{ position: 'relative' }}>
+              {subCategory?.active && (
+                <Chip
+                  label="Active"
+                  color="primary"
+                  size="small"
+                  sx={{ position: 'absolute', right: '10px', top: '10px' }}
+                />
+              )}
+              <CardMedia
+                sx={{ height: 140 }}
+                image={subCategory?.Image?.url}
+                title="green iguana"
+              />
               <CardContent>
                 <div>
-                  <Typography variant="subtitle1">WhiteLabel Apps</Typography>
-                  <div className="flex flex-wrap">
-                    {category?.whitelabelapps?.length > 0
-                      ? category?.whitelabelapps?.map(label => {
-                          return (
-                            <Box pr={1} py={0.5} key={label?._id}>
-                              <Chip label={label?.title} size="small" />
-                            </Box>
-                          )
-                        })
-                      : 'N/A'}
-                  </div>
+                  <Typography variant="subtitle1">
+                    {subCategory.title}
+                  </Typography>
+                  <div
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{
+                      __html: subCategory.description,
+                    }}
+                  />
                 </div>
               </CardContent>
               <CardActions
@@ -144,7 +134,7 @@ export default function CategoriesAppsContent() {
                   size="small"
                   variant="contained"
                   onClick={() =>
-                    navigate(`${PATHS.CATEGORIES}/${category?._id}`)
+                    navigate(`${PATHS.SUB_CATEGORIES}/${subCategory?._id}`)
                   }
                 >
                   Edit
@@ -159,7 +149,7 @@ export default function CategoriesAppsContent() {
     <DataGridPro
       hideFooter
       checkboxSelection
-      rows={categories || []}
+      rows={subCategories || []}
       columns={columns}
       loading={isLoading}
       getRowHeight={() => 'auto'}
@@ -167,7 +157,7 @@ export default function CategoriesAppsContent() {
         dispatch(setSelectedIds(newRowSelectionModel))
       }}
       onRowClick={(params: GridRowParams) => {
-        navigate(`${PATHS.CATEGORIES}/${params?.id}`)
+        navigate(`${PATHS.SUB_CATEGORIES}/${params?.id}`)
       }}
       sx={{
         [`& .${gridClasses.cell}`]: {

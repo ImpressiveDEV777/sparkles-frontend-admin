@@ -10,11 +10,13 @@ import WhitelabelAppsConfig from '../main/whitelabel-apps/WhitelabelAppsConfig'
 import SuppliersAppConfig from '../main/suppliers/SuppliersAppConfig'
 import CouponsAppConfig from '../main/coupons/CouponsAppConfig'
 import CategoriesAppConfig from '../main/product-management/categories/CategoriesAppConfig'
+import SubCategoriesAppConfig from '../main/product-management/sub-categories/SubCategoriesAppConfig'
 
 const routeConfigs: FuseRouteConfigsType = [
   SuppliersAppConfig,
   CouponsAppConfig,
   CategoriesAppConfig,
+  SubCategoriesAppConfig,
   WhitelabelAppsConfig,
   SignOutConfig,
   SignInConfig,

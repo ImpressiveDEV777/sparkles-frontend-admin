@@ -8,6 +8,10 @@ import {
   Category,
   CategoryForm,
 } from '../main/product-management/categories/CategoriesApi'
+import {
+  SubCategory,
+  SubCategoryForm,
+} from '../main/product-management/sub-categories/SubCategoriesApi'
 
 export const mapToUser = (user: ResUser): User => ({
   uid: user._id,
@@ -53,6 +57,22 @@ export const mapToFormCoupon = (data: Coupon): CouponForm | null => {
 }
 
 export const mapToFormCategory = (data: Category): CategoryForm | null => {
+  return data
+    ? {
+        active: data.active,
+        providers: data.providers.map(label => label._id),
+        whitelabelapps: data.whitelabelapps.map(label => label._id),
+        title: data.title,
+        description: data.description,
+        Image: data.Image,
+        categoryId: data.id,
+      }
+    : null
+}
+
+export const mapToFormSubCategory = (
+  data: SubCategory,
+): SubCategoryForm | null => {
   return data
     ? {
         active: data.active,

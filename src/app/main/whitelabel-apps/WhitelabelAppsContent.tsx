@@ -111,9 +111,8 @@ export default function WhitelabelAppsContent() {
       field: 'active',
       headerName: 'Status',
       width: 120,
-      renderCell: (params: CellParams) => {
-        return params?.row?.active ? 'Active' : 'Disabled'
-      },
+      renderCell: (params: CellParams) =>
+        params?.row?.active ? 'Active' : 'Disabled',
       filterOperators: statusFilterOperators,
     },
   ]

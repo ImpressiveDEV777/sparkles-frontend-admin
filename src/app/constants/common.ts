@@ -17,7 +17,7 @@ export const API_URLS = {
   WHITELABEL_APPS: '/whitelabel-apps',
   PRODUCTS: '/products',
   CATEGORIES: '/product-categories',
-  SUB_CATEGORIES: '/sub-categories',
+  SUB_CATEGORIES: '/product-sub-categories',
   FRAMES: '/frames',
   FRAME_SIZE: '/frame-size',
 }
