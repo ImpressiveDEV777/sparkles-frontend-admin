@@ -31,4 +31,4 @@ export type Image = {
   id: string
 }
 
-export type FormImage = Image | File | string
+export type FormImage = Image | string

@@ -8,6 +8,9 @@ import _ from '@lodash'
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon'
 import { PATHS } from 'src/app/constants/common'
 import axios from 'axios'
+import { Image } from 'src/app/res-types/sub/ImageType'
+import { useAppDispatch } from 'app/store/store'
+import { showMessage } from '@fuse/core/FuseMessage/store/fuseMessageSlice'
 import {
   Supplier,
   SupplierForm,
@@ -24,6 +27,7 @@ function SupplierHeader() {
   const [updateSupplier] = useUpdateSupplierMutation()
   const navigate = useNavigate()
   const routeParams = useParams()
+  const dispatch = useAppDispatch()
 
   const { supplierId } = routeParams
   const { formState, watch, getValues } = methods
@@ -35,33 +39,37 @@ function SupplierHeader() {
 
   async function handleSaveSupplier() {
     const supplier = getValues() as SupplierForm
-    let imageId: string
-    if (typeof supplier.image.url !== 'string') {
+    const image = supplier.image as Image
+    if (supplier.imageFile) {
       const formData: FormData = new FormData()
-      formData.append('files', supplier.image as File)
+      formData.append('files', supplier.imageFile)
       const res = await axios.post('/upload', formData)
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      imageId = res.data[0]?.id as string
+      supplier.image = res.data[0]?.id as string
+    } else if (image?.id) {
+      supplier.image = image.id
+    } else {
+      dispatch(
+        showMessage({
+          message: 'Please Select Image.',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+          variant: 'error',
+        }),
+      )
+      return
     }
+    delete supplier.imageFile
     if (supplierId === 'new') {
-      createSupplier({
-        title: supplier.title,
-        type: supplier.type,
-        image: imageId || supplier.image.id,
-        whitelabelapps: supplier.whitelabelapps,
-      })
+      createSupplier(supplier)
         .unwrap()
         .then(data => {
           navigate(`${PATHS.SUPPLIERS}/${data.id}`)
         })
     } else {
-      updateSupplier({
-        title: supplier.title,
-        type: supplier.type,
-        image: imageId || supplier.image.id,
-        whitelabelapps: supplier.whitelabelapps,
-        id: supplier.id,
-      })
+      updateSupplier(supplier)
     }
   }
 

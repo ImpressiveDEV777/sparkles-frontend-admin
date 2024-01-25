@@ -63,10 +63,10 @@ export type GetSupplierApiResponse = /** status 200 OK */ SupplierForm
 export type GetSupplierApiArg = string
 
 export type CreateSupplierApiResponse = /** status 200 OK */ SupplierForm
-export type CreateSupplierApiArg = SupplierArg
+export type CreateSupplierApiArg = SupplierForm
 
 export type UpdateSupplierApiResponse = /** status 200 OK */ SupplierForm
-export type UpdateSupplierApiArg = SupplierArg
+export type UpdateSupplierApiArg = SupplierForm
 
 export type Supplier = {
   type: string
@@ -93,16 +93,9 @@ export type SupplierForm = {
   type: string
   whitelabelapps: string[]
   id?: string
+  imageFile?: File
   title: string
   image: FormImage
-}
-
-export type SupplierArg = {
-  type: string
-  whitelabelapps: string[]
-  id?: string
-  title: string
-  image: string
 }
 
 export const {

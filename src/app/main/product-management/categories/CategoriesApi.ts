@@ -2,7 +2,7 @@ import { apiService as api } from 'app/store/apiService'
 import { ProviderProducts } from 'src/app/res-types/sub/ProviderProductType'
 import { API_URLS } from 'src/app/constants/common'
 import { Providers } from 'src/app/res-types/sub/ProviderType'
-import { Image } from 'src/app/res-types/sub/ImageType'
+import { FormImage, Image } from 'src/app/res-types/sub/ImageType'
 import { ProductSubCategories } from 'src/app/res-types/sub/ProductSubCategoryType'
 import { ProductAttributes } from 'src/app/res-types/sub/ProductAttributeType'
 import { mapToFormCategory } from 'src/app/utils/maps'
@@ -108,7 +108,7 @@ export type CategoryForm = {
   whitelabelapps: string[]
   title: string
   description: string
-  Image: Image | string
+  Image: FormImage
   imageFile?: File
   categoryId: string
 }

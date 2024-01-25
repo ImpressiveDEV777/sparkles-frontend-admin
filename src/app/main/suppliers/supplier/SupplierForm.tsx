@@ -11,11 +11,13 @@ import { SUPPLIER_TYPES } from 'src/app/constants/common'
 import ImageInput from 'app/shared-components/ImageInput'
 import { Image } from 'src/app/res-types/sub/ImageType'
 import { useGetWhitelabelsQuery } from '../../whitelabel-apps/WhitelabelAppsApi'
+import { SupplierForm } from '../SuppliersApi'
 
-export default function SupplierForm() {
+export default function SupplierContent() {
   const methods = useFormContext()
   const { data: whitelabels } = useGetWhitelabelsQuery()
-  const { control, formState } = methods
+  const { control, formState, getValues } = methods
+  const { image } = getValues() as SupplierForm
   const { errors } = formState
 
   return (
@@ -90,20 +92,13 @@ export default function SupplierForm() {
       </div>
       <div className="w-1/3 pl-20">
         <Controller
-          name="image"
+          name="imageFile"
           control={control}
-          render={({ field: { onChange, value } }) => (
-            <ImageInput onChange={onChange} value={value as File | Image} />
+          render={({ field: { onChange } }) => (
+            <ImageInput onChange={onChange} src={(image as Image)?.url} />
           )}
         />
       </div>
-      {/* <Controller
-        name="attach"
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <ImageUpload value={value as File} onChange={onChange} />
-        )}
-      /> */}
     </div>
   )
 }
