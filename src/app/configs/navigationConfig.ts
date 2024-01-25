@@ -14,10 +14,60 @@ i18next.addResourceBundle('ar', 'navigation', ar)
  */
 const navigationConfig: FuseNavItemType[] = [
   {
+    id: PATHS.BANNERS,
+    title: 'Banners',
+    icon: 'heroicons-outline:sparkles',
+    type: 'item',
+    url: PATHS.BANNERS,
+  },
+  {
+    id: 'apps.ecommerce',
+    title: 'Product Management',
+    type: 'collapse',
+    icon: 'heroicons-outline:shopping-cart',
+    children: [
+      {
+        id: PATHS.PRODUCTS,
+        title: 'Products',
+        type: 'item',
+        icon: 'heroicons-outline:gift',
+        url: PATHS.PRODUCTS,
+      },
+      {
+        id: PATHS.CATEGORIES,
+        title: 'Categories',
+        type: 'item',
+        icon: 'heroicons-outline:view-list',
+        url: PATHS.CATEGORIES,
+      },
+      {
+        id: PATHS.SUB_CATEGORIES,
+        title: 'Sub Categories',
+        type: 'item',
+        icon: 'heroicons-outline:menu-alt-2',
+        url: PATHS.SUB_CATEGORIES,
+      },
+      {
+        id: PATHS.FRAMES,
+        title: 'Frames',
+        type: 'item',
+        icon: 'material-outline:aspect_ratio',
+        url: PATHS.FRAMES,
+      },
+      {
+        id: PATHS.FRAME_SIZE,
+        title: 'Frame Size',
+        icon: 'material-outline:aspect_ratio',
+        type: 'item',
+        url: PATHS.FRAME_SIZE,
+      },
+    ],
+  },
+  {
     id: PATHS.COUPONS,
     title: 'Coupons',
     type: 'item',
-    icon: 'heroicons-outline:gift',
+    icon: 'heroicons-outline:ticket',
     url: PATHS.COUPONS,
   },
   {
