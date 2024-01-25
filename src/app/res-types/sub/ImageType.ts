@@ -27,7 +27,6 @@ export type Image = {
   related: [string]
   createdAt: string
   updatedAt: string
-  __v: number
   id: string
 }
 

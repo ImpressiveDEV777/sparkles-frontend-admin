@@ -11,7 +11,6 @@ export type Store = {
   published_at: string
   createdAt: string
   updatedAt: string
-  __v: number
   thumbnail: Image
   zipcode: string
   users_permissions_user: null

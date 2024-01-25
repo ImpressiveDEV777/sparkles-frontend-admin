@@ -7,7 +7,6 @@ export type ThirdPartyApi = {
   published_at: string
   createdAt: string
   updatedAt: string
-  __v: 0
   icon: Image
   id: string
 }

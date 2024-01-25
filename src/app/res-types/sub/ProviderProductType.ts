@@ -24,7 +24,6 @@ export type ProviderProduct = {
   title: string
   createdAt: string
   updatedAt: string
-  __v: number
   product_provider: string
   store: null
   coupon_discount: null

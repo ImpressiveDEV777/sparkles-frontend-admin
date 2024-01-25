@@ -14,6 +14,5 @@ export type Banner = {
   published_at: string
   createdAt: string
   updatedAt: string
-  __v: number
   id: string
 }

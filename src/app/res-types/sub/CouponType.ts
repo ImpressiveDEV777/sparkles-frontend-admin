@@ -16,7 +16,6 @@ export type Coupon = {
   CouponCode: string
   createdAt: string
   updatedAt: string
-  __v: number
   coupon_type: string
   id: string
 }

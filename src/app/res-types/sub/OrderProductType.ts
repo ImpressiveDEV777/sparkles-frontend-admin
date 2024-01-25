@@ -9,7 +9,6 @@ export type OrderProduct = {
   price: number
   createdAt: string
   updatedAt: string
-  __v: number
   cart: null
   cover: Image
   supplier: string

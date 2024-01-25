@@ -10,7 +10,6 @@ export type ProductCategory = {
   published_at: string
   createdAt: string
   updatedAt: string
-  __v: number
   Image: Image
   provider_product: null
   id: string

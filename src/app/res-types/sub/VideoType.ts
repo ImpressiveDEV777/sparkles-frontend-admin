@@ -12,6 +12,5 @@ export type Video = {
   related: [string]
   createdAt: string
   updatedAt: string
-  __v: number
   id: string
 }
