@@ -5,6 +5,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  CardMedia,
   Chip,
   Grid,
   Typography,
@@ -118,12 +119,48 @@ export default function CategoriesAppsContent() {
         {categories?.map(category => (
           <Grid item lg={3} md={4} sm={6} xs={12} key={category.id}>
             <Card sx={{ position: 'relative' }}>
+              {category?.active && (
+                <Chip
+                  label="Active"
+                  color="primary"
+                  size="small"
+                  sx={{ position: 'absolute', right: '10px', top: '10px' }}
+                />
+              )}
+              <CardMedia
+                sx={{ height: 140 }}
+                image={category?.Image?.url}
+                title="green iguana"
+              />
               <CardContent>
+                <div>
+                  <Typography variant="subtitle1">{category.title}</Typography>
+                  <div
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{
+                      __html: category.description,
+                    }}
+                  />
+                </div>
                 <div>
                   <Typography variant="subtitle1">WhiteLabel Apps</Typography>
                   <div className="flex flex-wrap">
                     {category?.whitelabelapps?.length > 0
                       ? category?.whitelabelapps?.map(label => {
+                          return (
+                            <Box pr={1} py={0.5} key={label?._id}>
+                              <Chip label={label?.title} size="small" />
+                            </Box>
+                          )
+                        })
+                      : 'N/A'}
+                  </div>
+                </div>
+                <div>
+                  <Typography variant="subtitle1">Supplier</Typography>
+                  <div className="flex flex-wrap">
+                    {category?.providers?.length > 0
+                      ? category?.providers?.map(label => {
                           return (
                             <Box pr={1} py={0.5} key={label?._id}>
                               <Chip label={label?.title} size="small" />
