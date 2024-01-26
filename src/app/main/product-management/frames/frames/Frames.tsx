@@ -12,7 +12,7 @@ const Root = styled(FusePageCarded)(() => ({
   '& .FusePageCarded-toolbar': {},
   '& .FusePageCarded-content': {},
   '& .FusePageCarded-rightSidebar': {
-    width: 600,
+    width: '35%',
   },
   '& .FusePageCarded-sidebarHeader': {},
   '& .FusePageCarded-sidebarContent': {},

@@ -22,6 +22,7 @@ export const API_URLS = {
   FRAME_SIZES: '/frame-sizes',
   ASPECT_RATIOS: '/aspect-ratios',
   FRAME_TYPES: '/frame-types',
+  FRAME_TYPES_SIZES: '/frame-type-sizes',
 }
 
 export const SUPPLIER_TYPES = ['shineon', 'general', 'painting', 'clothing']

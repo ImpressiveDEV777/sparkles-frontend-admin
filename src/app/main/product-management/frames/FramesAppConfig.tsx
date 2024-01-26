@@ -20,6 +20,10 @@ const FramesAppConfig = {
           path: '',
           element: <FrameSizes />,
         },
+        {
+          path: ':frameTypeId',
+          element: <FrameSizes />,
+        },
       ],
     },
   ],

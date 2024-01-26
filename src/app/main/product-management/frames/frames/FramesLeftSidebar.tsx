@@ -1,10 +1,24 @@
-import FuseNavigation from '@fuse/core/FuseNavigation'
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon'
-import { Button, Typography } from '@mui/material'
+import {
+  Button,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from '@mui/material'
+import { useParams } from 'react-router'
 import { motion } from 'framer-motion'
+import { Comment } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
+import { PATHS } from 'src/app/constants/common'
 import { useGetFrameTypesQuery } from '../FramesApi'
 
 function FramesLeftSidebar() {
+  const navigate = useNavigate()
+  const routeParams = useParams()
+  const { frameTypeId } = routeParams
   const { data: frameTypes } = useGetFrameTypesQuery()
   return (
     <div className="flex-auto border-l-1">
@@ -38,15 +52,51 @@ function FramesLeftSidebar() {
         >
           FOLDERS
         </Typography>
-        <FuseNavigation
+
+        <List
+          sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+        >
+          {frameTypes?.map(type => {
+            const labelId = `checkbox-list-label-${type.id}`
+
+            return (
+              <ListItem
+                key={type.id}
+                secondaryAction={
+                  <IconButton
+                    edge="end"
+                    aria-label="comments"
+                    onClick={() => alert(5)}
+                  >
+                    <Comment />
+                  </IconButton>
+                }
+                disablePadding
+              >
+                <ListItemButton
+                  onClick={() => navigate(`${PATHS.FRAMES}/${type._id}`)}
+                  selected={type._id === frameTypeId}
+                >
+                  <ListItemText
+                    id={labelId}
+                    primary={type.title}
+                    color="secondary"
+                  />
+                </ListItemButton>
+              </ListItem>
+            )
+          })}
+        </List>
+        {/* <FuseNavigation
           navigation={frameTypes?.map(type => ({
             id: type._id,
             title: type.title,
             type: 'item',
             icon: 'heroicons-outline:clipboard-list',
+            url: `${PATHS.FRAMES}/${type._id}`,
           }))}
           className="px-0"
-        />
+        /> */}
       </motion.div>
     </div>
   )

@@ -1,59 +1,91 @@
-import FuseNavigation from '@fuse/core/FuseNavigation'
-import { FuseNavItemType } from '@fuse/core/FuseNavigation/types/FuseNavItemType'
-import { Typography } from '@mui/material'
+import { Box, Typography, IconButton } from '@mui/material'
+import { useParams } from 'react-router'
+import { DataGridPro, gridClasses } from '@mui/x-data-grid-pro'
+import { Delete, Edit } from '@mui/icons-material'
+import { FrameTypeSize, useGetFrameTypeSizesQuery } from '../FramesApi'
 
-/**
- * Navigation data
- */
-const navigationData: FuseNavItemType[] = [
-  {
-    id: '1',
-    title: 'Lists',
-    type: 'group',
-    children: [
-      {
-        id: '1.1',
-        title: 'Classic Frames',
-        type: 'item',
-        icon: 'heroicons-outline:clipboard-list',
-      },
-      {
-        id: '1.3',
-        title: 'Premium Frames',
-        type: 'item',
-        icon: 'heroicons-outline:clipboard-list',
-      },
-      {
-        id: '1.4',
-        title: 'Signature Frames',
-        type: 'item',
-        icon: 'heroicons-outline:clipboard-list',
-      },
-      {
-        id: '1.5',
-        title: 'Dany Frames',
-        type: 'item',
-        icon: 'heroicons-outline:clipboard-list',
-      },
-    ],
-  },
-  {
-    id: '4',
-    type: 'divider',
-  },
-]
-
-/**
- * The DemoSidebar component.
- */
 function FramesRightSidebar() {
+  const routeParams = useParams()
+  const { frameTypeId } = routeParams
+  const { data: frameTypes } = useGetFrameTypeSizesQuery(frameTypeId)
+  type CellParams = {
+    row: FrameTypeSize
+  }
+  const columns = [
+    {
+      field: 'frameSize',
+      headerName: 'Frame Size',
+      renderCell: (params: CellParams) => params?.row?.frame_size.size,
+    },
+    {
+      field: 'price',
+      headerName: 'Whole Sale Price',
+      renderCell: (params: CellParams) => params?.row?.price,
+    },
+    {
+      field: 'markup',
+      headerName: 'Markup',
+      renderCell: (params: CellParams) => params?.row?.mark_up,
+    },
+    {
+      field: 'store_profit',
+      headerName: 'Store Profit',
+      renderCell: (params: CellParams) => params?.row?.store_profit,
+    },
+    {
+      field: 'final_price',
+      headerName: 'Final Price',
+      renderCell: (params: CellParams) => params?.row?.final_price,
+    },
+    {
+      field: 'Action',
+      headerName: 'Action',
+      renderCell: (params: CellParams) => {
+        return (
+          <Box sx={{ display: 'flex' }}>
+            <IconButton
+            // onClick={() => {
+            //   const { row } = params
+            //   setOpenAddNew({
+            //     ...row,
+            //   })
+            // }}
+            >
+              <Edit />
+            </IconButton>
+
+            <IconButton
+            // onClick={() => {
+            //   setOpenDelete(params.row.id)
+            // }}
+            >
+              <Delete />
+            </IconButton>
+          </Box>
+        )
+      },
+    },
+  ]
+
   return (
     <div className="px-12 py-24">
       <Typography variant="h6" className="px-16">
         Size List
       </Typography>
-
-      <FuseNavigation navigation={navigationData} className="px-0" />
+      <DataGridPro
+        hideFooter
+        rows={frameTypes || []}
+        columns={columns}
+        getRowHeight={() => 'auto'}
+        sx={{
+          [`& .${gridClasses.cell}`]: {
+            py: 1,
+          },
+          '& .MuiDataGrid-main > div:last-child': {
+            display: 'none',
+          },
+        }}
+      />
     </div>
   )
 }
