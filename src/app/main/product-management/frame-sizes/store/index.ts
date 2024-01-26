@@ -1,6 +1,5 @@
 import { RootStateType } from 'app/store/types'
 import { combineReducers } from '@reduxjs/toolkit'
-import selectedIds, { selectedIdsSliceType } from './selectedIdsSlice'
 import dialog, { dialogSliceType } from './dialogSlice'
 import { FrameSizesApiType } from '../FrameSizesApi'
 
@@ -9,13 +8,10 @@ import { FrameSizesApiType } from '../FrameSizesApi'
  */
 
 const reducer = combineReducers({
-  selectedIds,
   dialog,
 })
 
-export type AppRootStateType = RootStateType<
-  [selectedIdsSliceType, dialogSliceType]
-> &
+export type AppRootStateType = RootStateType<[dialogSliceType]> &
   FrameSizesApiType
 
 export default reducer
