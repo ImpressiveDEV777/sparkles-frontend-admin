@@ -26,7 +26,7 @@ export const arrayFilterOperators: GridFilterOperator[] = [
   },
 ]
 
-export const categoryFilterOperators: GridFilterOperator[] = [
+export const titleFilterOperators: GridFilterOperator[] = [
   {
     label: 'contains',
     value: 'above',
