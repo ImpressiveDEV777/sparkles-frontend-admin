@@ -1,8 +1,7 @@
 import { GridFilterItem, GridFilterOperator } from '@mui/x-data-grid'
 import GridFilterInput from 'app/shared-components/GridFilterInput'
 import StatusFilterInput from 'app/shared-components/StatusFilterInput'
-import { Commons } from '../res-types/sub/CommonType'
-import { ProductCategory } from '../res-types/sub/ProductCategoryType'
+import { Common, Commons } from '../res-types/sub/CommonType'
 
 export const arrayFilterOperators: GridFilterOperator[] = [
   {
@@ -36,7 +35,7 @@ export const titleFilterOperators: GridFilterOperator[] = [
       }
 
       return (params): boolean => {
-        return (params.value as ProductCategory)?.title
+        return (params.value as Common)?.title
           .toLowerCase()
           .includes((filterItem.value as string).toLowerCase())
       }

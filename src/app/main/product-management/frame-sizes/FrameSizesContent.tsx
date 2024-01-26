@@ -141,108 +141,107 @@ export default function FrameSizesAppsContent() {
         })
   }
 
-  const columns = [
-    {
-      field: 'size',
-      headerName: 'Frame Size',
-      flex: 2,
-      headerAlign: 'center',
-      sortComparator: normalSortComparator,
-      align: 'center',
-    },
-    {
-      field: 'aspect_ratio',
-      headerName: 'Aspect Ratio',
-      filterOperators: titleFilterOperators,
-      sortComparator: titleSortComparator,
-      renderCell: (params: CellParams) => params?.row?.aspect_ratio.title,
-      flex: 2,
-      headerAlign: 'center',
-      align: 'center',
-    },
-    {
-      field: 'width',
-      headerName: 'Width',
-      flex: 2,
-      headerAlign: 'center',
-      align: 'center',
-    },
-    {
-      field: 'height',
-      headerName: 'Height',
-      flex: 2,
-      headerAlign: 'center',
-      align: 'center',
-    },
-    {
-      field: 'Action',
-      headerName: 'Action',
-      headerAlign: 'center',
-      align: 'center',
-      flex: 2,
-      sortable: false,
-      filterable: false,
-      renderCell: (params: CellParams) => {
-        return (
-          <Box sx={{ display: 'flex' }}>
-            <IconButton
-              onClick={() => dispatch(openEditDialog(params.row._id))}
-            >
-              <Edit />
-            </IconButton>
-            <IconButton
-              onClick={() => {
-                dispatch(
-                  openDialog({
-                    children: (
-                      <>
-                        <DialogTitle id="alert-dialog-title">
-                          Delete Frame Size
-                        </DialogTitle>
-                        <DialogContent>
-                          <DialogContentText id="alert-dialog-description">
-                            Are you sure you want to Delete this Frame Size?
-                          </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                          <Button
-                            onClick={() => dispatch(closeDialog())}
-                            color="primary"
-                          >
-                            Cancel
-                          </Button>
-                          <Button
-                            onClick={() =>
-                              deleteFrameSize(params.row._id).then(() =>
-                                dispatch(closeDialog()),
-                              )
-                            }
-                            color="primary"
-                            autoFocus
-                          >
-                            Delete
-                          </Button>
-                        </DialogActions>
-                      </>
-                    ),
-                  }),
-                )
-              }}
-            >
-              <Delete />
-            </IconButton>
-          </Box>
-        )
-      },
-    },
-  ]
-
   return (
     <>
       <DataGridPro
         hideFooter
         rows={frameSizes || []}
-        columns={columns}
+        columns={[
+          {
+            field: 'size',
+            headerName: 'Frame Size',
+            flex: 2,
+            headerAlign: 'center',
+            sortComparator: normalSortComparator,
+            align: 'center',
+          },
+          {
+            field: 'aspect_ratio',
+            headerName: 'Aspect Ratio',
+            filterOperators: titleFilterOperators,
+            sortComparator: titleSortComparator,
+            renderCell: (params: CellParams) => params?.row?.aspect_ratio.title,
+            flex: 2,
+            headerAlign: 'center',
+            align: 'center',
+          },
+          {
+            field: 'width',
+            headerName: 'Width',
+            flex: 2,
+            headerAlign: 'center',
+            align: 'center',
+          },
+          {
+            field: 'height',
+            headerName: 'Height',
+            flex: 2,
+            headerAlign: 'center',
+            align: 'center',
+          },
+          {
+            field: 'Action',
+            headerName: 'Action',
+            headerAlign: 'center',
+            align: 'center',
+            flex: 2,
+            sortable: false,
+            filterable: false,
+            renderCell: (params: CellParams) => {
+              return (
+                <Box sx={{ display: 'flex' }}>
+                  <IconButton
+                    onClick={() => dispatch(openEditDialog(params.row._id))}
+                  >
+                    <Edit />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {
+                      dispatch(
+                        openDialog({
+                          children: (
+                            <>
+                              <DialogTitle id="alert-dialog-title">
+                                Delete Frame Size
+                              </DialogTitle>
+                              <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                  Are you sure you want to Delete this Frame
+                                  Size?
+                                </DialogContentText>
+                              </DialogContent>
+                              <DialogActions>
+                                <Button
+                                  onClick={() => dispatch(closeDialog())}
+                                  color="primary"
+                                >
+                                  Cancel
+                                </Button>
+                                <Button
+                                  onClick={() =>
+                                    deleteFrameSize(params.row._id).then(() =>
+                                      dispatch(closeDialog()),
+                                    )
+                                  }
+                                  color="primary"
+                                  autoFocus
+                                >
+                                  Delete
+                                </Button>
+                              </DialogActions>
+                            </>
+                          ),
+                        }),
+                      )
+                    }}
+                  >
+                    <Delete />
+                  </IconButton>
+                </Box>
+              )
+            },
+          },
+        ]}
         loading={isLoading}
         getRowHeight={() => 'auto'}
         sx={{
