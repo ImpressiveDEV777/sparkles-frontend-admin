@@ -38,31 +38,34 @@ function FramesRightSidebar() {
     },
     {
       field: 'final_price',
-      width: 90,
-      headerName: 'Final Price',
+      width: 60,
+      headerName: 'F-Price',
       renderCell: (params: CellParams) => params?.row?.final_price,
     },
     {
       field: 'Action',
       headerName: 'Action',
-      renderCell: (params: CellParams) => {
+      width: 80,
+      renderCell: () => {
         return (
           <Box sx={{ display: 'flex' }}>
             <IconButton
-            // onClick={() => {
-            //   const { row } = params
-            //   setOpenAddNew({
-            //     ...row,
-            //   })
-            // }}
+              // onClick={() => {
+              //   const { row } = params
+              //   setOpenAddNew({
+              //     ...row,
+              //   })
+              // }}
+              size="small"
             >
               <Edit />
             </IconButton>
 
             <IconButton
-            // onClick={() => {
-            //   setOpenDelete(params.row.id)
-            // }}
+              size="small"
+              // onClick={() => {
+              //   setOpenDelete(params.row.id)
+              // }}
             >
               <Delete />
             </IconButton>
