@@ -18,7 +18,7 @@ import { convert } from 'html-to-text'
 
 import { useAppDispatch } from 'app/store/store'
 import {
-  categoryFilterOperators,
+  titleFilterOperators,
   statusFilterOperators,
 } from 'src/app/utils/filterOperators'
 import { SubCategory, useGetSubCategoriesQuery } from './SubCategoriesApi'
@@ -61,7 +61,7 @@ export default function SubCategoriesAppsContent() {
       field: 'product_category',
       headerName: 'Catergory Name',
       width: 190,
-      filterOperators: categoryFilterOperators,
+      filterOperators: titleFilterOperators,
       renderCell: (params: CellParams) => (
         <Box>
           <Typography variant="inherit" className="rowText">

@@ -28,6 +28,11 @@ import {
 } from '@fuse/core/FuseDialog/store/fuseDialogSlice'
 import { genFrameSizeFromRatio } from 'src/app/utils/common'
 import {
+  normalSortComparator,
+  titleSortComparator,
+} from 'src/app/utils/sortComparator'
+import { titleFilterOperators } from 'src/app/utils/filterOperators'
+import {
   FrameSize,
   useCreateFrameSizeMutation,
   useDeleteFrameSizeMutation,
@@ -141,27 +146,40 @@ export default function FrameSizesAppsContent() {
       field: 'size',
       headerName: 'Frame Size',
       flex: 2,
+      headerAlign: 'center',
+      sortComparator: normalSortComparator,
+      align: 'center',
     },
     {
       field: 'aspect_ratio',
       headerName: 'Aspect Ratio',
+      filterOperators: titleFilterOperators,
+      sortComparator: titleSortComparator,
       renderCell: (params: CellParams) => params?.row?.aspect_ratio.title,
       flex: 2,
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'width',
       headerName: 'Width',
       flex: 2,
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'height',
       headerName: 'Height',
       flex: 2,
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'Action',
       headerName: 'Action',
-      flex: 1,
+      headerAlign: 'center',
+      align: 'center',
+      flex: 2,
       sortable: false,
       filterable: false,
       renderCell: (params: CellParams) => {
