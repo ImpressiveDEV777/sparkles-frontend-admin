@@ -6,20 +6,54 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Typography,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+  Dialog,
 } from '@mui/material'
 import { useParams } from 'react-router'
 import { motion } from 'framer-motion'
-import { Comment } from '@mui/icons-material'
+import { Delete, Edit } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 import { PATHS } from 'src/app/constants/common'
-import { useGetFrameTypesQuery } from '../FramesApi'
+import { useAppDispatch } from 'app/store/store'
+import {
+  closeDialog,
+  openDialog,
+} from '@fuse/core/FuseDialog/store/fuseDialogSlice'
+import { useState } from 'react'
+import {
+  useCreateFrameTypeMutation,
+  useDeleteFrameTypeMutation,
+  useGetFrameTypesQuery,
+  useUpdateFrameTypeMutation,
+} from '../FramesApi'
 
 function FramesLeftSidebar() {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const [updateFrameType] = useUpdateFrameTypeMutation()
+  const [createFrameType] = useCreateFrameTypeMutation()
+  const [deleteFrameType] = useDeleteFrameTypeMutation()
   const routeParams = useParams()
+  const [frameName, setFrameName] = useState('')
+  const [open, setOpen] = useState(false)
+  const [selectedId, setSelectedId] = useState('')
   const { frameTypeId } = routeParams
   const { data: frameTypes } = useGetFrameTypesQuery()
+
+  const handleSubmit = async () => {
+    if (selectedId) await updateFrameType({ id: selectedId, title: frameName })
+    else await createFrameType(frameName)
+    setOpen(false)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   return (
     <div className="flex-auto border-l-1">
       <div className="mb-24 mt-40 mx-24">
@@ -32,7 +66,11 @@ function FramesLeftSidebar() {
               variant="contained"
               color="secondary"
               className="w-full"
-              // onClick={handleOpenDialog}
+              onClick={() => {
+                setSelectedId('')
+                setFrameName('')
+                setOpen(true)
+              }}
               startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
             >
               ADD FRAME
@@ -46,30 +84,72 @@ function FramesLeftSidebar() {
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1, transition: { delay: 0.1 } }}
       >
-        <Typography
-          className="px-28 py-10 uppercase text-12 font-600"
-          color="secondary.main"
-        >
-          FOLDERS
-        </Typography>
-
         <List
           sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
         >
           {frameTypes?.map(type => {
             const labelId = `checkbox-list-label-${type.id}`
-
             return (
               <ListItem
                 key={type.id}
                 secondaryAction={
-                  <IconButton
-                    edge="end"
-                    aria-label="comments"
-                    onClick={() => alert(5)}
-                  >
-                    <Comment />
-                  </IconButton>
+                  <div className="flex gap-4">
+                    <IconButton
+                      edge="end"
+                      aria-label="comments"
+                      onClick={() => {
+                        setSelectedId(type.id)
+                        setFrameName(type.title)
+                        setOpen(true)
+                      }}
+                    >
+                      <Edit />
+                    </IconButton>
+                    <IconButton
+                      edge="end"
+                      aria-label="comments"
+                      onClick={() =>
+                        dispatch(
+                          openDialog({
+                            children: (
+                              <>
+                                <DialogTitle id="alert-dialog-title">
+                                  Delete Frame
+                                </DialogTitle>
+                                <DialogContent>
+                                  <DialogContentText id="alert-dialog-description">
+                                    Are you sure you want to Delete {type.title}{' '}
+                                    Frame?
+                                  </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                  <Button
+                                    onClick={() => dispatch(closeDialog())}
+                                    color="primary"
+                                  >
+                                    Cancel
+                                  </Button>
+                                  <Button
+                                    onClick={() =>
+                                      deleteFrameType(type.id).then(() =>
+                                        dispatch(closeDialog()),
+                                      )
+                                    }
+                                    color="primary"
+                                    autoFocus
+                                  >
+                                    Delete
+                                  </Button>
+                                </DialogActions>
+                              </>
+                            ),
+                          }),
+                        )
+                      }
+                    >
+                      <Delete />
+                    </IconButton>
+                  </div>
                 }
                 disablePadding
               >
@@ -87,17 +167,35 @@ function FramesLeftSidebar() {
             )
           })}
         </List>
-        {/* <FuseNavigation
-          navigation={frameTypes?.map(type => ({
-            id: type._id,
-            title: type.title,
-            type: 'item',
-            icon: 'heroicons-outline:clipboard-list',
-            url: `${PATHS.FRAMES}/${type._id}`,
-          }))}
-          className="px-0"
-        /> */}
       </motion.div>
+
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle id="alert-dialog-title">
+          {selectedId ? 'Edit' : 'New'} Frame Name
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description" className="py-8">
+            <TextField
+              value={frameName}
+              onChange={event => setFrameName(event.target.value)}
+              className="mt-8"
+              required
+              label="Frame Name"
+              id="title"
+              variant="outlined"
+              fullWidth
+            />
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} color="primary" autoFocus>
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   )
 }

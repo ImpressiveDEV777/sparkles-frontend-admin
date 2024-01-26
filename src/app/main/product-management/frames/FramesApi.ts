@@ -3,11 +3,7 @@ import { API_URLS } from 'src/app/constants/common'
 import { FrameSize } from 'src/app/res-types/sub/FrameSizeType'
 import { FramesType } from 'src/app/res-types/sub/FrameType'
 
-export const addTagTypes = [
-  'frameTypes',
-  'frameTypeSizes',
-  'frameType',
-] as const
+export const addTagTypes = ['frameTypes', 'frameTypeSizes'] as const
 
 const FramesApi = api
   .enhanceEndpoints({
@@ -18,6 +14,31 @@ const FramesApi = api
       getFrameTypes: build.query<FrameTypes, void>({
         query: () => ({ url: API_URLS.FRAME_TYPES }),
         providesTags: ['frameTypes'],
+      }),
+      updateFrameType: build.mutation<FrameType, { id: string; title: string }>(
+        {
+          query: frameType => ({
+            url: `${API_URLS.FRAME_TYPES}/${frameType.id}`,
+            method: 'PUT',
+            data: frameType,
+          }),
+          invalidatesTags: ['frameTypes'],
+        },
+      ),
+      createFrameType: build.mutation<FrameType, string>({
+        query: title => ({
+          url: API_URLS.FRAME_TYPES,
+          method: 'POST',
+          data: { title },
+        }),
+        invalidatesTags: ['frameTypes'],
+      }),
+      deleteFrameType: build.mutation<FrameType, string>({
+        query: frameTypeId => ({
+          url: `${API_URLS.FRAME_TYPES}/${frameTypeId}`,
+          method: 'DELETE',
+        }),
+        invalidatesTags: ['frameTypes'],
       }),
       getFrameTypeSizes: build.query<FrameTypeSizes, string>({
         query: typeId => ({
@@ -63,7 +84,13 @@ export type FrameTypeSize = {
 
 export type FrameTypeSizes = FrameTypeSize[]
 
-export const { useGetFrameTypesQuery, useGetFrameTypeSizesQuery } = FramesApi
+export const {
+  useGetFrameTypesQuery,
+  useGetFrameTypeSizesQuery,
+  useUpdateFrameTypeMutation,
+  useCreateFrameTypeMutation,
+  useDeleteFrameTypeMutation,
+} = FramesApi
 
 export type FramesApiType = {
   [FramesApi.reducerPath]: ReturnType<typeof FramesApi.reducer>
