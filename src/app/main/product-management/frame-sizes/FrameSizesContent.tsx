@@ -162,6 +162,8 @@ export default function FrameSizesAppsContent() {
       field: 'Action',
       headerName: 'Action',
       flex: 1,
+      sortable: false,
+      filterable: false,
       renderCell: (params: CellParams) => {
         return (
           <Box sx={{ display: 'flex' }}>
