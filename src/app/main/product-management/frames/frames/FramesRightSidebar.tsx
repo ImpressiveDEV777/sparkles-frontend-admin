@@ -1,4 +1,4 @@
-import { Box, Typography, IconButton } from '@mui/material'
+import { Box, IconButton } from '@mui/material'
 import { useParams } from 'react-router'
 import { DataGridPro, gridClasses } from '@mui/x-data-grid-pro'
 import { Delete, Edit } from '@mui/icons-material'
@@ -14,26 +14,31 @@ function FramesRightSidebar() {
   const columns = [
     {
       field: 'frameSize',
-      headerName: 'Frame Size',
+      headerName: 'Size',
+      width: 60,
       renderCell: (params: CellParams) => params?.row?.frame_size.size,
     },
     {
       field: 'price',
-      headerName: 'Whole Sale Price',
+      width: 50,
+      headerName: 'Price',
       renderCell: (params: CellParams) => params?.row?.price,
     },
     {
       field: 'markup',
+      width: 65,
       headerName: 'Markup',
       renderCell: (params: CellParams) => params?.row?.mark_up,
     },
     {
       field: 'store_profit',
+      width: 90,
       headerName: 'Store Profit',
       renderCell: (params: CellParams) => params?.row?.store_profit,
     },
     {
       field: 'final_price',
+      width: 90,
       headerName: 'Final Price',
       renderCell: (params: CellParams) => params?.row?.final_price,
     },
@@ -69,9 +74,6 @@ function FramesRightSidebar() {
 
   return (
     <div className="px-12 py-24">
-      <Typography variant="h6" className="px-16">
-        Size List
-      </Typography>
       <DataGridPro
         hideFooter
         rows={frameTypes || []}
