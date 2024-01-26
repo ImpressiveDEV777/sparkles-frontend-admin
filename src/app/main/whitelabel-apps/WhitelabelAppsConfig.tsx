@@ -8,8 +8,10 @@ const WhitelabelApps = lazy(() => import('./WhitelabelApps'))
 const WhitelabelAppsConfig = {
   settings: {
     layout: {
-      footer: {
-        display: false,
+      config: {
+        footer: {
+          display: false,
+        },
       },
     },
   },

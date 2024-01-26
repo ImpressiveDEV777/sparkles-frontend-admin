@@ -10,7 +10,13 @@ const Coupon = lazy(() => import('./coupon/Coupon'))
  */
 const CouponsAppConfig = {
   settings: {
-    layout: {},
+    layout: {
+      config: {
+        footer: {
+          display: false,
+        },
+      },
+    },
   },
   routes: [
     {

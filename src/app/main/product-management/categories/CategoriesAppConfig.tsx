@@ -10,7 +10,13 @@ const Category = lazy(() => import('./category/Category'))
  */
 const CategoriesAppConfig = {
   settings: {
-    layout: {},
+    layout: {
+      config: {
+        footer: {
+          display: false,
+        },
+      },
+    },
   },
   routes: [
     {

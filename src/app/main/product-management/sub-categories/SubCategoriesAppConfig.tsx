@@ -10,7 +10,13 @@ const SubCategory = lazy(() => import('./sub-category/SubCategory'))
  */
 const SubCategoriesAppConfig = {
   settings: {
-    layout: {},
+    layout: {
+      config: {
+        footer: {
+          display: false,
+        },
+      },
+    },
   },
   routes: [
     {

@@ -9,7 +9,13 @@ const FrameSizes = lazy(() => import('./FrameSizes'))
  */
 const FrameSizesAppConfig = {
   settings: {
-    layout: {},
+    layout: {
+      config: {
+        footer: {
+          display: false,
+        },
+      },
+    },
   },
   routes: [
     {

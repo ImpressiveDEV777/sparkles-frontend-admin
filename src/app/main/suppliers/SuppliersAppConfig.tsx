@@ -8,8 +8,10 @@ const Suppliers = lazy(() => import('./Suppliers'))
 const SuppliersAppConfig = {
   settings: {
     layout: {
-      footer: {
-        display: false,
+      config: {
+        footer: {
+          display: false,
+        },
       },
     },
   },
