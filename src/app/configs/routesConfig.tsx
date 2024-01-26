@@ -11,6 +11,7 @@ import SuppliersAppConfig from '../main/suppliers/SuppliersAppConfig'
 import CouponsAppConfig from '../main/coupons/CouponsAppConfig'
 import CategoriesAppConfig from '../main/product-management/categories/CategoriesAppConfig'
 import SubCategoriesAppConfig from '../main/product-management/sub-categories/SubCategoriesAppConfig'
+import FrameSizesAppConfig from '../main/product-management/frame-sizes/FrameSizesAppConfig'
 
 const routeConfigs: FuseRouteConfigsType = [
   SuppliersAppConfig,
@@ -18,6 +19,7 @@ const routeConfigs: FuseRouteConfigsType = [
   CategoriesAppConfig,
   SubCategoriesAppConfig,
   WhitelabelAppsConfig,
+  FrameSizesAppConfig,
   SignOutConfig,
   SignInConfig,
 ]

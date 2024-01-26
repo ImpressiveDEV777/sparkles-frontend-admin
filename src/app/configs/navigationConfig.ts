@@ -55,11 +55,11 @@ const navigationConfig: FuseNavItemType[] = [
         url: PATHS.FRAMES,
       },
       {
-        id: PATHS.FRAME_SIZE,
+        id: PATHS.FRAME_SIZES,
         title: 'Frame Size',
         icon: 'material-outline:aspect_ratio',
         type: 'item',
-        url: PATHS.FRAME_SIZE,
+        url: PATHS.FRAME_SIZES,
       },
     ],
   },

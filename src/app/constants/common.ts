@@ -7,7 +7,7 @@ export const PATHS = {
   CATEGORIES: '/categories',
   SUB_CATEGORIES: '/sub-categories',
   FRAMES: '/frames',
-  FRAME_SIZE: '/frame-size',
+  FRAME_SIZES: '/frame-sizes',
 }
 
 export const API_URLS = {
@@ -19,7 +19,9 @@ export const API_URLS = {
   CATEGORIES: '/product-categories',
   SUB_CATEGORIES: '/product-sub-categories',
   FRAMES: '/frames',
-  FRAME_SIZE: '/frame-size',
+  FRAME_SIZES: '/frame-sizes',
+  ASPECT_RATIOS: '/aspect-ratios',
+  FRAME_TYPES: '/frame-types',
 }
 
 export const SUPPLIER_TYPES = ['shineon', 'general', 'painting', 'clothing']
